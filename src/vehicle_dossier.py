@@ -11,7 +11,7 @@ import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
-
+from src.replacement import replacements
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "data" / "vehicle_dossier_database.json"
@@ -27,11 +27,6 @@ def norm(value: Any) -> str:
         if fixed == text:
             break
         text = fixed
-    replacements = {
-        "Ã¤": "ae", "Ã¶": "oe", "Ã¼": "ue", "ÃŸ": "ss",
-        "Ã„": "ae", "Ã–": "oe", "Ãœ": "ue",
-        "tÃ¼v": "tuv", "prÃ¼f": "pruef",
-    }
     for old, new in replacements.items():
         text = text.replace(old, new)
     return re.sub(r"\s+", " ", text).strip()

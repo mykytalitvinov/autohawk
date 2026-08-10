@@ -26,6 +26,7 @@ from typing import Any
 from src.model_knowledge import contains_any, find_model_card
 from src.flip_value_database import evaluate_flip_value, find_flip_value_card
 from src.description_intelligence import analyze_description_intelligence
+from src.replacement import replacements
 
 
 def norm(text: Any) -> str:
@@ -38,10 +39,7 @@ def norm(text: Any) -> str:
         if fixed == text:
             break
         text = fixed
-    replacements = {
-        "\u00e4": "ae", "\u00f6": "oe", "\u00fc": "ue", "\u00df": "ss",
-        "\u00c4": "ae", "\u00d6": "oe", "\u00dc": "ue",
-    }
+
     for old, new in replacements.items():
         text = text.replace(old, new)
     return re.sub(r"\s+", " ", text).strip()

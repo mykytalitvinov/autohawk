@@ -13,6 +13,7 @@ import re
 from collections import Counter, defaultdict
 from datetime import datetime
 from typing import Optional
+from src.replacement import replacements
 
 logger = logging.getLogger("autohawk.ai")
 
@@ -127,21 +128,7 @@ def _get_gemini_client() -> Optional[object]:
 
 def _norm(text: str) -> str:
     text = (text or "").lower()
-    replacements = {
-        "Ã¤": "ae",
-        "Ã¶": "oe",
-        "Ã¼": "ue",
-        "ÃŸ": "ss",
-        "ÃƒÂ¤": "ae",
-        "ÃƒÂ¶": "oe",
-        "ÃƒÂ¼": "ue",
-        "ÃƒÅ¸": "ss",
-        "ÃƒÆ’Ã‚Â¤": "ae",
-        "ÃƒÆ’Ã‚Â¶": "oe",
-        "ÃƒÆ’Ã‚Â¼": "ue",
-        "ÃƒÆ’Ã…Â¸": "ss",
-        "Ã¢â€šÂ¬": "eur",
-    }
+
     for old, new in replacements.items():
         text = text.replace(old, new)
     return re.sub(r"\s+", " ", text).strip()

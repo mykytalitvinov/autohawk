@@ -10,7 +10,7 @@ from __future__ import annotations
 import json
 import re
 from typing import Any
-
+from  import replacements
 
 def norm(value: Any) -> str:
     text = str(value or "").lower()
@@ -22,11 +22,7 @@ def norm(value: Any) -> str:
         if fixed == text:
             break
         text = fixed
-    replacements = {
-        "Ã¤": "ae", "Ã¶": "oe", "Ã¼": "ue", "ÃŸ": "ss",
-        "Ã„": "ae", "Ã–": "oe", "Ãœ": "ue",
-        "tÃ¼v": "tuv", "prÃ¼f": "pruef",
-    }
+
     for old, new in replacements.items():
         text = text.replace(old, new)
     return re.sub(r"\s+", " ", text).strip()

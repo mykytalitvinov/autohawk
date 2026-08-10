@@ -1,5 +1,5 @@
 ﻿"""
-AUTOHAWK â€” Main Entry Point
+AUTOHAWK Main Entry Point
 Run this file to start the scanner.
 """
 
@@ -10,27 +10,26 @@ import os
 import sys
 from pathlib import Path
 
-# â”€â”€ Setup paths â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Setup paths 
 ROOT = Path(__file__).parent
 sys.path.insert(0, str(ROOT))
 
-# â”€â”€ Load .env â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 try:
     from dotenv import load_dotenv
     load_dotenv(ROOT / ".env")
 except ImportError:
     pass  # python-dotenv not installed, .env won't be loaded
 
-# â”€â”€ Create required directories â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
 for folder in ["output", "logs", "database"]:
     os.makedirs(ROOT / folder, exist_ok=True)
 
-# â”€â”€ Logging setup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Logging setup
 log_level = os.getenv("LOG_LEVEL", "INFO").upper()
 
 logging.basicConfig(
     level=getattr(logging, log_level, logging.INFO),
-    format="%(asctime)s  %(levelname)-8s  %(name)s  â†’  %(message)s",
+    format="%(asctime)s  %(levelname)-8s  %(name)s  %(message)s",
     datefmt="%H:%M:%S",
     handlers=[
         logging.StreamHandler(sys.stdout),
@@ -62,7 +61,7 @@ def prevent_windows_sleep() -> None:
 def load_config() -> dict:
     config_path = ROOT / "config.json"
     if not config_path.exists():
-        logger.warning("config.json not found â€” using defaults")
+        logger.warning("config.json not found using defaults")
         return {}
     with open(config_path, encoding="utf-8-sig") as f:
         return json.load(f)
@@ -76,8 +75,8 @@ def print_banner():
 | |_| | |_| | | || |_| |  _  | | |_| |____| |_| |  __/
  \___/ \___/  |_| \___/|_| |_|  \___/      \___/|_|
 
-         AI-Powered Used Car Deal Scanner â€” Germany
-         â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+         AI-Powered Used Car Deal Scanner — Germany
+
 """
     print(banner)
 
@@ -120,25 +119,18 @@ async def main():
     else:
         logger.info("No AI API key found - using rule-based analysis (still works)")
 
-    # Check OpenAI key
-    api_key = os.getenv("OPENAI_API_KEY", "").strip()
-    if False and api_key:
-        logger.info("âœ… OpenAI API key found â€” AI analysis ENABLED")
-    elif False:
-        logger.info("â„¹ï¸  No OpenAI key â€” using rule-based analysis (still works)")
-
-    logger.info(f"ðŸ’° Budget: {config.get('budget_min', 1000)}â‚¬ â€“ {config.get('budget_max', 15000)}â‚¬")
-    logger.info(f"ðŸ“ Max mileage: {config.get('max_mileage', 200000):,} km")
-    logger.info(f"ðŸ—“  Min year: {config.get('min_year', 2005)}")
-    logger.info(f"â±  Scan interval: {config.get('scan_interval_minutes', 5)} min")
+    logger.info(f" Budget: {config.get('budget_min', 1000)}€“ {config.get('budget_max', 15000)}€")
+    logger.info(f" Max mileage: {config.get('max_mileage', 200000):,} km")
+    logger.info(f" Min year: {config.get('min_year', 2005)}")
+    logger.info(f" Scan interval: {config.get('scan_interval_minutes', 5)} min")
     logger.info(
         f"Freshness window: {config.get('freshness_min_minutes', 1)}-"
         f"{config.get('freshness_max_minutes', config.get('freshness_max_hours', 12) * 60)} min"
     )
-    logger.info(f"ðŸ“‚ Output: {config.get('output_file', 'output/deals.xlsx')}")
+    logger.info(f"‚ Output: {config.get('output_file', 'output/deals.xlsx')}")
 
     enabled_sources = [k for k, v in config.get("sources", {}).items() if v]
-    logger.info(f"ðŸ“¡ Active sources: {', '.join(enabled_sources)}")
+    logger.info(f"Active sources: {', '.join(enabled_sources)}")
     logger.info("")
 
     from src.scanner import AutohawkScanner
@@ -147,15 +139,11 @@ async def main():
     try:
         await scanner.run_forever()
     except KeyboardInterrupt:
-        logger.info("\nðŸ›‘ Interrupted by user. Goodbye!")
+        logger.info("\n Interrupted by user. Goodbye!")
 
 
 if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        print("\nAutohawk stopped.")
-
-
-
-
+        logger.info("\nAutohawk stopped.")

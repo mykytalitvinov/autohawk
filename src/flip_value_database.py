@@ -11,7 +11,7 @@ import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
-
+from src.replacement import replacements
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "data" / "flip_value_database.json"
@@ -19,10 +19,7 @@ DB_PATH = ROOT / "data" / "flip_value_database.json"
 
 def _norm(value: Any) -> str:
     text = str(value or "").lower().strip()
-    replacements = {
-        "\u00e4": "ae", "\u00f6": "oe", "\u00fc": "ue", "\u00df": "ss",
-        "\u00c4": "ae", "\u00d6": "oe", "\u00dc": "ue",
-    }
+
     for old, new in replacements.items():
         text = text.replace(old, new)
     return " ".join(text.split())
