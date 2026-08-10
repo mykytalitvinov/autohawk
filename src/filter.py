@@ -9,21 +9,11 @@ inspectable opportunities, not every cheap listing.
 import re
 import unicodedata
 from typing import Tuple
-
+from src.replacement import replacements
 
 def _normalize(text: str) -> str:
     text = (text or "").lower().strip()
-    replacements = {
-        "Ã¤": "ae",
-        "Ã¶": "oe",
-        "Ã¼": "ue",
-        "ÃŸ": "ss",
-        "ÃƒÂ¤": "ae",
-        "ÃƒÂ¶": "oe",
-        "ÃƒÂ¼": "ue",
-        "ÃƒÅ¸": "ss",
-        "â‚¬": "eur",
-    }
+
     for old, new in replacements.items():
         text = text.replace(old, new)
     text = (

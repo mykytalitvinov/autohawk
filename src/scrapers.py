@@ -14,6 +14,7 @@ import re
 import unicodedata
 from datetime import datetime, timedelta
 from typing import List, Optional
+from src.replacement import replacements
 
 logger = logging.getLogger("autohawk.scraper.kleinanzeigen")
 
@@ -38,16 +39,7 @@ EARLY_REJECT_PATTERNS = [pattern for _, pattern in EARLY_REJECT_RULES]
 
 def _normalize_text(text: str) -> str:
     text = (text or "").lower()
-    replacements = {
-        "ÃƒÆ’Ã‚Â¤": "ae",
-        "ÃƒÆ’Ã‚Â¶": "oe",
-        "ÃƒÆ’Ã‚Â¼": "ue",
-        "ÃƒÆ’Ã…Â¸": "ss",
-        "ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤": "ae",
-        "ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¶": "oe",
-        "ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼": "ue",
-        "ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â¸": "ss",
-    }
+
     for old, new in replacements.items():
         text = text.replace(old, new)
     text = (

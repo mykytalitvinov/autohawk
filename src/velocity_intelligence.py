@@ -6,14 +6,11 @@ import unicodedata
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
-
+from src.replacement import replacements
 
 def _norm(value: Any) -> str:
     text = str(value or "").lower()
-    replacements = {
-        "Ã¤": "ae", "Ã¶": "oe", "Ã¼": "ue", "ÃŸ": "ss",
-        "ÃƒÂ¤": "ae", "ÃƒÂ¶": "oe", "ÃƒÂ¼": "ue", "ÃƒÅ¸": "ss",
-    }
+
     for old, new in replacements.items():
         text = text.replace(old, new)
     text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
