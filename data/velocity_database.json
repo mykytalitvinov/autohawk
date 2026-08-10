@@ -1,0 +1,287 @@
+{
+  "version": "2026-06-09-velocity-v1",
+  "purpose": "Predict whether a listing has the shape of a car that ordinary buyers or resellers grab quickly.",
+  "source_notes": [
+    "Official market reports measure stock days/Standtage, but short-hour private sale speed must be learned from repeated snapshots.",
+    "mobile.de has dealer benchmarks including sales probability for similar listings; this is an optional future paid source.",
+    "AUTOHAWK MVP uses disappearance/reservation tracking plus deterministic fast-buyer heuristics."
+  ],
+  "fast_core_models": {
+    "hyundai": [
+      "i10",
+      "i20",
+      "atos"
+    ],
+    "toyota": [
+      "yaris",
+      "aygo"
+    ],
+    "volkswagen": [
+      "polo",
+      "up",
+      "golf"
+    ],
+    "vw": [
+      "polo",
+      "up",
+      "golf"
+    ],
+    "opel": [
+      "corsa"
+    ],
+    "ford": [
+      "fiesta"
+    ],
+    "suzuki": [
+      "swift",
+      "splash"
+    ],
+    "honda": [
+      "jazz"
+    ],
+    "nissan": [
+      "micra",
+      "note"
+    ],
+    "mazda": [
+      "2"
+    ],
+    "skoda": [
+      "fabia"
+    ],
+    "seat": [
+      "ibiza"
+    ]
+  },
+  "slow_or_only_with_discount": {
+    "opel": [
+      "meriva",
+      "zafira",
+      "vectra"
+    ],
+    "volkswagen": [
+      "golf plus",
+      "touran",
+      "phaeton"
+    ],
+    "vw": [
+      "golf plus",
+      "touran",
+      "phaeton"
+    ],
+    "renault": [
+      "scenic",
+      "espace",
+      "modus",
+      "kangoo"
+    ],
+    "ford": [
+      "c-max",
+      "s-max",
+      "galaxy",
+      "fusion",
+      "mondeo"
+    ],
+    "peugeot": [
+      "207 cc",
+      "307",
+      "308",
+      "bipper"
+    ],
+    "citroen": [
+      "c3 picasso",
+      "c4 picasso"
+    ],
+    "mercedes": [
+      "e-klasse",
+      "s-klasse",
+      "viano",
+      "vito"
+    ],
+    "bmw": [
+      "5er",
+      "x3",
+      "x5"
+    ]
+  },
+  "psychological_caps": [
+    {
+      "brand": "hyundai",
+      "model": "atos",
+      "max_price": 1600
+    },
+    {
+      "brand": "hyundai",
+      "model": "i10",
+      "year_min": 2008,
+      "year_max": 2013,
+      "max_price": 3000
+    },
+    {
+      "brand": "hyundai",
+      "model": "i10",
+      "year_min": 2014,
+      "max_price": 5200
+    },
+    {
+      "brand": "hyundai",
+      "model": "i20",
+      "year_min": 2008,
+      "year_max": 2014,
+      "max_price": 3300
+    },
+    {
+      "brand": "hyundai",
+      "model": "i20",
+      "year_min": 2015,
+      "max_price": 5600
+    },
+    {
+      "brand": "toyota",
+      "model": "yaris",
+      "year_max": 2011,
+      "max_price": 2800
+    },
+    {
+      "brand": "toyota",
+      "model": "yaris",
+      "year_min": 2012,
+      "max_price": 5600
+    },
+    {
+      "brand": "toyota",
+      "model": "aygo",
+      "max_price": 3800
+    },
+    {
+      "brand": "volkswagen",
+      "model": "polo",
+      "year_max": 2009,
+      "max_price": 2400
+    },
+    {
+      "brand": "volkswagen",
+      "model": "polo",
+      "year_min": 2010,
+      "year_max": 2014,
+      "max_price": 3600
+    },
+    {
+      "brand": "volkswagen",
+      "model": "golf",
+      "year_max": 2008,
+      "max_price": 2600
+    },
+    {
+      "brand": "opel",
+      "model": "corsa",
+      "year_max": 2005,
+      "max_price": 1600
+    },
+    {
+      "brand": "opel",
+      "model": "corsa",
+      "year_min": 2006,
+      "year_max": 2014,
+      "max_price": 2800
+    },
+    {
+      "brand": "ford",
+      "model": "fiesta",
+      "year_max": 2008,
+      "max_price": 1700
+    },
+    {
+      "brand": "ford",
+      "model": "fiesta",
+      "year_min": 2009,
+      "year_max": 2016,
+      "max_price": 3000
+    },
+    {
+      "brand": "skoda",
+      "model": "fabia",
+      "year_max": 2007,
+      "max_price": 1700
+    },
+    {
+      "brand": "skoda",
+      "model": "fabia",
+      "year_min": 2008,
+      "year_max": 2014,
+      "max_price": 3000
+    },
+    {
+      "brand": "suzuki",
+      "model": "swift",
+      "year_max": 2011,
+      "max_price": 3000
+    },
+    {
+      "brand": "honda",
+      "model": "jazz",
+      "year_max": 2008,
+      "max_price": 2400
+    },
+    {
+      "brand": "mazda",
+      "model": "2",
+      "year_max": 2010,
+      "max_price": 2200
+    }
+  ],
+  "positive_text": [
+    "tuev neu",
+    "tuv neu",
+    "hu neu",
+    "tuev bis",
+    "tuv bis",
+    "scheckheft",
+    "1.hand",
+    "erste hand",
+    "service neu",
+    "bremsen neu",
+    "reifen neu",
+    "8-fach",
+    "klima",
+    "garagenwagen",
+    "wenig kilometer",
+    "wegen neuanschaffung",
+    "umzug",
+    "muss weg",
+    "dringend",
+    "vb",
+    "vhb"
+  ],
+  "negative_text": [
+    "bastler",
+    "exportfahrzeug",
+    "nur export",
+    "motorkontrollleuchte",
+    "kontrollleuchte",
+    "motor defekt",
+    "motorschaden",
+    "getriebe",
+    "unfall",
+    "kein tuev",
+    "ohne tuev",
+    "tuv abgelaufen",
+    "springt nicht an",
+    "laeuft auf 3",
+    "injektor defekt",
+    "dpf",
+    "egr",
+    "adblue",
+    "automatik problem",
+    "powershift",
+    "dsg",
+    "multitronic"
+  ],
+  "rules": {
+    "fast_sale_min_score_for_export": 62,
+    "normal_market_car_score_cap": 58,
+    "slow_model_requires_discount_pct": 25,
+    "dealer_requires_discount_pct": 22,
+    "old_overpriced_requires_discount_pct": 28
+  }
+}

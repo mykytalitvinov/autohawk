@@ -1,0 +1,2715 @@
+﻿{
+    "version":  "2026-05-18-real-feedback-v2",
+    "purpose":  "AUTOHAWK flipper-oriented model knowledge. Conservative starter database, not a mechanical guarantee.",
+    "cards":  [
+                  {
+                      "brand":  "volkswagen",
+                      "model":  "golf",
+                      "aliases":  [
+                                      "vw golf",
+                                      "golf"
+                                  ],
+                      "years":  "2004-2020",
+                      "liquidity_score":  94,
+                      "resale_speed":  "fast",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  260000,
+                      "preferred_mileage":  180000,
+                      "good_engines":  [
+                                           "1.6 MPI",
+                                           "1.6 TDI with proof",
+                                           "2.0 TDI with timing belt proof"
+                                       ],
+                      "bad_engines":  [
+                                          "1.2 TSI EA111",
+                                          "1.4 TSI EA111",
+                                          "2.0 TFSI oil consumption"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "DSG DQ250 wet with service proof"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "DSG DQ200 dry",
+                                            "old DSG without service"
+                                        ],
+                      "typical_problems":  [
+                                               "Golf 5/6 rear arches and sills can rust",
+                                               "TSI chain rattle on cold start",
+                                               "DSG jerk or reverse delay",
+                                               "1.6 TDI EGR/DPF",
+                                               "window regulators and door locks"
+                                           ],
+                      "repair_cost_eur":  [
+                                              300,
+                                              2500
+                                          ],
+                      "body_risks":  [
+                                         "rear arches",
+                                         "sills",
+                                         "tailgate edge"
+                                     ],
+                      "flip_notes":  "Golf 5/6 has huge demand and can be the most profitable of the cheap candidates if bought very low. A Golf 5 around 1200 EUR can be a real HOT lead, but only if engine, TUV and rust are acceptable.",
+                      "avoid_notes":  "Most comfortable/pleasant candidate, but also higher repair risk than Yaris/Corsa/Fabia. Rust on arches/sills, gearbox issues, warning lights or weak TSI/DSG proof must cut the score hard.",
+                      "must_check":  [
+                                         "TUV/HU",
+                                         "rust on arches/sills/doors",
+                                         "OBD/warning lights",
+                                         "cold start and engine noise",
+                                         "clutch/gearbox",
+                                         "timing belt/chain proof depending engine"
+                                     ]
+                  },
+                  {
+                      "brand":  "volkswagen",
+                      "model":  "polo",
+                      "aliases":  [
+                                      "vw polo",
+                                      "polo"
+                                  ],
+                      "years":  "2002-2021",
+                      "liquidity_score":  91,
+                      "resale_speed":  "fast",
+                      "market_fear_level":  "low_medium",
+                      "max_safe_mileage":  250000,
+                      "preferred_mileage":  160000,
+                      "good_engines":  [
+                                           "1.2 MPI",
+                                           "1.4 MPI",
+                                           "1.0 MPI"
+                                       ],
+                      "bad_engines":  [
+                                          "1.2 TSI early",
+                                          "1.4 TSI GTI",
+                                          "DSG DQ200"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "DSG DQ200"
+                                        ],
+                      "typical_problems":  [
+                                               "small petrol engines can be reliable but need service",
+                                               "rust on older 9N/6R edges",
+                                               "timing chain noise on some TSI",
+                                               "ABS/sensor issues"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1600
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "rear arches",
+                                         "lower doors"
+                                     ],
+                      "flip_notes":  "Very liquid first-car model. Cosmetic issues can be good buying angle.",
+                      "avoid_notes":  "Avoid sporty/TSI/DSG without proof; small cheap Polo must still have TUV.",
+                      "must_check":  [
+                                         "TUV",
+                                         "rust underside",
+                                         "clutch",
+                                         "chain noise if TSI",
+                                         "service history"
+                                     ]
+                  },
+                  {
+                      "brand":  "volkswagen",
+                      "model":  "passat",
+                      "aliases":  [
+                                      "vw passat",
+                                      "passat"
+                                  ],
+                      "years":  "2005-2019",
+                      "liquidity_score":  86,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  270000,
+                      "preferred_mileage":  190000,
+                      "good_engines":  [
+                                           "1.9 TDI",
+                                           "2.0 TDI CR with belt proof"
+                                       ],
+                      "bad_engines":  [
+                                          "early 2.0 TDI PD",
+                                          "1.4 TSI in heavy car",
+                                          "DSG without service"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "DSG wet serviced"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "unserviced DSG"
+                                        ],
+                      "typical_problems":  [
+                                               "B6 electronic parking brake",
+                                               "injectors on some diesels",
+                                               "DPF/EGR/turbo at high mileage",
+                                               "rust on older cars",
+                                               "dual-mass flywheel"
+                                           ],
+                      "repair_cost_eur":  [
+                                              400,
+                                              2500
+                                          ],
+                      "body_risks":  [
+                                         "tailgate",
+                                         "front wings",
+                                         "sills"
+                                     ],
+                      "flip_notes":  "Kombi diesel is liquid for families/work. High mileage accepted if history is strong.",
+                      "avoid_notes":  "Cheap diesel automatic with no service proof is dangerous.",
+                      "must_check":  [
+                                         "timing belt",
+                                         "DPF/EGR",
+                                         "dual mass flywheel",
+                                         "parking brake",
+                                         "DSG service"
+                                     ]
+                  },
+                  {
+                      "brand":  "volkswagen",
+                      "model":  "touran",
+                      "aliases":  [
+                                      "vw touran",
+                                      "touran"
+                                  ],
+                      "years":  "2003-2018",
+                      "liquidity_score":  84,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  260000,
+                      "preferred_mileage":  180000,
+                      "good_engines":  [
+                                           "1.9 TDI",
+                                           "2.0 TDI CR"
+                                       ],
+                      "bad_engines":  [
+                                          "1.4 TSI early",
+                                          "DSG DQ200"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "DSG DQ200",
+                                            "unserviced DSG"
+                                        ],
+                      "typical_problems":  [
+                                               "family-use interior wear",
+                                               "sliding/door electrics",
+                                               "DPF/EGR on diesel",
+                                               "TSI chain",
+                                               "rust on older cars"
+                                           ],
+                      "repair_cost_eur":  [
+                                              300,
+                                              2200
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "arches",
+                                         "tailgate"
+                                     ],
+                      "flip_notes":  "7-seat/family demand is strong. Rough interior can be cheap prep if mechanics are clean.",
+                      "avoid_notes":  "Avoid neglected family car with no TUV or TSI/DSG risk.",
+                      "must_check":  [
+                                         "interior wear vs mileage",
+                                         "TUV",
+                                         "DPF/EGR",
+                                         "clutch/DMF",
+                                         "rust"
+                                     ]
+                  },
+                  {
+                      "brand":  "volkswagen",
+                      "model":  "tiguan",
+                      "aliases":  [
+                                      "vw tiguan",
+                                      "tiguan"
+                                  ],
+                      "years":  "2007-2020",
+                      "liquidity_score":  86,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  230000,
+                      "preferred_mileage":  160000,
+                      "good_engines":  [
+                                           "2.0 TDI CR with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "1.4 TSI early",
+                                          "unserviced DSG/4Motion"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "DSG serviced"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "DSG no proof"
+                                        ],
+                      "typical_problems":  [
+                                               "Haldex/4Motion service",
+                                               "DPF/EGR/turbo",
+                                               "dual mass flywheel",
+                                               "timing belt",
+                                               "electrics"
+                                           ],
+                      "repair_cost_eur":  [
+                                              500,
+                                              2800
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "tailgate",
+                                         "arches"
+                                     ],
+                      "flip_notes":  "SUV demand helps resale, but repair reserve must be bigger.",
+                      "avoid_notes":  "Cheap Tiguan diesel/DSG can eat margin quickly.",
+                      "must_check":  [
+                                         "Haldex service",
+                                         "DSG service",
+                                         "timing belt",
+                                         "DPF/EGR",
+                                         "cold start"
+                                     ]
+                  },
+                  {
+                      "brand":  "volkswagen",
+                      "model":  "caddy",
+                      "aliases":  [
+                                      "vw caddy",
+                                      "caddy"
+                                  ],
+                      "years":  "2004-2020",
+                      "liquidity_score":  82,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  280000,
+                      "preferred_mileage":  200000,
+                      "good_engines":  [
+                                           "1.9 TDI",
+                                           "2.0 TDI CR"
+                                       ],
+                      "bad_engines":  [
+                                          "1.6 TDI EGR/DPF neglected",
+                                          "DSG no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "unserviced DSG"
+                                        ],
+                      "typical_problems":  [
+                                               "work-use wear",
+                                               "DPF/EGR",
+                                               "sliding door wear",
+                                               "rust on commercial-use cars"
+                                           ],
+                      "repair_cost_eur":  [
+                                              300,
+                                              2200
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "sliding door rails",
+                                         "rear doors"
+                                     ],
+                      "flip_notes":  "Very useful vehicle, sells to trades/families. High mileage okay with proof.",
+                      "avoid_notes":  "Avoid abused work van with hidden rust or no service.",
+                      "must_check":  [
+                                         "commercial wear",
+                                         "rust underside",
+                                         "DPF/EGR",
+                                         "clutch",
+                                         "sliding doors"
+                                     ]
+                  },
+                  {
+                      "brand":  "skoda",
+                      "model":  "octavia",
+                      "aliases":  [
+                                      "octavia",
+                                      "skoda octavia"
+                                  ],
+                      "years":  "2004-2020",
+                      "liquidity_score":  90,
+                      "resale_speed":  "fast",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  290000,
+                      "preferred_mileage":  200000,
+                      "good_engines":  [
+                                           "1.9 TDI",
+                                           "2.0 TDI CR",
+                                           "1.6 MPI"
+                                       ],
+                      "bad_engines":  [
+                                          "1.2/1.4 TSI EA111",
+                                          "DSG DQ200"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "DSG wet serviced"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "DQ200",
+                                            "unserviced DSG"
+                                        ],
+                      "typical_problems":  [
+                                               "huge taxi/fleet mileage risk",
+                                               "DPF/EGR",
+                                               "TSI chain",
+                                               "rear suspension wear",
+                                               "rust tailgate edges"
+                                           ],
+                      "repair_cost_eur":  [
+                                              300,
+                                              2300
+                                          ],
+                      "body_risks":  [
+                                         "tailgate",
+                                         "sills",
+                                         "arches"
+                                     ],
+                      "flip_notes":  "One of the best flipper models if diesel/manual/history is honest. Kombi demand huge.",
+                      "avoid_notes":  "Do not buy ex-taxi/fleet without proof; watch mileage wear.",
+                      "must_check":  [
+                                         "service invoices",
+                                         "interior wear vs mileage",
+                                         "timing belt",
+                                         "DPF/EGR",
+                                         "DSG if automatic"
+                                     ]
+                  },
+                  {
+                      "brand":  "skoda",
+                      "model":  "fabia",
+                      "aliases":  [
+                                      "fabia",
+                                      "skoda fabia"
+                                  ],
+                      "years":  "2000-2021",
+                      "liquidity_score":  82,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "low_medium",
+                      "max_safe_mileage":  250000,
+                      "preferred_mileage":  160000,
+                      "good_engines":  [
+                                           "1.2 HTP later with proof",
+                                           "1.4 MPI",
+                                           "1.0 MPI",
+                                           "1.6 TDI with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "early 1.2 HTP neglected",
+                                          "1.2 TSI chain",
+                                          "DSG DQ200"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "DSG DQ200"
+                                        ],
+                      "typical_problems":  [
+                                               "rust on older cars",
+                                               "1.2 HTP chain/head issues if neglected",
+                                               "front suspension",
+                                               "door locks"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1500
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "arches",
+                                         "tailgate"
+                                     ],
+                      "flip_notes":  "Practical, cheap to own and simple. Good backup candidate, but older Fabia is less emotional/comfortable than Corsa/Yaris, so it needs either very clean condition or a clear price edge.",
+                      "avoid_notes":  "Do not call it a strong deal at normal market price. Old Fabia with weak TUV, rust or neglected 1.2 HTP is only average.",
+                      "must_check":  [
+                                         "TUV/HU",
+                                         "rust on sills/arches/tailgate",
+                                         "1.2 HTP chain/head signs",
+                                         "clutch",
+                                         "service history"
+                                     ]
+                  },
+                  {
+                      "brand":  "skoda",
+                      "model":  "superb",
+                      "aliases":  [
+                                      "superb",
+                                      "skoda superb"
+                                  ],
+                      "years":  "2008-2020",
+                      "liquidity_score":  78,
+                      "resale_speed":  "normal",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  270000,
+                      "preferred_mileage":  190000,
+                      "good_engines":  [
+                                           "2.0 TDI CR"
+                                       ],
+                      "bad_engines":  [
+                                          "1.8 TSI oil/chain",
+                                          "DSG no service"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "DSG serviced"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "unserviced DSG"
+                                        ],
+                      "typical_problems":  [
+                                               "fleet/taxi mileage",
+                                               "DSG/DMF",
+                                               "DPF/EGR",
+                                               "water leaks/electrics"
+                                           ],
+                      "repair_cost_eur":  [
+                                              500,
+                                              2600
+                                          ],
+                      "body_risks":  [
+                                         "tailgate",
+                                         "sills"
+                                     ],
+                      "flip_notes":  "Huge space; good diesel kombi can sell well, but buyer pool is smaller than Octavia.",
+                      "avoid_notes":  "Avoid petrol TSI/DSG with no proof and very high mileage.",
+                      "must_check":  [
+                                         "fleet signs",
+                                         "DSG service",
+                                         "timing belt",
+                                         "DPF",
+                                         "water leaks"
+                                     ]
+                  },
+                  {
+                      "brand":  "seat",
+                      "model":  "leon",
+                      "aliases":  [
+                                      "seat leon",
+                                      "leon"
+                                  ],
+                      "years":  "2005-2020",
+                      "liquidity_score":  83,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  240000,
+                      "preferred_mileage":  160000,
+                      "good_engines":  [
+                                           "1.6 MPI",
+                                           "2.0 TDI CR",
+                                           "1.6 TDI with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "1.4 TSI early",
+                                          "1.8/2.0 TSI oil/chain",
+                                          "DSG DQ200"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "DQ200",
+                                            "unserviced DSG"
+                                        ],
+                      "typical_problems":  [
+                                               "VAG TSI chain/oil risk",
+                                               "DPF/EGR on diesel",
+                                               "sporty abuse",
+                                               "interior wear"
+                                           ],
+                      "repair_cost_eur":  [
+                                              300,
+                                              2400
+                                          ],
+                      "body_risks":  [
+                                         "arches",
+                                         "sills"
+                                     ],
+                      "flip_notes":  "Young buyers like it; FR/clean spec can sell fast.",
+                      "avoid_notes":  "Sporty abused TSI/DSG can become expensive.",
+                      "must_check":  [
+                                         "OBD",
+                                         "chain noise",
+                                         "DSG",
+                                         "DPF/EGR",
+                                         "accident signs"
+                                     ]
+                  },
+                  {
+                      "brand":  "seat",
+                      "model":  "ibiza",
+                      "aliases":  [
+                                      "seat ibiza",
+                                      "ibiza"
+                                  ],
+                      "years":  "2002-2021",
+                      "liquidity_score":  79,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "low_medium",
+                      "max_safe_mileage":  230000,
+                      "preferred_mileage":  150000,
+                      "good_engines":  [
+                                           "1.2 MPI",
+                                           "1.4 MPI",
+                                           "1.0 MPI"
+                                       ],
+                      "bad_engines":  [
+                                          "1.2 TSI early",
+                                          "1.4 TSI Cupra",
+                                          "DSG DQ200"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "DQ200"
+                                        ],
+                      "typical_problems":  [
+                                               "rust on older cars",
+                                               "chain noise on TSI",
+                                               "clutch wear",
+                                               "cheap interior wear"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1500
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "arches"
+                                     ],
+                      "flip_notes":  "Liquid cheap car if simple engine/manual and TUV.",
+                      "avoid_notes":  "Avoid cheap sporty TSI/DSG with no history.",
+                      "must_check":  [
+                                         "TUV",
+                                         "rust",
+                                         "chain noise",
+                                         "clutch",
+                                         "tires"
+                                     ]
+                  },
+                  {
+                      "brand":  "opel",
+                      "model":  "astra",
+                      "aliases":  [
+                                      "opel astra",
+                                      "astra"
+                                  ],
+                      "years":  "2004-2020",
+                      "liquidity_score":  84,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  250000,
+                      "preferred_mileage":  170000,
+                      "good_engines":  [
+                                           "1.6 petrol NA",
+                                           "1.4 petrol NA",
+                                           "1.7 CDTI with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "1.4 Turbo neglected",
+                                          "1.6 CDTI chain/emissions neglected",
+                                          "2.0 CDTI high mileage no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "old Easytronic",
+                                            "automatic no proof"
+                                        ],
+                      "typical_problems":  [
+                                               "Astra H/J rust and suspension wear",
+                                               "1.7/2.0 CDTI DPF/EGR/turbo",
+                                               "M32 gearbox bearings on some manuals",
+                                               "electronics"
+                                           ],
+                      "repair_cost_eur":  [
+                                              300,
+                                              2200
+                                          ],
+                      "body_risks":  [
+                                         "rear arches",
+                                         "sills",
+                                         "subframe"
+                                     ],
+                      "flip_notes":  "Strong enough demand, especially caravan/sports tourer. Good TUV/service matters.",
+                      "avoid_notes":  "High mileage diesel without DPF/EGR/timing proof is weak flip.",
+                      "must_check":  [
+                                         "M32 gearbox whine",
+                                         "DPF/EGR",
+                                         "rust underside",
+                                         "TUV",
+                                         "service invoices"
+                                     ]
+                  },
+                  {
+                      "brand":  "opel",
+                      "model":  "corsa",
+                      "aliases":  [
+                                      "opel corsa",
+                                      "corsa"
+                                  ],
+                      "years":  "2000-2021",
+                      "liquidity_score":  86,
+                      "resale_speed":  "fast",
+                      "market_fear_level":  "low_medium",
+                      "max_safe_mileage":  230000,
+                      "preferred_mileage":  150000,
+                      "good_engines":  [
+                                           "1.2 petrol",
+                                           "1.4 petrol"
+                                       ],
+                      "bad_engines":  [
+                                          "1.3 CDTI neglected",
+                                          "Easytronic"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "Easytronic"
+                                        ],
+                      "typical_problems":  [
+                                               "timing chain rattle on small petrol if neglected",
+                                               "rust older cars",
+                                               "front suspension",
+                                               "heater/resistor"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1400
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "rear arches",
+                                         "subframe"
+                                     ],
+                      "flip_notes":  "Best cheap price/quality candidate when simple petrol/manual and TUV is okay. Around 1000 EUR can be very interesting because repairs are cheap and buyer pool is broad.",
+                      "avoid_notes":  "Do not overrate a Corsa only because it is cheap. No TUV, chain noise, Easytronic, heavy rust or cooling issues can erase the margin.",
+                      "must_check":  [
+                                         "TUV/HU",
+                                         "rust on sills/rear arches/subframe",
+                                         "timing chain noise on cold start",
+                                         "cooling system",
+                                         "clutch/manual gearbox"
+                                     ]
+                  },
+                  {
+                      "brand":  "opel",
+                      "model":  "zafira",
+                      "aliases":  [
+                                      "opel zafira",
+                                      "zafira"
+                                  ],
+                      "years":  "2005-2018",
+                      "liquidity_score":  73,
+                      "resale_speed":  "normal",
+                      "market_fear_level":  "medium_high",
+                      "max_safe_mileage":  230000,
+                      "preferred_mileage":  160000,
+                      "good_engines":  [
+                                           "1.8 petrol",
+                                           "1.7 CDTI with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "1.9 CDTI neglected",
+                                          "Easytronic",
+                                          "high mileage diesel no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "Easytronic"
+                                        ],
+                      "typical_problems":  [
+                                               "family interior abuse",
+                                               "diesel DPF/EGR/turbo",
+                                               "M32 gearbox bearings",
+                                               "rust/subframe"
+                                           ],
+                      "repair_cost_eur":  [
+                                              400,
+                                              2400
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "subframe",
+                                         "rear arches"
+                                     ],
+                      "flip_notes":  "7-seat demand exists but condition matters. Good TUV can sell.",
+                      "avoid_notes":  "Old diesel 7-seater with no proof is usually not a sweet deal.",
+                      "must_check":  [
+                                         "DPF/EGR",
+                                         "gearbox whine",
+                                         "rust/subframe",
+                                         "interior wear",
+                                         "TUV"
+                                     ]
+                  },
+                  {
+                      "brand":  "opel",
+                      "model":  "insignia",
+                      "aliases":  [
+                                      "opel insignia",
+                                      "insignia"
+                                  ],
+                      "years":  "2008-2018",
+                      "liquidity_score":  68,
+                      "resale_speed":  "slow_normal",
+                      "market_fear_level":  "medium_high",
+                      "max_safe_mileage":  220000,
+                      "preferred_mileage":  150000,
+                      "good_engines":  [
+                                           "2.0 CDTI with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "2.0 CDTI high mileage no proof",
+                                          "automatic no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "automatic with issues"
+                                        ],
+                      "typical_problems":  [
+                                               "heavy car eats suspension/brakes",
+                                               "DPF/EGR/turbo",
+                                               "dual mass flywheel",
+                                               "electrics"
+                                           ],
+                      "repair_cost_eur":  [
+                                              500,
+                                              2500
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "tailgate"
+                                     ],
+                      "flip_notes":  "Can look cheap because demand is weaker. Only buy with big margin.",
+                      "avoid_notes":  "Not as liquid as Astra; do not overpay.",
+                      "must_check":  [
+                                         "DPF/EGR",
+                                         "clutch/DMF",
+                                         "suspension",
+                                         "OBD",
+                                         "service"
+                                     ]
+                  },
+                  {
+                      "brand":  "ford",
+                      "model":  "focus",
+                      "aliases":  [
+                                      "ford focus",
+                                      "focus"
+                                  ],
+                      "years":  "2004-2021",
+                      "liquidity_score":  83,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  250000,
+                      "preferred_mileage":  170000,
+                      "good_engines":  [
+                                           "1.6 petrol",
+                                           "1.6/2.0 TDCi with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "1.0 EcoBoost wet belt neglected",
+                                          "PowerShift automatic",
+                                          "1.6 EcoBoost cooling risk"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "PowerShift"
+                                        ],
+                      "typical_problems":  [
+                                               "EcoBoost wet belt/cooling",
+                                               "PowerShift shudder",
+                                               "diesel DPF/EGR",
+                                               "rust older cars",
+                                               "rear suspension"
+                                           ],
+                      "repair_cost_eur":  [
+                                              300,
+                                              2600
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "rear arches",
+                                         "tailgate"
+                                     ],
+                      "flip_notes":  "Liquid compact if manual/simple engine. Good cheap Focus sells.",
+                      "avoid_notes":  "Avoid PowerShift and neglected EcoBoost unless huge discount.",
+                      "must_check":  [
+                                         "belt history EcoBoost",
+                                         "PowerShift shudder",
+                                         "DPF/EGR",
+                                         "rust",
+                                         "clutch"
+                                     ]
+                  },
+                  {
+                      "brand":  "ford",
+                      "model":  "fiesta",
+                      "aliases":  [
+                                      "ford fiesta",
+                                      "fiesta"
+                                  ],
+                      "years":  "2002-2021",
+                      "liquidity_score":  81,
+                      "resale_speed":  "fast",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  230000,
+                      "preferred_mileage":  150000,
+                      "good_engines":  [
+                                           "1.25 petrol",
+                                           "1.4 petrol",
+                                           "1.6 petrol"
+                                       ],
+                      "bad_engines":  [
+                                          "1.0 EcoBoost no wet belt proof",
+                                          "PowerShift"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "PowerShift"
+                                        ],
+                      "typical_problems":  [
+                                               "rust older models",
+                                               "EcoBoost belt/cooling",
+                                               "clutch",
+                                               "cheap interior wear"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1800
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "rear arches"
+                                     ],
+                      "flip_notes":  "Good first-car liquidity. Manual petrol with TUV is easy.",
+                      "avoid_notes":  "Do not buy cheap EcoBoost without belt proof.",
+                      "must_check":  [
+                                         "wet belt history",
+                                         "rust",
+                                         "TUV",
+                                         "clutch",
+                                         "coolant"
+                                     ]
+                  },
+                  {
+                      "brand":  "ford",
+                      "model":  "mondeo",
+                      "aliases":  [
+                                      "ford mondeo",
+                                      "mondeo"
+                                  ],
+                      "years":  "2007-2019",
+                      "liquidity_score":  66,
+                      "resale_speed":  "slow_normal",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  250000,
+                      "preferred_mileage":  180000,
+                      "good_engines":  [
+                                           "2.0 TDCi manual with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "PowerShift",
+                                          "high mileage diesel no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "PowerShift"
+                                        ],
+                      "typical_problems":  [
+                                               "fleet miles",
+                                               "DPF/EGR/turbo",
+                                               "dual mass flywheel",
+                                               "rust/suspension"
+                                           ],
+                      "repair_cost_eur":  [
+                                              400,
+                                              2400
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "tailgate",
+                                         "arches"
+                                     ],
+                      "flip_notes":  "Kombi can sell, but not fast. Needs strong discount.",
+                      "avoid_notes":  "Weak liquidity compared with Passat/Octavia.",
+                      "must_check":  [
+                                         "fleet wear",
+                                         "DPF/EGR",
+                                         "clutch/DMF",
+                                         "PowerShift",
+                                         "rust"
+                                     ]
+                  },
+                  {
+                      "brand":  "ford",
+                      "model":  "s-max",
+                      "aliases":  [
+                                      "ford s-max",
+                                      "smax",
+                                      "s-max"
+                                  ],
+                      "years":  "2006-2018",
+                      "liquidity_score":  70,
+                      "resale_speed":  "normal",
+                      "market_fear_level":  "medium_high",
+                      "max_safe_mileage":  240000,
+                      "preferred_mileage":  160000,
+                      "good_engines":  [
+                                           "2.0 TDCi manual with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "PowerShift",
+                                          "high mileage diesel no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "PowerShift"
+                                        ],
+                      "typical_problems":  [
+                                               "family wear",
+                                               "DPF/EGR/turbo",
+                                               "dual mass flywheel",
+                                               "suspension",
+                                               "electronics"
+                                           ],
+                      "repair_cost_eur":  [
+                                              500,
+                                              2600
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "tailgate"
+                                     ],
+                      "flip_notes":  "7-seat/family appeal, but repair risk must be priced in.",
+                      "avoid_notes":  "Cheap automatic diesel can be a trap.",
+                      "must_check":  [
+                                         "PowerShift",
+                                         "DPF/EGR",
+                                         "interior wear",
+                                         "suspension",
+                                         "TUV"
+                                     ]
+                  },
+                  {
+                      "brand":  "toyota",
+                      "model":  "yaris",
+                      "aliases":  [
+                                      "toyota yaris",
+                                      "yaris"
+                                  ],
+                      "years":  "2000-2021",
+                      "liquidity_score":  92,
+                      "resale_speed":  "fast",
+                      "market_fear_level":  "very_low",
+                      "max_safe_mileage":  300000,
+                      "preferred_mileage":  190000,
+                      "good_engines":  [
+                                           "1.0 VVT-i",
+                                           "1.3 VVT-i",
+                                           "1.5 Hybrid"
+                                       ],
+                      "bad_engines":  [
+                                          "neglected hybrid battery",
+                                          "MMT automatic"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "hybrid e-CVT with battery proof"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "MMT automated manual"
+                                        ],
+                      "typical_problems":  [
+                                               "rust underside/rear axle on older cars",
+                                               "hybrid battery health",
+                                               "small accident repairs",
+                                               "brakes on city cars"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1800
+                                          ],
+                      "body_risks":  [
+                                         "rear axle",
+                                         "sills",
+                                         "underbody"
+                                     ],
+                      "flip_notes":  "Top safety/liquidity pick among cheap cars. XP90/Yaris is not always huge-margin, but it is easy to resell, trusted, cheap to maintain and often loses little money if bought correctly.",
+                      "avoid_notes":  "Still reject if no TUV plus serious rust, MMT gearbox issue, accident suspicion or seller cannot prove basic history.",
+                      "must_check":  [
+                                         "TUV/HU validity",
+                                         "underbody/rear axle rust",
+                                         "brakes from city use",
+                                         "service/oil history",
+                                         "manual gearbox/clutch or MMT warning signs"
+                                     ]
+                  },
+                  {
+                      "brand":  "toyota",
+                      "model":  "corolla",
+                      "aliases":  [
+                                      "toyota corolla",
+                                      "corolla"
+                                  ],
+                      "years":  "2000-2021",
+                      "liquidity_score":  89,
+                      "resale_speed":  "fast",
+                      "market_fear_level":  "low",
+                      "max_safe_mileage":  320000,
+                      "preferred_mileage":  210000,
+                      "good_engines":  [
+                                           "1.4/1.6 petrol",
+                                           "1.8 hybrid"
+                                       ],
+                      "bad_engines":  [
+                                          "neglected diesel",
+                                          "hybrid battery no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "Toyota hybrid e-CVT"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "unknown CVT issues if abused"
+                                        ],
+                      "typical_problems":  [
+                                               "rust older cars",
+                                               "hybrid battery health",
+                                               "brakes seized from city use"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1800
+                                          ],
+                      "body_risks":  [
+                                         "underbody",
+                                         "rear axle"
+                                     ],
+                      "flip_notes":  "Boring but very sellable. Trust is high.",
+                      "avoid_notes":  "Diesel/rough import/accident car less desirable.",
+                      "must_check":  [
+                                         "rust",
+                                         "hybrid battery",
+                                         "service",
+                                         "brakes",
+                                         "TUV"
+                                     ]
+                  },
+                  {
+                      "brand":  "toyota",
+                      "model":  "auris",
+                      "aliases":  [
+                                      "toyota auris",
+                                      "auris"
+                                  ],
+                      "years":  "2007-2018",
+                      "liquidity_score":  85,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "low",
+                      "max_safe_mileage":  300000,
+                      "preferred_mileage":  190000,
+                      "good_engines":  [
+                                           "1.6 petrol",
+                                           "1.8 hybrid"
+                                       ],
+                      "bad_engines":  [
+                                          "neglected diesel",
+                                          "hybrid battery no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "hybrid e-CVT"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "MMT automated manual"
+                                        ],
+                      "typical_problems":  [
+                                               "hybrid battery health",
+                                               "rust underside older cars",
+                                               "brakes",
+                                               "interior wear"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1800
+                                          ],
+                      "body_risks":  [
+                                         "underbody",
+                                         "rear axle"
+                                     ],
+                      "flip_notes":  "Good first-car/family trust. Hybrid sells well if clean.",
+                      "avoid_notes":  "Avoid high-price non-hybrid with weak spec.",
+                      "must_check":  [
+                                         "hybrid battery",
+                                         "rust",
+                                         "TUV",
+                                         "service",
+                                         "brakes"
+                                     ]
+                  },
+                  {
+                      "brand":  "toyota",
+                      "model":  "avensis",
+                      "aliases":  [
+                                      "toyota avensis",
+                                      "avensis"
+                                  ],
+                      "years":  "2003-2018",
+                      "liquidity_score":  70,
+                      "resale_speed":  "normal_slow",
+                      "market_fear_level":  "low_medium",
+                      "max_safe_mileage":  300000,
+                      "preferred_mileage":  210000,
+                      "good_engines":  [
+                                           "1.8 petrol",
+                                           "2.0 petrol"
+                                       ],
+                      "bad_engines":  [
+                                          "2.2 D-CAT diesel",
+                                          "neglected diesel"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "old automatic issues rare but check"
+                                        ],
+                      "typical_problems":  [
+                                               "rust underside",
+                                               "diesel DPF/injector/head gasket risks",
+                                               "aging suspension"
+                                           ],
+                      "repair_cost_eur":  [
+                                              300,
+                                              2200
+                                          ],
+                      "body_risks":  [
+                                         "underbody",
+                                         "sills",
+                                         "rear axle"
+                                     ],
+                      "flip_notes":  "Reliable image but slower resale than Corolla/Yaris. Good if cheap and clean.",
+                      "avoid_notes":  "Avoid 2.2 diesel/D-CAT unless very strong proof.",
+                      "must_check":  [
+                                         "rust",
+                                         "diesel emissions",
+                                         "service",
+                                         "suspension",
+                                         "TUV"
+                                     ]
+                  },
+                  {
+                      "brand":  "honda",
+                      "model":  "jazz",
+                      "aliases":  [
+                                      "honda jazz",
+                                      "jazz"
+                                  ],
+                      "years":  "2002-2020",
+                      "liquidity_score":  84,
+                      "resale_speed":  "fast",
+                      "market_fear_level":  "low",
+                      "max_safe_mileage":  300000,
+                      "preferred_mileage":  190000,
+                      "good_engines":  [
+                                           "1.2 i-VTEC",
+                                           "1.4 i-VTEC",
+                                           "1.3 i-VTEC"
+                                       ],
+                      "bad_engines":  [
+                                          "CVT neglected",
+                                          "rusty no TUV cars"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "CVT with judder"
+                                        ],
+                      "typical_problems":  [
+                                               "rear arches/underbody rust older cars",
+                                               "CVT judder",
+                                               "city-car clutch/brakes",
+                                               "tired interior on cheap cars"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1600
+                                          ],
+                      "body_risks":  [
+                                         "rear arches",
+                                         "sills",
+                                         "underbody"
+                                     ],
+                      "flip_notes":  "Very trusted small car. High mileage okay if rust/TUV/service good.",
+                      "avoid_notes":  "No TUV + rusty Jazz is not a bargain.",
+                      "must_check":  [
+                                         "rust arches",
+                                         "CVT if automatic",
+                                         "TUV",
+                                         "brakes",
+                                         "interior vs mileage"
+                                     ]
+                  },
+                  {
+                      "brand":  "honda",
+                      "model":  "civic",
+                      "aliases":  [
+                                      "honda civic",
+                                      "civic"
+                                  ],
+                      "years":  "2001-2021",
+                      "liquidity_score":  78,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "low_medium",
+                      "max_safe_mileage":  300000,
+                      "preferred_mileage":  190000,
+                      "good_engines":  [
+                                           "1.4/1.8 i-VTEC",
+                                           "2.2 i-CTDi with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "abused Type R",
+                                          "diesel no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "i-Shift automated manual"
+                                        ],
+                      "typical_problems":  [
+                                               "rust older cars",
+                                               "clutch on sporty use",
+                                               "diesel DPF/EGR on later cars",
+                                               "suspension"
+                                           ],
+                      "repair_cost_eur":  [
+                                              300,
+                                              2000
+                                          ],
+                      "body_risks":  [
+                                         "rear arches",
+                                         "sills",
+                                         "underbody"
+                                     ],
+                      "flip_notes":  "Good reputation; clean petrol manuals sell well.",
+                      "avoid_notes":  "Avoid modified/abused cars and i-Shift complaints.",
+                      "must_check":  [
+                                         "rust",
+                                         "clutch",
+                                         "service",
+                                         "modifications",
+                                         "OBD"
+                                     ]
+                  },
+                  {
+                      "brand":  "hyundai",
+                      "model":  "i20",
+                      "aliases":  [
+                                      "hyundai i20",
+                                      "i20"
+                                  ],
+                      "years":  "2008-2021",
+                      "liquidity_score":  78,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "low",
+                      "max_safe_mileage":  270000,
+                      "preferred_mileage":  160000,
+                      "good_engines":  [
+                                           "1.2 petrol",
+                                           "1.4 petrol"
+                                       ],
+                      "bad_engines":  [
+                                          "neglected diesel"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "automatic no proof"
+                                        ],
+                      "typical_problems":  [
+                                               "rust underside on older cars",
+                                               "clutch",
+                                               "cheap interior wear",
+                                               "brakes"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1300
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "underbody"
+                                     ],
+                      "flip_notes":  "Solid budget car, good if TUV long and price right.",
+                      "avoid_notes":  "Not as emotional; overpriced cars sit.",
+                      "must_check":  [
+                                         "TUV",
+                                         "rust",
+                                         "clutch",
+                                         "service",
+                                         "brakes"
+                                     ]
+                  },
+                  {
+                      "brand":  "hyundai",
+                      "model":  "i30",
+                      "aliases":  [
+                                      "hyundai i30",
+                                      "i30"
+                                  ],
+                      "years":  "2007-2021",
+                      "liquidity_score":  82,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "low_medium",
+                      "max_safe_mileage":  270000,
+                      "preferred_mileage":  170000,
+                      "good_engines":  [
+                                           "1.4/1.6 petrol",
+                                           "1.6 CRDi with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "diesel no DPF/EGR proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "DCT no proof"
+                                        ],
+                      "typical_problems":  [
+                                               "rust underside older cars",
+                                               "clutch",
+                                               "DPF/EGR diesel",
+                                               "suspension"
+                                           ],
+                      "repair_cost_eur":  [
+                                              250,
+                                              1800
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "underbody"
+                                     ],
+                      "flip_notes":  "Good value compact; clean cars sell to practical buyers.",
+                      "avoid_notes":  "Weak spec/high price slows resale.",
+                      "must_check":  [
+                                         "rust",
+                                         "DPF/EGR",
+                                         "service",
+                                         "TUV",
+                                         "clutch"
+                                     ]
+                  },
+                  {
+                      "brand":  "kia",
+                      "model":  "rio",
+                      "aliases":  [
+                                      "kia rio",
+                                      "rio"
+                                  ],
+                      "years":  "2011-2021",
+                      "liquidity_score":  77,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "low",
+                      "max_safe_mileage":  260000,
+                      "preferred_mileage":  150000,
+                      "good_engines":  [
+                                           "1.2 petrol",
+                                           "1.4 petrol"
+                                       ],
+                      "bad_engines":  [
+                                          "neglected diesel"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "automatic no proof"
+                                        ],
+                      "typical_problems":  [
+                                               "clutch",
+                                               "brakes",
+                                               "rust underside if neglected",
+                                               "cheap interior wear"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1300
+                                          ],
+                      "body_risks":  [
+                                         "underbody",
+                                         "sills"
+                                     ],
+                      "flip_notes":  "Budget first-car demand. Warranty history helps trust.",
+                      "avoid_notes":  "Avoid no-TUV tired cheap car.",
+                      "must_check":  [
+                                         "TUV",
+                                         "service",
+                                         "rust",
+                                         "clutch",
+                                         "brakes"
+                                     ]
+                  },
+                  {
+                      "brand":  "kia",
+                      "model":  "ceed",
+                      "aliases":  [
+                                      "kia ceed",
+                                      "ceed",
+                                      "c\u0027eed"
+                                  ],
+                      "years":  "2007-2021",
+                      "liquidity_score":  81,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "low_medium",
+                      "max_safe_mileage":  270000,
+                      "preferred_mileage":  170000,
+                      "good_engines":  [
+                                           "1.4/1.6 petrol",
+                                           "1.6 CRDi with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "diesel no emissions proof",
+                                          "DCT no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "DCT with issues"
+                                        ],
+                      "typical_problems":  [
+                                               "clutch",
+                                               "DPF/EGR diesel",
+                                               "rust underside",
+                                               "suspension"
+                                           ],
+                      "repair_cost_eur":  [
+                                              250,
+                                              1800
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "underbody"
+                                     ],
+                      "flip_notes":  "Good practical compact, less fear than old German risky motors.",
+                      "avoid_notes":  "Needs price advantage; brand is trusted but not premium.",
+                      "must_check":  [
+                                         "service",
+                                         "TUV",
+                                         "DPF/EGR",
+                                         "clutch",
+                                         "rust"
+                                     ]
+                  },
+                  {
+                      "brand":  "mazda",
+                      "model":  "2",
+                      "aliases":  [
+                                      "mazda 2",
+                                      "mazda2"
+                                  ],
+                      "years":  "2003-2021",
+                      "liquidity_score":  74,
+                      "resale_speed":  "normal",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  260000,
+                      "preferred_mileage":  150000,
+                      "good_engines":  [
+                                           "1.3 petrol",
+                                           "1.5 petrol"
+                                       ],
+                      "bad_engines":  [
+                                          "diesel no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "automatic no proof"
+                                        ],
+                      "typical_problems":  [
+                                               "rust is main enemy on older Mazdas",
+                                               "rear arches/sills",
+                                               "brakes",
+                                               "clutch"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1800
+                                          ],
+                      "body_risks":  [
+                                         "rear arches",
+                                         "sills",
+                                         "underbody"
+                                     ],
+                      "flip_notes":  "Mechanically good, but rust decides. Clean body can be nice.",
+                      "avoid_notes":  "Rusty Mazda is not a bargain.",
+                      "must_check":  [
+                                         "rust arches/sills",
+                                         "underbody",
+                                         "TUV",
+                                         "brakes",
+                                         "service"
+                                     ]
+                  },
+                  {
+                      "brand":  "mazda",
+                      "model":  "3",
+                      "aliases":  [
+                                      "mazda 3",
+                                      "mazda3"
+                                  ],
+                      "years":  "2003-2021",
+                      "liquidity_score":  76,
+                      "resale_speed":  "normal",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  270000,
+                      "preferred_mileage":  170000,
+                      "good_engines":  [
+                                           "1.6 petrol",
+                                           "2.0 petrol",
+                                           "Skyactiv petrol"
+                                       ],
+                      "bad_engines":  [
+                                          "Skyactiv-D diesel",
+                                          "rusty older cars"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "automatic no proof"
+                                        ],
+                      "typical_problems":  [
+                                               "rust older generations",
+                                               "Skyactiv-D carbon/DPF/EGR",
+                                               "suspension",
+                                               "brakes"
+                                           ],
+                      "repair_cost_eur":  [
+                                              300,
+                                              2200
+                                          ],
+                      "body_risks":  [
+                                         "rear arches",
+                                         "sills",
+                                         "underbody"
+                                     ],
+                      "flip_notes":  "Petrol manual with clean body is good. Diesel needs caution.",
+                      "avoid_notes":  "Avoid rust and Skyactiv-D with emissions issues.",
+                      "must_check":  [
+                                         "rust",
+                                         "diesel DPF/EGR",
+                                         "service",
+                                         "OBD",
+                                         "TUV"
+                                     ]
+                  },
+                  {
+                      "brand":  "mazda",
+                      "model":  "6",
+                      "aliases":  [
+                                      "mazda 6",
+                                      "mazda6"
+                                  ],
+                      "years":  "2002-2020",
+                      "liquidity_score":  68,
+                      "resale_speed":  "slow_normal",
+                      "market_fear_level":  "medium_high",
+                      "max_safe_mileage":  270000,
+                      "preferred_mileage":  170000,
+                      "good_engines":  [
+                                           "2.0 petrol",
+                                           "2.5 petrol"
+                                       ],
+                      "bad_engines":  [
+                                          "2.2 Skyactiv-D",
+                                          "rusty older cars"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "automatic no proof"
+                                        ],
+                      "typical_problems":  [
+                                               "rust older cars",
+                                               "Skyactiv-D carbon/DPF/EGR/turbo",
+                                               "suspension"
+                                           ],
+                      "repair_cost_eur":  [
+                                              400,
+                                              2600
+                                          ],
+                      "body_risks":  [
+                                         "rear arches",
+                                         "sills",
+                                         "underbody",
+                                         "tailgate"
+                                     ],
+                      "flip_notes":  "Can be good if petrol and clean, but resale slower.",
+                      "avoid_notes":  "Cheap diesel Mazda 6 is often a risk trap.",
+                      "must_check":  [
+                                         "rust",
+                                         "diesel emissions",
+                                         "oil level",
+                                         "service",
+                                         "OBD"
+                                     ]
+                  },
+                  {
+                      "brand":  "nissan",
+                      "model":  "qashqai",
+                      "aliases":  [
+                                      "nissan qashqai",
+                                      "qashqai"
+                                  ],
+                      "years":  "2007-2021",
+                      "liquidity_score":  76,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  240000,
+                      "preferred_mileage":  160000,
+                      "good_engines":  [
+                                           "1.6 petrol",
+                                           "1.5 dCi with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "CVT/Xtronic",
+                                          "1.2 DIG-T oil/chain risk"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "CVT/Xtronic"
+                                        ],
+                      "typical_problems":  [
+                                               "CVT failure fear",
+                                               "1.2 DIG-T oil/timing",
+                                               "diesel DPF/EGR",
+                                               "suspension"
+                                           ],
+                      "repair_cost_eur":  [
+                                              300,
+                                              2800
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "tailgate"
+                                     ],
+                      "flip_notes":  "SUV demand helps. Manual petrol/diesel with proof sells.",
+                      "avoid_notes":  "Avoid CVT unless very strong proof and price.",
+                      "must_check":  [
+                                         "CVT behavior",
+                                         "DPF/EGR",
+                                         "oil consumption",
+                                         "chain noise",
+                                         "OBD"
+                                     ]
+                  },
+                  {
+                      "brand":  "renault",
+                      "model":  "clio",
+                      "aliases":  [
+                                      "renault clio",
+                                      "clio"
+                                  ],
+                      "years":  "2001-2021",
+                      "liquidity_score":  72,
+                      "resale_speed":  "normal",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  240000,
+                      "preferred_mileage":  150000,
+                      "good_engines":  [
+                                           "1.2 petrol",
+                                           "1.4 petrol",
+                                           "1.5 dCi later with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "EDC no proof",
+                                          "neglected 1.5 dCi"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "EDC with issues"
+                                        ],
+                      "typical_problems":  [
+                                               "electronics",
+                                               "1.5 dCi injectors/EGR if neglected",
+                                               "timing belt",
+                                               "rust older cars"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1800
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "underbody"
+                                     ],
+                      "flip_notes":  "Cheap first car, okay if simple and TUV.",
+                      "avoid_notes":  "Weak German resale compared with Polo/Yaris, need price edge.",
+                      "must_check":  [
+                                         "timing belt",
+                                         "electronics",
+                                         "TUV",
+                                         "service",
+                                         "DPF/EGR diesel"
+                                     ]
+                  },
+                  {
+                      "brand":  "renault",
+                      "model":  "twingo",
+                      "aliases":  [
+                                      "renault twingo",
+                                      "twingo"
+                                  ],
+                      "years":  "2000-2021",
+                      "liquidity_score":  70,
+                      "resale_speed":  "normal",
+                      "market_fear_level":  "low_medium",
+                      "max_safe_mileage":  220000,
+                      "preferred_mileage":  130000,
+                      "good_engines":  [
+                                           "1.2 petrol",
+                                           "1.0 petrol"
+                                       ],
+                      "bad_engines":  [
+                                          "automated gearbox issues"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "Quickshift/automated manual"
+                                        ],
+                      "typical_problems":  [
+                                               "rust older cars",
+                                               "cheap interior wear",
+                                               "clutch",
+                                               "electronics"
+                                           ],
+                      "repair_cost_eur":  [
+                                              150,
+                                              1200
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "underbody"
+                                     ],
+                      "flip_notes":  "Very cheap city car; profit only if bought very cheap with TUV.",
+                      "avoid_notes":  "Small margins; no TUV usually not worth it.",
+                      "must_check":  [
+                                         "TUV",
+                                         "rust",
+                                         "clutch",
+                                         "electronics",
+                                         "tires"
+                                     ]
+                  },
+                  {
+                      "brand":  "renault",
+                      "model":  "megane",
+                      "aliases":  [
+                                      "renault megane",
+                                      "megane"
+                                  ],
+                      "years":  "2003-2020",
+                      "liquidity_score":  62,
+                      "resale_speed":  "slow_normal",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  240000,
+                      "preferred_mileage":  150000,
+                      "good_engines":  [
+                                           "1.6 petrol",
+                                           "1.5 dCi with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "EDC no proof",
+                                          "neglected diesel"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "EDC with issues"
+                                        ],
+                      "typical_problems":  [
+                                               "electronics",
+                                               "DPF/EGR diesel",
+                                               "timing belt",
+                                               "suspension"
+                                           ],
+                      "repair_cost_eur":  [
+                                              300,
+                                              2000
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "underbody"
+                                     ],
+                      "flip_notes":  "Needs strong discount because demand weaker.",
+                      "avoid_notes":  "Do not buy around market price.",
+                      "must_check":  [
+                                         "timing belt",
+                                         "OBD",
+                                         "DPF/EGR",
+                                         "electronics",
+                                         "TUV"
+                                     ]
+                  },
+                  {
+                      "brand":  "dacia",
+                      "model":  "sandero",
+                      "aliases":  [
+                                      "dacia sandero",
+                                      "sandero"
+                                  ],
+                      "years":  "2008-2021",
+                      "liquidity_score":  72,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "low_medium",
+                      "max_safe_mileage":  230000,
+                      "preferred_mileage":  140000,
+                      "good_engines":  [
+                                           "1.2 petrol",
+                                           "0.9 TCe with proof",
+                                           "1.0 SCe"
+                                       ],
+                      "bad_engines":  [
+                                          "neglected LPG",
+                                          "diesel no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "automatic rare/no proof"
+                                        ],
+                      "typical_problems":  [
+                                               "cheap interior",
+                                               "rust protection average",
+                                               "clutch",
+                                               "suspension"
+                                           ],
+                      "repair_cost_eur":  [
+                                              150,
+                                              1200
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "underbody"
+                                     ],
+                      "flip_notes":  "Cheap and simple. Buyers like low running costs.",
+                      "avoid_notes":  "Margins small; condition/TUV must be good.",
+                      "must_check":  [
+                                         "TUV",
+                                         "rust",
+                                         "LPG system if present",
+                                         "clutch",
+                                         "service"
+                                     ]
+                  },
+                  {
+                      "brand":  "dacia",
+                      "model":  "duster",
+                      "aliases":  [
+                                      "dacia duster",
+                                      "duster"
+                                  ],
+                      "years":  "2010-2021",
+                      "liquidity_score":  74,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "low_medium",
+                      "max_safe_mileage":  240000,
+                      "preferred_mileage":  150000,
+                      "good_engines":  [
+                                           "1.6 petrol",
+                                           "1.5 dCi with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "4x4 abused/offroad",
+                                          "diesel no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "automatic no proof"
+                                        ],
+                      "typical_problems":  [
+                                               "rust underside",
+                                               "4x4/drivetrain wear",
+                                               "DPF/EGR diesel",
+                                               "cheap interior"
+                                           ],
+                      "repair_cost_eur":  [
+                                              250,
+                                              1800
+                                          ],
+                      "body_risks":  [
+                                         "underbody",
+                                         "sills"
+                                     ],
+                      "flip_notes":  "SUV shape sells. Simple spec okay.",
+                      "avoid_notes":  "Avoid abused 4x4 and rusty underside.",
+                      "must_check":  [
+                                         "underbody rust",
+                                         "4x4 system",
+                                         "DPF/EGR",
+                                         "clutch",
+                                         "TUV"
+                                     ]
+                  },
+                  {
+                      "brand":  "peugeot",
+                      "model":  "208",
+                      "aliases":  [
+                                      "peugeot 208",
+                                      "208"
+                                  ],
+                      "years":  "2012-2021",
+                      "liquidity_score":  70,
+                      "resale_speed":  "normal",
+                      "market_fear_level":  "high_for_puretech",
+                      "max_safe_mileage":  200000,
+                      "preferred_mileage":  120000,
+                      "good_engines":  [
+                                           "1.4/1.6 HDi with proof",
+                                           "later PureTech only with belt proof"
+                                       ],
+                      "bad_engines":  [
+                                          "1.2 PureTech no belt proof",
+                                          "ETG/robot gearbox"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "ETG/robot"
+                                        ],
+                      "typical_problems":  [
+                                               "PureTech wet belt/oil risk",
+                                               "electronics",
+                                               "timing belt service",
+                                               "DPF/EGR diesel"
+                                           ],
+                      "repair_cost_eur":  [
+                                              300,
+                                              2200
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "front damage"
+                                     ],
+                      "flip_notes":  "Looks modern and sells, but PureTech proof is everything.",
+                      "avoid_notes":  "Cheap PureTech without belt/invoice is not a deal.",
+                      "must_check":  [
+                                         "wet belt proof",
+                                         "oil consumption",
+                                         "OBD",
+                                         "timing belt",
+                                         "TUV"
+                                     ]
+                  },
+                  {
+                      "brand":  "peugeot",
+                      "model":  "308",
+                      "aliases":  [
+                                      "peugeot 308",
+                                      "308"
+                                  ],
+                      "years":  "2007-2021",
+                      "liquidity_score":  64,
+                      "resale_speed":  "slow_normal",
+                      "market_fear_level":  "high_for_puretech_thp",
+                      "max_safe_mileage":  220000,
+                      "preferred_mileage":  140000,
+                      "good_engines":  [
+                                           "1.6 HDi with proof",
+                                           "2.0 HDi with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "1.2 PureTech no proof",
+                                          "1.6 THP",
+                                          "robot gearbox"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "ETG/robot",
+                                            "automatic no proof"
+                                        ],
+                      "typical_problems":  [
+                                               "PureTech wet belt",
+                                               "THP chain/oil/carbon",
+                                               "DPF/EGR diesel",
+                                               "electronics"
+                                           ],
+                      "repair_cost_eur":  [
+                                              400,
+                                              2500
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "front repairs"
+                                     ],
+                      "flip_notes":  "Needs large discount; less liquid than Golf/Astra/Focus.",
+                      "avoid_notes":  "Do not buy around market with PureTech/THP risk.",
+                      "must_check":  [
+                                         "belt/chain proof",
+                                         "OBD",
+                                         "DPF/EGR",
+                                         "electronics",
+                                         "service"
+                                     ]
+                  },
+                  {
+                      "brand":  "citroen",
+                      "model":  "c3",
+                      "aliases":  [
+                                      "citroen c3",
+                                      "c3"
+                                  ],
+                      "years":  "2002-2021",
+                      "liquidity_score":  58,
+                      "resale_speed":  "slow_normal",
+                      "market_fear_level":  "medium_high",
+                      "max_safe_mileage":  210000,
+                      "preferred_mileage":  130000,
+                      "good_engines":  [
+                                           "1.4 petrol",
+                                           "1.6 HDi with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "1.2 PureTech no proof",
+                                          "sensodrive/robot gearbox"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "Sensodrive/robot"
+                                        ],
+                      "typical_problems":  [
+                                               "electronics",
+                                               "PureTech wet belt",
+                                               "diesel DPF/EGR",
+                                               "cheap interior"
+                                           ],
+                      "repair_cost_eur":  [
+                                              250,
+                                              2000
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "underbody"
+                                     ],
+                      "flip_notes":  "Can work only if very cheap with TUV.",
+                      "avoid_notes":  "Weak liquidity; do not chase normal-price cars.",
+                      "must_check":  [
+                                         "TUV",
+                                         "electronics",
+                                         "belt proof",
+                                         "gearbox",
+                                         "rust"
+                                     ]
+                  },
+                  {
+                      "brand":  "fiat",
+                      "model":  "500",
+                      "aliases":  [
+                                      "fiat 500",
+                                      "500"
+                                  ],
+                      "years":  "2007-2021",
+                      "liquidity_score":  70,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "medium",
+                      "max_safe_mileage":  180000,
+                      "preferred_mileage":  110000,
+                      "good_engines":  [
+                                           "1.2 FIRE petrol"
+                                       ],
+                      "bad_engines":  [
+                                          "Dualogic automatic",
+                                          "TwinAir neglected"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "Dualogic"
+                                        ],
+                      "typical_problems":  [
+                                               "Dualogic failures",
+                                               "clutch",
+                                               "city dents",
+                                               "electrics",
+                                               "rust underside if neglected"
+                                           ],
+                      "repair_cost_eur":  [
+                                              200,
+                                              1800
+                                          ],
+                      "body_risks":  [
+                                         "underbody",
+                                         "doors",
+                                         "bumpers"
+                                     ],
+                      "flip_notes":  "Style sells, especially clean cheap petrol manual.",
+                      "avoid_notes":  "Avoid Dualogic unless very cheap and proven.",
+                      "must_check":  [
+                                         "Dualogic if automatic",
+                                         "clutch",
+                                         "city damage",
+                                         "TUV",
+                                         "service"
+                                     ]
+                  },
+                  {
+                      "brand":  "audi",
+                      "model":  "a3",
+                      "aliases":  [
+                                      "audi a3",
+                                      "a3"
+                                  ],
+                      "years":  "2003-2020",
+                      "liquidity_score":  80,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "medium_high",
+                      "max_safe_mileage":  210000,
+                      "preferred_mileage":  150000,
+                      "good_engines":  [
+                                           "1.6 MPI",
+                                           "1.9 TDI",
+                                           "2.0 TDI CR with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "1.4/1.8/2.0 TFSI oil/chain",
+                                          "S-tronic/DQ200 no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "wet DSG serviced"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "S-tronic no proof",
+                                            "DQ200"
+                                        ],
+                      "typical_problems":  [
+                                               "premium repair costs",
+                                               "TFSI oil/chain",
+                                               "DSG/mechatronic",
+                                               "DPF/EGR",
+                                               "rust less common but check"
+                                           ],
+                      "repair_cost_eur":  [
+                                              400,
+                                              3000
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "front crash repairs"
+                                     ],
+                      "flip_notes":  "Strong badge demand. Only good with clean history and right engine.",
+                      "avoid_notes":  "Cheap TFSI/S-tronic can erase margin.",
+                      "must_check":  [
+                                         "oil consumption",
+                                         "chain",
+                                         "S-tronic",
+                                         "DPF/EGR",
+                                         "accident repair"
+                                     ]
+                  },
+                  {
+                      "brand":  "audi",
+                      "model":  "a4",
+                      "aliases":  [
+                                      "audi a4",
+                                      "a4"
+                                  ],
+                      "years":  "2001-2020",
+                      "liquidity_score":  78,
+                      "resale_speed":  "normal",
+                      "market_fear_level":  "high",
+                      "max_safe_mileage":  210000,
+                      "preferred_mileage":  150000,
+                      "good_engines":  [
+                                           "1.9 TDI",
+                                           "2.0 TDI CR with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "2.0 TFSI oil consumption",
+                                          "Multitronic",
+                                          "S-tronic no proof",
+                                          "2.7/3.0 TDI high mileage"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "Multitronic",
+                                            "unserviced S-tronic"
+                                        ],
+                      "typical_problems":  [
+                                               "Multitronic fear",
+                                               "TFSI oil/chain",
+                                               "diesel DPF/EGR/injectors",
+                                               "front suspension arms"
+                                           ],
+                      "repair_cost_eur":  [
+                                              500,
+                                              3500
+                                          ],
+                      "body_risks":  [
+                                         "front crash repairs",
+                                         "sills"
+                                     ],
+                      "flip_notes":  "Badge sells but risk is high. Need strong discount and proof.",
+                      "avoid_notes":  "Avoid Multitronic and cheap big diesel unless exceptional.",
+                      "must_check":  [
+                                         "gearbox",
+                                         "oil consumption",
+                                         "DPF/EGR",
+                                         "suspension arms",
+                                         "service"
+                                     ]
+                  },
+                  {
+                      "brand":  "bmw",
+                      "model":  "1er",
+                      "aliases":  [
+                                      "bmw 1er",
+                                      "1er",
+                                      "116i",
+                                      "118i",
+                                      "120i",
+                                      "116d",
+                                      "118d",
+                                      "120d"
+                                  ],
+                      "years":  "2004-2020",
+                      "liquidity_score":  78,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "high",
+                      "max_safe_mileage":  190000,
+                      "preferred_mileage":  130000,
+                      "good_engines":  [
+                                           "later B-series with proof",
+                                           "simple petrol with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "N47 diesel",
+                                          "N43 petrol",
+                                          "cheap tuned cars"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "ZF automatic serviced"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "automatic no proof on high mileage"
+                                        ],
+                      "typical_problems":  [
+                                               "N47 chain",
+                                               "N43 injectors/coils/NOx",
+                                               "oil leaks",
+                                               "cooling",
+                                               "rear-drive abuse"
+                                           ],
+                      "repair_cost_eur":  [
+                                              500,
+                                              3000
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "front crash repairs"
+                                     ],
+                      "flip_notes":  "Young buyers like it; clean spec sells. Risk must be priced in.",
+                      "avoid_notes":  "Cheap N47/N43 without proof is dangerous.",
+                      "must_check":  [
+                                         "chain cold start",
+                                         "oil leaks",
+                                         "OBD",
+                                         "cooling",
+                                         "service"
+                                     ]
+                  },
+                  {
+                      "brand":  "bmw",
+                      "model":  "3er",
+                      "aliases":  [
+                                      "bmw 3er",
+                                      "3er",
+                                      "318i",
+                                      "320i",
+                                      "318d",
+                                      "320d",
+                                      "325i",
+                                      "330d"
+                                  ],
+                      "years":  "2000-2020",
+                      "liquidity_score":  80,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "high",
+                      "max_safe_mileage":  200000,
+                      "preferred_mileage":  140000,
+                      "good_engines":  [
+                                           "M54 petrol with proof",
+                                           "later B47/B48 with proof",
+                                           "M57 diesel with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "N47",
+                                          "N43",
+                                          "N46 oil leaks",
+                                          "cheap tuned diesel"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "ZF automatic serviced"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "automatic no proof high mileage"
+                                        ],
+                      "typical_problems":  [
+                                               "N47 chain",
+                                               "petrol oil leaks/cooling",
+                                               "diesel DPF/EGR/turbo",
+                                               "suspension",
+                                               "rust on older E46/E90"
+                                           ],
+                      "repair_cost_eur":  [
+                                              500,
+                                              3500
+                                          ],
+                      "body_risks":  [
+                                         "arches",
+                                         "sills",
+                                         "rear subframe older cars"
+                                     ],
+                      "flip_notes":  "Huge demand but buyers know risks. Proof sells.",
+                      "avoid_notes":  "Do not buy just because cheap BMW.",
+                      "must_check":  [
+                                         "chain/cold start",
+                                         "DPF/EGR",
+                                         "oil leaks",
+                                         "cooling",
+                                         "rear subframe/rust"
+                                     ]
+                  },
+                  {
+                      "brand":  "mercedes",
+                      "model":  "a-klasse",
+                      "aliases":  [
+                                      "mercedes a-klasse",
+                                      "a klasse",
+                                      "a180",
+                                      "a200"
+                                  ],
+                      "years":  "2004-2021",
+                      "liquidity_score":  76,
+                      "resale_speed":  "normal_fast",
+                      "market_fear_level":  "medium_high",
+                      "max_safe_mileage":  200000,
+                      "preferred_mileage":  130000,
+                      "good_engines":  [
+                                           "simple petrol",
+                                           "OM651 diesel with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "old CVT Autotronic",
+                                          "DCT no proof",
+                                          "diesel emissions no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "DCT serviced"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "Autotronic CVT"
+                                        ],
+                      "typical_problems":  [
+                                               "CVT fear on older W169",
+                                               "diesel DPF/EGR/injectors",
+                                               "electronics",
+                                               "suspension"
+                                           ],
+                      "repair_cost_eur":  [
+                                              400,
+                                              3000
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "front crash repairs"
+                                     ],
+                      "flip_notes":  "Badge helps; compact Mercedes sells if clean.",
+                      "avoid_notes":  "Avoid old CVT/Autotronic with any symptom.",
+                      "must_check":  [
+                                         "gearbox",
+                                         "OBD",
+                                         "DPF/EGR",
+                                         "service",
+                                         "electronics"
+                                     ]
+                  },
+                  {
+                      "brand":  "mercedes",
+                      "model":  "b-klasse",
+                      "aliases":  [
+                                      "mercedes b-klasse",
+                                      "b klasse",
+                                      "b180",
+                                      "b200"
+                                  ],
+                      "years":  "2005-2020",
+                      "liquidity_score":  74,
+                      "resale_speed":  "normal",
+                      "market_fear_level":  "medium_high",
+                      "max_safe_mileage":  210000,
+                      "preferred_mileage":  140000,
+                      "good_engines":  [
+                                           "simple petrol",
+                                           "OM651 diesel with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "old Autotronic CVT",
+                                          "DCT no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "DCT serviced"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "Autotronic CVT"
+                                        ],
+                      "typical_problems":  [
+                                               "family wear",
+                                               "CVT fear older cars",
+                                               "diesel emissions",
+                                               "suspension"
+                                           ],
+                      "repair_cost_eur":  [
+                                              400,
+                                              2800
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "tailgate"
+                                     ],
+                      "flip_notes":  "Practical family Mercedes; not super fast but steady.",
+                      "avoid_notes":  "CVT issues kill profit.",
+                      "must_check":  [
+                                         "gearbox",
+                                         "DPF/EGR",
+                                         "interior wear",
+                                         "TUV",
+                                         "service"
+                                     ]
+                  },
+                  {
+                      "brand":  "mercedes",
+                      "model":  "c-klasse",
+                      "aliases":  [
+                                      "mercedes c-klasse",
+                                      "c klasse",
+                                      "c180",
+                                      "c200",
+                                      "c220"
+                                  ],
+                      "years":  "2000-2020",
+                      "liquidity_score":  78,
+                      "resale_speed":  "normal",
+                      "market_fear_level":  "high",
+                      "max_safe_mileage":  210000,
+                      "preferred_mileage":  150000,
+                      "good_engines":  [
+                                           "M271 only with chain proof",
+                                           "OM646/OM651 diesel with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "M271 chain no proof",
+                                          "OM651 emissions/injector no proof",
+                                          "old automatic no service"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual",
+                                             "automatic serviced"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "automatic with jerks/no service"
+                                        ],
+                      "typical_problems":  [
+                                               "M271 timing chain",
+                                               "diesel DPF/EGR/injectors",
+                                               "rust on older W203/W204 edges",
+                                               "suspension arms"
+                                           ],
+                      "repair_cost_eur":  [
+                                              500,
+                                              3200
+                                          ],
+                      "body_risks":  [
+                                         "arches",
+                                         "sills",
+                                         "rear subframe older cars"
+                                     ],
+                      "flip_notes":  "Good badge demand. Clean estate/sedan can sell, but repairs are not cheap.",
+                      "avoid_notes":  "Cheap C-Class with no proof is not automatically good.",
+                      "must_check":  [
+                                         "chain/injectors",
+                                         "automatic shifts",
+                                         "rust",
+                                         "DPF/EGR",
+                                         "service"
+                                     ]
+                  },
+                  {
+                      "brand":  "volkswagen",
+                      "model":  "t5",
+                      "aliases":  [
+                                      "vw t5",
+                                      "volkswagen t5",
+                                      "transporter",
+                                      "caravelle",
+                                      "multivan"
+                                  ],
+                      "years":  "2003-2015",
+                      "liquidity_score":  88,
+                      "resale_speed":  "fast_if_clean",
+                      "market_fear_level":  "high",
+                      "max_safe_mileage":  300000,
+                      "preferred_mileage":  220000,
+                      "good_engines":  [
+                                           "1.9 TDI",
+                                           "2.0 TDI with proof"
+                                       ],
+                      "bad_engines":  [
+                                          "2.5 TDI neglected",
+                                          "BiTDI oil consumption",
+                                          "DSG no proof"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "unserviced DSG"
+                                        ],
+                      "typical_problems":  [
+                                               "commercial abuse",
+                                               "rust",
+                                               "2.5 TDI cam/injector issues",
+                                               "BiTDI oil consumption",
+                                               "turbo/DPF/EGR",
+                                               "gearbox/clutch"
+                                           ],
+                      "repair_cost_eur":  [
+                                              700,
+                                              5000
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "sliding doors",
+                                         "underbody",
+                                         "tailgate"
+                                     ],
+                      "flip_notes":  "Very liquid van/bus market. High mileage accepted if clean and documented.",
+                      "avoid_notes":  "Repair costs are huge; only buy with strong discount/proof.",
+                      "must_check":  [
+                                         "rust underside",
+                                         "engine code",
+                                         "oil consumption",
+                                         "gearbox/clutch",
+                                         "commercial wear"
+                                     ]
+                  },
+                  {
+                      "brand":  "volkswagen",
+                      "model":  "up",
+                      "aliases":  [
+                                      "vw up",
+                                      "volkswagen up",
+                                      "up!",
+                                      "move up"
+                                  ],
+                      "years":  "2011-2021",
+                      "liquidity_score":  88,
+                      "resale_speed":  "fast",
+                      "market_fear_level":  "low",
+                      "max_safe_mileage":  220000,
+                      "preferred_mileage":  130000,
+                      "good_engines":  [
+                                           "1.0 MPI"
+                                       ],
+                      "bad_engines":  [
+                                          "ASG automated gearbox with issues"
+                                      ],
+                      "good_gearboxes":  [
+                                             "manual"
+                                         ],
+                      "bad_gearboxes":  [
+                                            "ASG automated manual if jerky/no proof"
+                                        ],
+                      "typical_problems":  [
+                                               "city dents and bumper damage",
+                                               "clutch wear",
+                                               "door locks/window issues",
+                                               "brakes from city use"
+                                           ],
+                      "repair_cost_eur":  [
+                                              150,
+                                              1200
+                                          ],
+                      "body_risks":  [
+                                         "sills",
+                                         "bumpers",
+                                         "front crash repairs"
+                                     ],
+                      "flip_notes":  "VW Up is very liquid as a cheap city/first car, but dealer/Automarkt listings usually already include retail margin. Good for normal buyer, weak for flipper unless clearly below private-market price.",
+                      "avoid_notes":  "If from Autohaus/Automarkt and only around market price, cap score hard. For flipping, require clear discount, clean TUV and no accident/rust/warning-light issue.",
+                      "must_check":  [
+                                         "seller type dealer/private",
+                                         "TUV/HU",
+                                         "service history",
+                                         "city damage",
+                                         "clutch",
+                                         "warning lights"
+                                     ]
+                  }
+              ]
+}

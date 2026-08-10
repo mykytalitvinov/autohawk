@@ -1,0 +1,113 @@
+﻿[
+    {
+        "signal":  "SOLD feedback: VW Polo 1.2L top gepflegt, Klima, TUV neu 05/28",
+        "lesson":  "This exact type sold quickly. For flipper scoring, a simple petrol Polo with fresh/long TUV, Klima, normal interior and no hard mechanical/rust warning is a strong liquidity signal and should not be buried as average.",
+        "urls":  [
+                     "https://www.kleinanzeigen.de/s-anzeige/vw-polo-1-2l-top-gepflegt-klima-tuev-neu-05-28/3411847326-216-2008"
+                 ]
+    },
+    {
+        "signal":  "SOLD feedback: VW Polo 6R cheap/simple candidate",
+        "lesson":  "Polo 6R confirms strong demand when price and condition are reasonable. Prioritize simple petrol/manual, TUV, normal interior and clean seller signals; still reject DSG/TSI/serious rust/engine issues.",
+        "urls":  [
+                     "https://www.kleinanzeigen.de/s-anzeige/volkswagen-vw-polo-6r-abchya/3411950938-216-8500"
+                 ]
+    },
+    {
+        "signal":  "SOLD feedback: Skoda Fabia black beginner car",
+        "lesson":  "A black Fabia positioned as Kleinwagen/Anfaengerauto sold. This confirms cheap practical beginner cars can move quickly if TUV, rust and engine basics are acceptable.",
+        "urls":  [
+                     "https://www.kleinanzeigen.de/s-anzeige/kleinwagen-anfaengerauto-auto-skoda-fabia-schwarz/3411922243-216-3811"
+                 ]
+    },
+    {
+        "signal":  "RESERVED feedback: Toyota Yaris P9 1.0 VVT-i",
+        "lesson":  "Toyota Yaris P9 reserved fast. Fresh TUV and bounded windshield/consumable defects are acceptable negotiation points if engine, gearbox and rust are clean.",
+        "urls":  [
+                     "https://www.kleinanzeigen.de/s-anzeige/toyota-yaris-p9-1-0-vvt-i/3412413781-216-341"
+                 ]
+    },
+    {
+        "signal":  "RESERVED feedback: Ford Focus cheap fast lead",
+        "lesson":  "Cheap Focus around 1000-1500 EUR can reserve fast. Treat it as real demand, but keep as CHECK until TUV, engine, gearbox, rust and warning lights are verified.",
+        "urls":  [
+                     "https://www.kleinanzeigen.de/s-anzeige/ford-focus/3412878383-216-1227"
+                 ]
+    },
+    {
+        "signal":  "RESERVED feedback: repeated Polo demand",
+        "lesson":  "Multiple simple Polo leads reserved/sold fast. Boost clean cheap Polo with TUV/Klima/normal interior, but punish rust, TSI/DSG and no TUV hard.",
+        "urls":  [
+                     "https://www.kleinanzeigen.de/s-anzeige/volkswagen-vw-polo-6r-abchya/3411950938-216-8500",
+                     "https://www.kleinanzeigen.de/s-anzeige/vw-polo-1-2l-top-gepflegt-klima-tuev-neu-05-28/3411847326-216-2008"
+                 ]
+    },
+    {
+        "signal":  "USER FEEDBACK: true GOOD means profitable youth flip, not normal retail car",
+        "lesson":  "For Germany youth/first-car flip strategy, prioritize VW up, VW Polo, VW Golf, Hyundai i10, Opel Corsa and Ford Fiesta. Strong boosts: 5 doors, HU/TUV 18+ months, simple naturally aspirated petrol/MPI, 1.Hand, Scheckheft, Sitzheizung, Bluetooth/CarPlay, Klimaautomatik, 8-fach bereift. Penalize 3-door, no/short TUV, Autohaus/dealer retail pricing, TSI/TFSI, EcoBoost without wet-belt proof, turbo engines over 180k, tuning, export wording and normal-market prices. GOOD must mean flipper edge, not merely a nice car.",
+        "urls":  [
+
+                 ]
+    },
+    {
+        "signal":  "EXPERT FEEDBACK 2026-06-15: VW Golf 4 1.6 petrol 2003, 177k, 1100 EUR",
+        "lesson":  "This Golf is a good candidate by description, price and mileage, not a bad lead. Golf 4 1.6 petrol/manual around 1100 EUR with 177k can be a strong urgent CHECK if mileage is real and engine/gearbox are healthy. Short TUV lowers confidence, but the price is good enough to inspect quickly. Required checks: cold start, clutch/gearbox, oil/coolant leaks, warning lights, rust on sills/arches/underbody and exact TUV cost.",
+        "urls":  [
+                     "https://www.kleinanzeigen.de/s-anzeige/volkswagen-golf-1-6-benzin/3436574319-216-4285"
+                 ]
+    },
+    {
+        "signal":  "EXPERT FEEDBACK 2026-06-15: Opel Astra J 1.6 Diesel 2015, 203k, 2950 EUR",
+        "lesson":  "Expert feedback says this Astra is genuinely good by description: 203k km is acceptable for a diesel if maintenance, DPF/EGR/turbo/clutch and TUV are plausible. For Astra J diesel around 2015, do not reject only because mileage is just above 200k when price is clearly low and description is clean. Keep as strong CHECK until diagnostics and documents confirm the story.",
+        "urls":  [
+                     "https://www.kleinanzeigen.de/s-anzeige/opel-astra-1-6-diesel/3436574213-216-1292"
+                 ]
+    },
+    {
+        "signal":  "RULE: suspiciously cheap liquid car",
+        "lesson":  "If a liquid model is very cheap, do not call it GOOD blindly and do not skip it just because it is old. Mark it as urgent manual CHECK when there are no hard red flags. A too-good price means inspect faster and more suspiciously: verify TUV, documents, mileage, engine, gearbox and rust before trusting the margin.",
+        "urls":  [
+
+                 ]
+    },
+    {
+        "signal":  "SOLD FEEDBACK 2026-06-18: Corsa and Polo sold quickly",
+        "lesson":  "User confirmed that the Corsa and Polo leads sold. This is a strong product signal: prioritize mainstream high-demand cars over cheap slow-resale oddballs. Clean Polo/Corsa with TUV, fair price, Klima/5 doors/service/normal condition should be treated as urgent manual checks even when margin is not perfectly proven yet. Still reject no-TUV, engine/gearbox defects, rust, warning lights and dealer retail pricing.",
+        "urls":  [
+
+                 ]
+    },
+    {
+        "signal":  "EXPERT + SOLD FEEDBACK 2026-06-18: Corsa diesel around 3k and Polo around 1k",
+        "lesson":  "These were not random sold listings. A knowledgeable person said the specific Corsa/Polo were good, and then they sold. Corsa profile: newer around 2014, diesel, decent power, around 3000 EUR, mainstream demand. Polo profile: around 1000 EUR pain-price, very broad buyer pool. AUTOHAWK should treat these as expert-confirmed sold DNA: open fast if no hard red flags, even if market math is not perfect yet.",
+        "urls":  [
+
+                 ]
+    },
+    {
+        "signal":  "SOLD FEEDBACK 2026-07-26: cheap Golf/Astra/Polo moved fast",
+        "lesson":  "User confirmed multiple AUTOHAWK leads sold within about a day: Golf Plus 2007 1050 EUR, Golf V 2006 1400 EUR, Golf 5 1.9 TDI 1200 EUR, Astra Kombi 2008 1000 EUR, Astra H 2009 1100 EUR and Polo around 1200 EUR. This confirms the strongest DNA is not perfect cars, but very cheap mainstream liquid cars with no hard engine/gearbox/rust/export red flags. High mileage should be judged per model and engine, not with one flat rule.",
+        "urls":  [
+                     "https://www.kleinanzeigen.de/s-anzeige/golf-plus-2007/3467637873-216-1560",
+                     "https://www.kleinanzeigen.de/s-anzeige/vw-golf-v-2006-tuev-bis-2027/3467685982-216-4388",
+                     "https://www.kleinanzeigen.de/s-anzeige/volkswagen-golf-1-9-tdi-united-united/3468074177-216-7598",
+                     "https://www.kleinanzeigen.de/s-anzeige/opel-astra-kombi/3467602126-216-942",
+                     "https://www.kleinanzeigen.de/s-anzeige/opel-astra-h/3468028052-216-9130",
+                     "https://www.kleinanzeigen.de/s-anzeige/volkswagen-polo-1-2-44kw/3468336766-216-1147"
+                 ]
+    },
+    {
+        "signal":  "RULE: petrol mileage must be model-specific",
+        "lesson":  "For petrol cars, 220k+ km is generally high and must lower confidence, especially on small engines. But it is not an automatic rejection on extremely cheap, liquid VW/Opel/Ford models if TUV, body, engine, gearbox and seller story are clean. For Polo 1.2/1.4 petrol above 220k, keep as CHECK and require very low price around 1000-1300 EUR plus clear TUV/driveability. For Golf 5 and Astra H around 150k-190k, low price can outweigh mileage if there are no hard red flags.",
+        "urls":  [
+
+                 ]
+    },
+    {
+        "signal":  "RULE: small comfort defects are negotiation, not instant reject",
+        "lesson":  "Non-working Klima, key remote, dirty interior, small cosmetic defects or simple wear can be useful negotiation points on cheap liquid cars. They should reduce confidence and resale price, but should not kill a lead by themselves. Hard reject remains engine not starting, gearbox failure, accident wording, serious rust, missing documents, no TUV on risky cars, export/Bastler wording, or expensive unknown faults.",
+        "urls":  [
+
+                 ]
+    }
+]

@@ -1,0 +1,2923 @@
+{
+    "version":  "2026-07-06-v2-live-recommendation-info-only",
+    "purpose":  "Human technical/live-market explanation database for AUTOHAWK reports. Information only; it does not change scoring, filtering, HOT/GOOD/CHECK or scanner gates.",
+    "rules":  [
+                  "Use this database to explain why a found car can be good or bad.",
+                  "Do not promise certainty. Use words like possible, likely, needs inspection.",
+                  "Engine, gearbox, generation, TUV and body condition matter more than broad model name.",
+                  "Cheap price is interesting only if the reason is not engine, gearbox, documents or structural rust."
+              ],
+    "profiles":  [
+                     {
+                         "brand":  "volkswagen",
+                         "model":  "golf",
+                         "generation":  "Golf 4",
+                         "years":  [
+                                       1997,
+                                       2004
+                                   ],
+                         "aliases":  [
+                                         "golf 4",
+                                         "golf iv",
+                                         "golf4",
+                                         "mk4"
+                                     ],
+                         "market_role":  "Very liquid only when cheap. Good bottom-market car if TUV and rust are acceptable.",
+                         "good_for":  [
+                                          "cheap first car",
+                                          "budget daily",
+                                          "fast cheap flip"
+                                      ],
+                         "why_buy":  [
+                                         "huge parts supply",
+                                         "many buyers know the model",
+                                         "1.6 petrol and 1.9 TDI are understandable to the market"
+                                     ],
+                         "why_not":  [
+                                         "age and rust can destroy the deal",
+                                         "normal retail price is not attractive",
+                                         "automatic and tuning reduce buyer trust"
+                                     ],
+                         "body_checks":  [
+                                             "sills",
+                                             "wheel arches",
+                                             "floor",
+                                             "door bottoms",
+                                             "trunk lid",
+                                             "jacking points"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "cold start",
+                                                   "clutch",
+                                                   "gearbox",
+                                                   "cooling system",
+                                                   "suspension knocks",
+                                                   "OBD scan"
+                                               ],
+                         "seller_questions":  [
+                                                  "Wie lange hat das Auto TUV?",
+                                                  "Gibt es Rost an Schweller oder Unterboden?",
+                                                  "Laufen Motor und Getriebe einwandfrei?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.6",
+                                                              "1,6"
+                                                          ],
+                                             "label":  "1.6 petrol",
+                                             "verdict":  "preferred cheap petrol",
+                                             "risks":  [
+                                                           "oil leaks",
+                                                           "rough idle",
+                                                           "cooling problems"
+                                                       ],
+                                             "checks":  [
+                                                            "cold idle",
+                                                            "oil/coolant",
+                                                            "service proof"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.9 tdi",
+                                                              "1,9 tdi"
+                                                          ],
+                                             "label":  "1.9 TDI",
+                                             "verdict":  "durable but old diesel",
+                                             "risks":  [
+                                                           "turbo",
+                                                           "dual-mass flywheel",
+                                                           "injectors",
+                                                           "smoke"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start smoke",
+                                                            "turbo pull",
+                                                            "clutch/DMF",
+                                                            "TUV emissions"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.4",
+                                                              "1,4"
+                                                          ],
+                                             "label":  "1.4 petrol",
+                                             "verdict":  "acceptable only cheap",
+                                             "risks":  [
+                                                           "weak power",
+                                                           "oil use",
+                                                           "old timing belt"
+                                                       ],
+                                             "checks":  [
+                                                            "belt proof",
+                                                            "idle",
+                                                            "oil level"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "volkswagen",
+                         "model":  "golf",
+                         "generation":  "Golf 5",
+                         "years":  [
+                                       2004,
+                                       2008
+                                   ],
+                         "aliases":  [
+                                         "golf 5",
+                                         "golf v",
+                                         "mk5"
+                                     ],
+                         "market_role":  "Strong youth/first-car demand. Very interesting under 1500-2000 EUR if clean.",
+                         "good_for":  [
+                                          "first car",
+                                          "student daily",
+                                          "cheap VW flip"
+                                      ],
+                         "why_buy":  [
+                                         "strong demand",
+                                         "better modern feeling than Golf 4",
+                                         "good resale if TUV and body are clean"
+                                     ],
+                         "why_not":  [
+                                         "FSI/TSI/DSG can become expensive",
+                                         "Golf Plus is slower than normal Golf",
+                                         "rust and neglected maintenance still matter"
+                                     ],
+                         "body_checks":  [
+                                             "front wings",
+                                             "sills",
+                                             "rear arches",
+                                             "tailgate",
+                                             "accident panel gaps"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "timing belt/chain proof",
+                                                   "clutch",
+                                                   "gearbox",
+                                                   "oil consumption",
+                                                   "ABS/ESP lights"
+                                               ],
+                         "seller_questions":  [
+                                                  "Welcher Motor genau?",
+                                                  "Wurde Zahnriemen oder Steuerkette gemacht?",
+                                                  "Gibt es Fehlermeldungen?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.6 mpi",
+                                                              "1,6 mpi",
+                                                              "1.6 benzin",
+                                                              "1,6 benzin"
+                                                          ],
+                                             "label":  "1.6 MPI petrol",
+                                             "verdict":  "best simple cheap Golf 5 choice",
+                                             "risks":  [
+                                                           "oil leaks",
+                                                           "old belt/service"
+                                                       ],
+                                             "checks":  [
+                                                            "belt/service proof",
+                                                            "cold start",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.4",
+                                                              "1,4"
+                                                          ],
+                                             "label":  "1.4 petrol",
+                                             "verdict":  "okay if cheap and simple",
+                                             "risks":  [
+                                                           "weak performance",
+                                                           "timing/service neglect"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start",
+                                                            "service history"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "fsi"
+                                                          ],
+                                             "label":  "FSI",
+                                             "verdict":  "higher caution",
+                                             "risks":  [
+                                                           "carbon buildup",
+                                                           "sensors",
+                                                           "high-pressure fuel system"
+                                                       ],
+                                             "checks":  [
+                                                            "idle",
+                                                            "engine light",
+                                                            "service invoices"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "tsi"
+                                                          ],
+                                             "label":  "TSI",
+                                             "verdict":  "risk engine for cheap flip",
+                                             "risks":  [
+                                                           "timing chain",
+                                                           "turbo",
+                                                           "oil consumption"
+                                                       ],
+                                             "checks":  [
+                                                            "chain proof",
+                                                            "turbo noise",
+                                                            "oil use"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "dsg"
+                                                          ],
+                                             "label":  "DSG",
+                                             "verdict":  "gearbox risk",
+                                             "risks":  [
+                                                           "mechatronic",
+                                                           "clutch pack"
+                                                       ],
+                                             "checks":  [
+                                                            "smooth shifts hot/cold",
+                                                            "service proof"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "volkswagen",
+                         "model":  "golf",
+                         "generation":  "Golf 6",
+                         "years":  [
+                                       2009,
+                                       2012
+                                   ],
+                         "aliases":  [
+                                         "golf 6",
+                                         "golf vi",
+                                         "mk6"
+                                     ],
+                         "market_role":  "Very desirable if cheap, but engine/gearbox decide everything.",
+                         "good_for":  [
+                                          "modern first car",
+                                          "quick resale if clean"
+                                      ],
+                         "why_buy":  [
+                                         "modern enough for young buyers",
+                                         "VW badge demand",
+                                         "good equipment helps resale"
+                                     ],
+                         "why_not":  [
+                                         "1.4 TSI and DSG can be dangerous",
+                                         "cheap Golf 6 is suspicious without explanation"
+                                     ],
+                         "body_checks":  [
+                                             "accident repairs",
+                                             "front wings",
+                                             "sills",
+                                             "rear arches"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "chain noise",
+                                                   "turbo",
+                                                   "DSG behavior",
+                                                   "oil consumption",
+                                                   "dashboard warnings"
+                                               ],
+                         "seller_questions":  [
+                                                  "Ist es TSI oder Sauger?",
+                                                  "Wurde die Steuerkette gemacht?",
+                                                  "Hat DSG Service/Reparaturbelege?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.6",
+                                                              "1,6"
+                                                          ],
+                                             "label":  "1.6 petrol/TDI",
+                                             "verdict":  "needs exact engine check",
+                                             "risks":  [
+                                                           "service neglect",
+                                                           "diesel DPF/EGR if TDI"
+                                                       ],
+                                             "checks":  [
+                                                            "engine code",
+                                                            "service proof"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "tsi"
+                                                          ],
+                                             "label":  "TSI",
+                                             "verdict":  "high caution",
+                                             "risks":  [
+                                                           "timing chain",
+                                                           "turbo",
+                                                           "oil consumption"
+                                                       ],
+                                             "checks":  [
+                                                            "cold chain rattle",
+                                                            "repair proof"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "2.0 tdi",
+                                                              "2,0 tdi"
+                                                          ],
+                                             "label":  "2.0 TDI",
+                                             "verdict":  "good if maintained",
+                                             "risks":  [
+                                                           "DPF/EGR",
+                                                           "turbo",
+                                                           "dual-mass flywheel"
+                                                       ],
+                                             "checks":  [
+                                                            "smoke",
+                                                            "DPF warnings",
+                                                            "clutch/DMF"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "volkswagen",
+                         "model":  "polo",
+                         "generation":  "Polo 9N/9N3",
+                         "years":  [
+                                       2002,
+                                       2009
+                                   ],
+                         "aliases":  [
+                                         "polo 9n",
+                                         "polo 9n3"
+                                     ],
+                         "market_role":  "Core first-car model. Very good when cheap, TUV and not rusty.",
+                         "good_for":  [
+                                          "first car",
+                                          "city daily",
+                                          "cheap fast flip"
+                                      ],
+                         "why_buy":  [
+                                         "wide buyer audience",
+                                         "cheap insurance",
+                                         "easy parts",
+                                         "fast sale at low price"
+                                     ],
+                         "why_not":  [
+                                         "1.2 chain/idle issues",
+                                         "rust and weak maintenance",
+                                         "too expensive examples sit"
+                                     ],
+                         "body_checks":  [
+                                             "sills",
+                                             "arches",
+                                             "door bottoms",
+                                             "front suspension"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "cold chain rattle",
+                                                   "idle misfire",
+                                                   "clutch",
+                                                   "brakes",
+                                                   "OBD"
+                                               ],
+                         "seller_questions":  [
+                                                  "Wurde die Steuerkette gemacht?",
+                                                  "Wie lange TUV?",
+                                                  "Gibt es Rost oder Warnleuchten?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.2",
+                                                              "1,2"
+                                                          ],
+                                             "label":  "1.2 petrol",
+                                             "verdict":  "liquid but check chain",
+                                             "risks":  [
+                                                           "timing chain",
+                                                           "misfire",
+                                                           "rough idle"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start",
+                                                            "chain proof",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.4",
+                                                              "1,4"
+                                                          ],
+                                             "label":  "1.4 petrol",
+                                             "verdict":  "usually better than 1.2 if clean",
+                                             "risks":  [
+                                                           "belt/service",
+                                                           "oil leaks"
+                                                       ],
+                                             "checks":  [
+                                                            "service proof",
+                                                            "idle"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "tdi"
+                                                          ],
+                                             "label":  "TDI",
+                                             "verdict":  "economical but old diesel checks",
+                                             "risks":  [
+                                                           "turbo",
+                                                           "EGR",
+                                                           "clutch"
+                                                       ],
+                                             "checks":  [
+                                                            "smoke",
+                                                            "turbo pull",
+                                                            "TUV emissions"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "volkswagen",
+                         "model":  "polo",
+                         "generation":  "Polo 6R",
+                         "years":  [
+                                       2010,
+                                       2014
+                                   ],
+                         "aliases":  [
+                                         "polo 6r"
+                                     ],
+                         "market_role":  "Very strong young-buyer demand, especially 5-door with TUV.",
+                         "good_for":  [
+                                          "first car",
+                                          "young buyer",
+                                          "clean resale"
+                                      ],
+                         "why_buy":  [
+                                         "modern enough",
+                                         "looks better than older cheap cars",
+                                         "5-door/TUV/low km sells fast"
+                                     ],
+                         "why_not":  [
+                                         "retail price kills flip margin",
+                                         "1.2 TSI/DSG needs caution"
+                                     ],
+                         "body_checks":  [
+                                             "front damage",
+                                             "sills",
+                                             "paint mismatch"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "chain/TSI check",
+                                                   "DSG shifts",
+                                                   "clutch",
+                                                   "dashboard lights"
+                                               ],
+                         "seller_questions":  [
+                                                  "Welcher Motor genau?",
+                                                  "Ist TUV-Bericht vorhanden?",
+                                                  "Wurde Service regelmaessig gemacht?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.2 tsi",
+                                                              "1,2 tsi"
+                                                          ],
+                                             "label":  "1.2 TSI",
+                                             "verdict":  "caution",
+                                             "risks":  [
+                                                           "chain",
+                                                           "turbo",
+                                                           "oil"
+                                                       ],
+                                             "checks":  [
+                                                            "chain proof",
+                                                            "turbo sound"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.2",
+                                                              "1,2"
+                                                          ],
+                                             "label":  "1.2 petrol",
+                                             "verdict":  "good if simple and maintained",
+                                             "risks":  [
+                                                           "chain/idle"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "dsg"
+                                                          ],
+                                             "label":  "DSG",
+                                             "verdict":  "avoid unless very strong proof",
+                                             "risks":  [
+                                                           "mechatronic",
+                                                           "clutch"
+                                                       ],
+                                             "checks":  [
+                                                            "hot/cold shifting"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "opel",
+                         "model":  "corsa",
+                         "generation":  "Corsa C",
+                         "years":  [
+                                       2000,
+                                       2006
+                                   ],
+                         "aliases":  [
+                                         "corsa c"
+                                     ],
+                         "market_role":  "Cheap first-car model. Works only cheap with TUV.",
+                         "good_for":  [
+                                          "cheap first car",
+                                          "low-budget daily"
+                                      ],
+                         "why_buy":  [
+                                         "cheap parts",
+                                         "simple technology",
+                                         "easy to explain to buyers"
+                                     ],
+                         "why_not":  [
+                                         "old, rust-prone, weak comfort",
+                                         "not worth high retail money"
+                                     ],
+                         "body_checks":  [
+                                             "sills",
+                                             "arches",
+                                             "subframe",
+                                             "brake lines"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "timing chain noise",
+                                                   "cooling",
+                                                   "clutch",
+                                                   "brakes"
+                                               ],
+                         "seller_questions":  [
+                                                  "Wie lange TUV?",
+                                                  "Rost am Unterboden?",
+                                                  "Laeuft Motor kalt ruhig?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.0",
+                                                              "1,0"
+                                                          ],
+                                             "label":  "1.0 petrol",
+                                             "verdict":  "only very cheap",
+                                             "risks":  [
+                                                           "weak engine",
+                                                           "chain noise"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start",
+                                                            "chain"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.2",
+                                                              "1,2"
+                                                          ],
+                                             "label":  "1.2 petrol",
+                                             "verdict":  "better cheap choice",
+                                             "risks":  [
+                                                           "chain",
+                                                           "oil leaks"
+                                                       ],
+                                             "checks":  [
+                                                            "cold idle",
+                                                            "OBD"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "opel",
+                         "model":  "corsa",
+                         "generation":  "Corsa D",
+                         "years":  [
+                                       2006,
+                                       2014
+                                   ],
+                         "aliases":  [
+                                         "corsa d"
+                                     ],
+                         "market_role":  "One of the best budget first-car models when TUV is long and chain is quiet/done.",
+                         "good_for":  [
+                                          "first car",
+                                          "student car",
+                                          "quick budget resale"
+                                      ],
+                         "why_buy":  [
+                                         "strong beginner demand",
+                                         "cheap parts",
+                                         "looks modern enough",
+                                         "TUV 2027/2028 is a big selling point"
+                                     ],
+                         "why_not":  [
+                                         "timing chain can be expensive relative to car price",
+                                         "retail dealer price often has no margin"
+                                     ],
+                         "body_checks":  [
+                                             "front subframe",
+                                             "sills",
+                                             "rear arches",
+                                             "accident gaps"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "timing chain rattle",
+                                                   "idle",
+                                                   "clutch",
+                                                   "brakes",
+                                                   "air conditioning"
+                                               ],
+                         "seller_questions":  [
+                                                  "Wurde die Steuerkette gemacht?",
+                                                  "Gibt es Rechnungen?",
+                                                  "Wie lange TUV?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.2",
+                                                              "1,2"
+                                                          ],
+                                             "label":  "1.2 petrol",
+                                             "verdict":  "good if chain quiet/done",
+                                             "risks":  [
+                                                           "timing chain",
+                                                           "coil/misfire"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.4",
+                                                              "1,4"
+                                                          ],
+                                             "label":  "1.4 petrol",
+                                             "verdict":  "nice first-car engine",
+                                             "risks":  [
+                                                           "chain/service",
+                                                           "oil leaks"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start",
+                                                            "service proof"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.3 cdti",
+                                                              "1,3 cdti"
+                                                          ],
+                                             "label":  "1.3 CDTI",
+                                             "verdict":  "economical but diesel caution",
+                                             "risks":  [
+                                                           "DPF/EGR",
+                                                           "turbo",
+                                                           "injectors"
+                                                       ],
+                                             "checks":  [
+                                                            "smoke",
+                                                            "DPF warning",
+                                                            "TUV emissions"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "opel",
+                         "model":  "astra",
+                         "generation":  "Astra H",
+                         "years":  [
+                                       2004,
+                                       2010
+                                   ],
+                         "aliases":  [
+                                         "astra h",
+                                         "astra caravan"
+                                     ],
+                         "market_role":  "Good value car. Less hot than Golf but can be excellent when cheap with TUV.",
+                         "good_for":  [
+                                          "budget daily",
+                                          "family/work cheap car",
+                                          "value flip"
+                                      ],
+                         "why_buy":  [
+                                         "cheap parts",
+                                         "Caravan/Kombi practical demand",
+                                         "low entry price often leaves room"
+                                     ],
+                         "why_not":  [
+                                         "not as emotionally liquid as VW",
+                                         "rust/service neglect can eat profit"
+                                     ],
+                         "body_checks":  [
+                                             "rear arches",
+                                             "sills",
+                                             "underbody",
+                                             "exhaust",
+                                             "tailgate"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "cooling system",
+                                                   "Twinport idle",
+                                                   "oil leaks",
+                                                   "clutch",
+                                                   "brakes"
+                                               ],
+                         "seller_questions":  [
+                                                  "Ist TUV neu oder bald faellig?",
+                                                  "Wurde Zahnriemen/Service gemacht?",
+                                                  "Rost am Unterboden?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.4",
+                                                              "1,4"
+                                                          ],
+                                             "label":  "1.4 Twinport",
+                                             "verdict":  "acceptable cheap petrol",
+                                             "risks":  [
+                                                           "rough idle",
+                                                           "EGR/sensors"
+                                                       ],
+                                             "checks":  [
+                                                            "idle",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.6",
+                                                              "1,6"
+                                                          ],
+                                             "label":  "1.6 petrol",
+                                             "verdict":  "good if maintained",
+                                             "risks":  [
+                                                           "belt/service",
+                                                           "oil leaks"
+                                                       ],
+                                             "checks":  [
+                                                            "belt proof",
+                                                            "cooling"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "ford",
+                         "model":  "fiesta",
+                         "generation":  "Fiesta Mk6/Mk7",
+                         "years":  [
+                                       2002,
+                                       2017
+                                   ],
+                         "aliases":  [
+                                         "fiesta"
+                                     ],
+                         "market_role":  "Strong first-car alternative to Polo/Corsa. Best with simple petrol and TUV.",
+                         "good_for":  [
+                                          "first car",
+                                          "cheap city car",
+                                          "student daily"
+                                      ],
+                         "why_buy":  [
+                                         "broad demand",
+                                         "simple petrol engines can be low risk",
+                                         "cheap parts"
+                                     ],
+                         "why_not":  [
+                                         "rust and neglected maintenance",
+                                         "EcoBoost wet belt risk",
+                                         "warning light cars are dangerous"
+                                     ],
+                         "body_checks":  [
+                                             "sills",
+                                             "rear arches",
+                                             "door bottoms",
+                                             "front suspension"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "clutch",
+                                                   "wheel bearings",
+                                                   "brakes",
+                                                   "engine warning light",
+                                                   "timing belt history"
+                                               ],
+                         "seller_questions":  [
+                                                  "Ist Motorkontrollleuchte aus?",
+                                                  "Wann wurde Zahnriemen gemacht?",
+                                                  "Rost am Schweller?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.25",
+                                                              "1,25"
+                                                          ],
+                                             "label":  "1.25 petrol",
+                                             "verdict":  "preferred cheap Fiesta engine",
+                                             "risks":  [
+                                                           "belt/service",
+                                                           "age wear"
+                                                       ],
+                                             "checks":  [
+                                                            "belt proof",
+                                                            "cold start"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.0 ecoboost",
+                                                              "ecoboost"
+                                                          ],
+                                             "label":  "EcoBoost",
+                                             "verdict":  "avoid without wet-belt proof",
+                                             "risks":  [
+                                                           "wet belt",
+                                                           "turbo",
+                                                           "overheating"
+                                                       ],
+                                             "checks":  [
+                                                            "belt invoice",
+                                                            "cooling",
+                                                            "oil history"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "ford",
+                         "model":  "focus",
+                         "generation":  "Focus Mk2/Mk3",
+                         "years":  [
+                                       2004,
+                                       2018
+                                   ],
+                         "aliases":  [
+                                         "focus",
+                                         "focus turnier",
+                                         "focus kombi"
+                                     ],
+                         "market_role":  "Practical and liquid when cheap. Slower than Polo/Golf/Corsa unless price is very good.",
+                         "good_for":  [
+                                          "daily",
+                                          "family/work",
+                                          "cheap practical flip"
+                                      ],
+                         "why_buy":  [
+                                         "1.6 petrol is understandable",
+                                         "Turnier/Kombi has practical demand",
+                                         "good Autobahn comfort for price"
+                                     ],
+                         "why_not":  [
+                                         "diesel repairs can be expensive",
+                                         "high mileage petrol needs bigger discount"
+                                     ],
+                         "body_checks":  [
+                                             "sills",
+                                             "rear arches",
+                                             "tailgate",
+                                             "underbody"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "clutch",
+                                                   "wheel bearings",
+                                                   "rear suspension",
+                                                   "timing belt",
+                                                   "DPF/EGR on diesel"
+                                               ],
+                         "seller_questions":  [
+                                                  "Welcher Motor genau?",
+                                                  "Gibt es DPF/EGR Probleme?",
+                                                  "Wann Zahnriemen gemacht?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.6",
+                                                              "1,6"
+                                                          ],
+                                             "label":  "1.6 petrol",
+                                             "verdict":  "best simple Focus choice",
+                                             "risks":  [
+                                                           "belt/service",
+                                                           "oil leaks"
+                                                       ],
+                                             "checks":  [
+                                                            "belt proof",
+                                                            "idle"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "tdci"
+                                                          ],
+                                             "label":  "TDCi diesel",
+                                             "verdict":  "only with proof and low price",
+                                             "risks":  [
+                                                           "turbo",
+                                                           "injectors",
+                                                           "DPF/EGR",
+                                                           "dual-mass flywheel"
+                                                       ],
+                                             "checks":  [
+                                                            "smoke",
+                                                            "DPF",
+                                                            "clutch/DMF"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "skoda",
+                         "model":  "fabia",
+                         "generation":  "Fabia 1/2",
+                         "years":  [
+                                       1999,
+                                       2014
+                                   ],
+                         "aliases":  [
+                                         "fabia"
+                                     ],
+                         "market_role":  "Practical, cheap to own, good first car when TUV and price are right.",
+                         "good_for":  [
+                                          "first car",
+                                          "cheap daily",
+                                          "low-cost buyer"
+                                      ],
+                         "why_buy":  [
+                                         "VW-group parts",
+                                         "practical body",
+                                         "low running costs"
+                                     ],
+                         "why_not":  [
+                                         "less emotional demand than Polo",
+                                         "needs clear price advantage"
+                                     ],
+                         "body_checks":  [
+                                             "sills",
+                                             "doors",
+                                             "rear arches",
+                                             "underbody"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "chain/belt",
+                                                   "idle",
+                                                   "clutch",
+                                                   "brakes",
+                                                   "steering"
+                                               ],
+                         "seller_questions":  [
+                                                  "Hat das Auto TUV?",
+                                                  "Wurde Zahnriemen/Steuerkette gemacht?",
+                                                  "Gibt es Rost?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.2",
+                                                              "1,2"
+                                                          ],
+                                             "label":  "1.2 petrol",
+                                             "verdict":  "cheap but check chain/idle",
+                                             "risks":  [
+                                                           "chain",
+                                                           "misfire"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.4",
+                                                              "1,4"
+                                                          ],
+                                             "label":  "1.4 petrol",
+                                             "verdict":  "good if maintained",
+                                             "risks":  [
+                                                           "belt/service"
+                                                       ],
+                                             "checks":  [
+                                                            "belt proof"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "skoda",
+                         "model":  "octavia",
+                         "generation":  "Octavia 1/2",
+                         "years":  [
+                                       1996,
+                                       2013
+                                   ],
+                         "aliases":  [
+                                         "octavia"
+                                     ],
+                         "market_role":  "Very practical and liquid. Cheap Octavia gets attention but often has a reason.",
+                         "good_for":  [
+                                          "family",
+                                          "work car",
+                                          "diesel commuter",
+                                          "practical flip"
+                                      ],
+                         "why_buy":  [
+                                         "big car for little money",
+                                         "diesel/Kombi demand",
+                                         "strong utility value"
+                                     ],
+                         "why_not":  [
+                                         "too-cheap Octavia is suspicious",
+                                         "TDI repairs can kill margin",
+                                         "FSI/TSI needs caution"
+                                     ],
+                         "body_checks":  [
+                                             "sills",
+                                             "arches",
+                                             "tailgate",
+                                             "underbody",
+                                             "accident repairs"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "turbo",
+                                                   "injectors",
+                                                   "clutch/DMF",
+                                                   "DPF/EGR",
+                                                   "cooling",
+                                                   "OBD"
+                                               ],
+                         "seller_questions":  [
+                                                  "Warum ist der Preis so niedrig?",
+                                                  "Funktionieren Turbo und Kupplung?",
+                                                  "Gibt es DPF/EGR Probleme?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.9 tdi",
+                                                              "1,9 tdi"
+                                                          ],
+                                             "label":  "1.9 TDI",
+                                             "verdict":  "durable if maintained",
+                                             "risks":  [
+                                                           "turbo",
+                                                           "DMF",
+                                                           "smoke"
+                                                       ],
+                                             "checks":  [
+                                                            "cold smoke",
+                                                            "turbo pull",
+                                                            "service"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "2.0 tdi",
+                                                              "2,0 tdi"
+                                                          ],
+                                             "label":  "2.0 TDI",
+                                             "verdict":  "useful but higher risk",
+                                             "risks":  [
+                                                           "injectors",
+                                                           "turbo",
+                                                           "DPF/EGR",
+                                                           "DMF"
+                                                       ],
+                                             "checks":  [
+                                                            "OBD",
+                                                            "smoke",
+                                                            "clutch"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "fsi",
+                                                              "tsi"
+                                                          ],
+                                             "label":  "FSI/TSI",
+                                             "verdict":  "caution",
+                                             "risks":  [
+                                                           "chain/carbon/turbo depending engine"
+                                                       ],
+                                             "checks":  [
+                                                            "engine light",
+                                                            "chain proof",
+                                                            "idle"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "audi",
+                         "model":  "a3",
+                         "generation":  "A3 8L/8P",
+                         "years":  [
+                                       1996,
+                                       2012
+                                   ],
+                         "aliases":  [
+                                         "a3",
+                                         "sportback"
+                                     ],
+                         "market_role":  "Youth demand is strong, but premium repairs and engine choice matter.",
+                         "good_for":  [
+                                          "young buyer",
+                                          "stylish first car",
+                                          "premium cheap flip"
+                                      ],
+                         "why_buy":  [
+                                         "looks better than normal budget cars",
+                                         "strong demand if clean",
+                                         "1.6 petrol is understandable"
+                                     ],
+                         "why_not":  [
+                                         "premium age costs",
+                                         "TFSI/TDI/S-tronic can be expensive",
+                                         "accident/rust/warning lights hurt trust"
+                                     ],
+                         "body_checks":  [
+                                             "front wings",
+                                             "arches",
+                                             "sills",
+                                             "accident gaps",
+                                             "headlight mismatch"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "clutch",
+                                                   "gearbox",
+                                                   "oil leaks",
+                                                   "dashboard warnings",
+                                                   "electronics"
+                                               ],
+                         "seller_questions":  [
+                                                  "Welcher Motor und welches Getriebe?",
+                                                  "Gibt es Warnleuchten?",
+                                                  "Ist TUV-Bericht vorhanden?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.6",
+                                                              "1,6"
+                                                          ],
+                                             "label":  "1.6 petrol",
+                                             "verdict":  "preferred cheap A3 engine",
+                                             "risks":  [
+                                                           "oil leaks",
+                                                           "old service"
+                                                       ],
+                                             "checks":  [
+                                                            "cold idle",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "2.0 tdi",
+                                                              "2,0 tdi"
+                                                          ],
+                                             "label":  "2.0 TDI",
+                                             "verdict":  "good only with proof",
+                                             "risks":  [
+                                                           "injectors",
+                                                           "turbo",
+                                                           "DPF",
+                                                           "DMF"
+                                                       ],
+                                             "checks":  [
+                                                            "smoke",
+                                                            "clutch",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "tfsi",
+                                                              "tsi"
+                                                          ],
+                                             "label":  "TFSI/TSI",
+                                             "verdict":  "risk engine",
+                                             "risks":  [
+                                                           "chain",
+                                                           "oil consumption",
+                                                           "turbo"
+                                                       ],
+                                             "checks":  [
+                                                            "chain proof",
+                                                            "oil use"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "s tronic",
+                                                              "dsg"
+                                                          ],
+                                             "label":  "S-tronic/DSG",
+                                             "verdict":  "gearbox risk",
+                                             "risks":  [
+                                                           "mechatronic",
+                                                           "clutches"
+                                                       ],
+                                             "checks":  [
+                                                            "hot/cold shifts",
+                                                            "service proof"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "audi",
+                         "model":  "a4",
+                         "generation":  "A4 B6/B7",
+                         "years":  [
+                                       2000,
+                                       2008
+                                   ],
+                         "aliases":  [
+                                         "a4 b6",
+                                         "a4 b7",
+                                         "a4"
+                                     ],
+                         "market_role":  "Attractive youth/premium car, but only interesting cheap with TUV and clean body.",
+                         "good_for":  [
+                                          "style buyer",
+                                          "premium budget daily"
+                                      ],
+                         "why_buy":  [
+                                         "strong image",
+                                         "A4 Avant can be desirable",
+                                         "cheap good condition examples move"
+                                     ],
+                         "why_not":  [
+                                         "premium repair risk",
+                                         "1.8T/2.0 ALT/automatic can become expensive",
+                                         "high mileage reduces buyer pool"
+                                     ],
+                         "body_checks":  [
+                                             "front wings",
+                                             "sills",
+                                             "doors",
+                                             "accident gaps",
+                                             "rust"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "oil leaks",
+                                                   "turbo if 1.8T",
+                                                   "automatic shifts",
+                                                   "cooling",
+                                                   "suspension arms"
+                                               ],
+                         "seller_questions":  [
+                                                  "Ist Automatik oder Schalter?",
+                                                  "Gibt es Olverbrauch?",
+                                                  "Wurde Zahnriemen gemacht?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.8t",
+                                                              "1,8t"
+                                                          ],
+                                             "label":  "1.8T",
+                                             "verdict":  "popular but check hard",
+                                             "risks":  [
+                                                           "turbo",
+                                                           "oil sludge",
+                                                           "cooling"
+                                                       ],
+                                             "checks":  [
+                                                            "turbo pull",
+                                                            "oil history"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "2.0",
+                                                              "2,0",
+                                                              "alt"
+                                                          ],
+                                             "label":  "2.0 ALT",
+                                             "verdict":  "oil consumption caution",
+                                             "risks":  [
+                                                           "oil consumption",
+                                                           "sensors"
+                                                       ],
+                                             "checks":  [
+                                                            "ask oil use",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "tdi"
+                                                          ],
+                                             "label":  "TDI",
+                                             "verdict":  "possible if maintained",
+                                             "risks":  [
+                                                           "turbo",
+                                                           "injectors",
+                                                           "DMF"
+                                                       ],
+                                             "checks":  [
+                                                            "smoke",
+                                                            "clutch",
+                                                            "service"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "toyota",
+                         "model":  "yaris",
+                         "generation":  "Yaris XP9/XP13",
+                         "years":  [
+                                       2005,
+                                       2017
+                                   ],
+                         "aliases":  [
+                                         "yaris"
+                                     ],
+                         "market_role":  "One of the safest first-car choices. Reliability reputation helps resale.",
+                         "good_for":  [
+                                          "first car",
+                                          "low-risk daily",
+                                          "client safe buy"
+                                      ],
+                         "why_buy":  [
+                                         "reliable reputation",
+                                         "low fuel/repair cost",
+                                         "easy to recommend to non-car people"
+                                     ],
+                         "why_not":  [
+                                         "profit margin can be smaller because the market knows it is good",
+                                         "rust/clutch still matter"
+                                     ],
+                         "body_checks":  [
+                                             "underbody rust",
+                                             "rear arches",
+                                             "accident repairs"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "clutch",
+                                                   "brakes",
+                                                   "exhaust",
+                                                   "dashboard warnings"
+                                               ],
+                         "seller_questions":  [
+                                                  "Gibt es Servicehistorie?",
+                                                  "Wie lange TUV?",
+                                                  "Ist Kupplung in Ordnung?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.0",
+                                                              "1,0"
+                                                          ],
+                                             "label":  "1.0 VVT-i",
+                                             "verdict":  "safe city engine",
+                                             "risks":  [
+                                                           "clutch wear",
+                                                           "oil leaks"
+                                                       ],
+                                             "checks":  [
+                                                            "clutch",
+                                                            "idle"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.3",
+                                                              "1,3"
+                                                          ],
+                                             "label":  "1.3 VVT-i",
+                                             "verdict":  "stronger and still reliable",
+                                             "risks":  [
+                                                           "service neglect"
+                                                       ],
+                                             "checks":  [
+                                                            "service proof"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "toyota",
+                         "model":  "aygo",
+                         "generation":  "Aygo/C1/107",
+                         "years":  [
+                                       2005,
+                                       2014
+                                   ],
+                         "aliases":  [
+                                         "aygo",
+                                         "c1",
+                                         "107"
+                                     ],
+                         "market_role":  "Very cheap city/first car. Strong low-cost demand if TUV is long.",
+                         "good_for":  [
+                                          "first car",
+                                          "city car",
+                                          "low-risk client buy"
+                                      ],
+                         "why_buy":  [
+                                         "cheap fuel",
+                                         "cheap insurance",
+                                         "simple mechanics",
+                                         "easy to sell with TUV"
+                                     ],
+                         "why_not":  [
+                                         "small profit per car",
+                                         "clutch and water leaks are common"
+                                     ],
+                         "body_checks":  [
+                                             "rear water leaks",
+                                             "underbody rust",
+                                             "bumper accident repairs"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "clutch bite",
+                                                   "exhaust",
+                                                   "brakes",
+                                                   "engine idle"
+                                               ],
+                         "seller_questions":  [
+                                                  "Wurde Kupplung gemacht?",
+                                                  "Ist der Innenraum trocken?",
+                                                  "Wie lange TUV?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.0",
+                                                              "1,0"
+                                                          ],
+                                             "label":  "1.0 petrol",
+                                             "verdict":  "simple and desirable",
+                                             "risks":  [
+                                                           "clutch",
+                                                           "exhaust",
+                                                           "water leaks"
+                                                       ],
+                                             "checks":  [
+                                                            "clutch test",
+                                                            "wet trunk/carpets"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "hyundai",
+                         "model":  "i10",
+                         "generation":  "i10 PA/IA",
+                         "years":  [
+                                       2008,
+                                       2019
+                                   ],
+                         "aliases":  [
+                                         "i10"
+                                     ],
+                         "market_role":  "Low-risk modern city car. Good for clients if price is not retail-high.",
+                         "good_for":  [
+                                          "first car",
+                                          "city daily",
+                                          "safe client buy"
+                                      ],
+                         "why_buy":  [
+                                         "simple petrol engines",
+                                         "low running costs",
+                                         "5-door helps resale"
+                                     ],
+                         "why_not":  [
+                                         "less emotional than VW",
+                                         "overpriced examples sit"
+                                     ],
+                         "body_checks":  [
+                                             "underbody rust",
+                                             "bumper damage",
+                                             "door bottoms"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "clutch",
+                                                   "brakes",
+                                                   "AC",
+                                                   "service proof"
+                                               ],
+                         "seller_questions":  [
+                                                  "Gibt es Serviceheft?",
+                                                  "Funktioniert Klima?",
+                                                  "Wie lange TUV?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.1",
+                                                              "1,1",
+                                                              "1.2",
+                                                              "1,2"
+                                                          ],
+                                             "label":  "1.1/1.2 petrol",
+                                             "verdict":  "low-risk small petrol",
+                                             "risks":  [
+                                                           "clutch",
+                                                           "service neglect"
+                                                       ],
+                                             "checks":  [
+                                                            "clutch",
+                                                            "oil service"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "hyundai",
+                         "model":  "i20",
+                         "generation":  "i20 PB/GB",
+                         "years":  [
+                                       2008,
+                                       2020
+                                   ],
+                         "aliases":  [
+                                         "i20"
+                                     ],
+                         "market_role":  "Good low-risk first car, especially with 5 doors, Klima and TUV.",
+                         "good_for":  [
+                                          "first car",
+                                          "daily",
+                                          "client safe buy"
+                                      ],
+                         "why_buy":  [
+                                         "modern enough",
+                                         "reliable reputation",
+                                         "cheap running cost"
+                                     ],
+                         "why_not":  [
+                                         "must be priced well; normal dealer price has little margin"
+                                     ],
+                         "body_checks":  [
+                                             "underbody",
+                                             "sills",
+                                             "bumper/parking damage"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "clutch",
+                                                   "brakes",
+                                                   "AC",
+                                                   "dashboard warnings"
+                                               ],
+                         "seller_questions":  [
+                                                  "Ist Servicehistorie vorhanden?",
+                                                  "Funktioniert Klima?",
+                                                  "Gibt es Rost?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.2",
+                                                              "1,2"
+                                                          ],
+                                             "label":  "1.2 petrol",
+                                             "verdict":  "preferred simple engine",
+                                             "risks":  [
+                                                           "clutch",
+                                                           "service neglect"
+                                                       ],
+                                             "checks":  [
+                                                            "clutch",
+                                                            "oil service"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.4",
+                                                              "1,4"
+                                                          ],
+                                             "label":  "1.4 petrol/diesel",
+                                             "verdict":  "needs exact fuel check",
+                                             "risks":  [
+                                                           "diesel DPF/EGR if CRDi"
+                                                       ],
+                                             "checks":  [
+                                                            "fuel type",
+                                                            "OBD"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "kia",
+                         "model":  "picanto",
+                         "generation":  "Picanto",
+                         "years":  [
+                                       2004,
+                                       2020
+                                   ],
+                         "aliases":  [
+                                         "picanto"
+                                     ],
+                         "market_role":  "Cheap, simple beginner car. Best with long TUV and service.",
+                         "good_for":  [
+                                          "first car",
+                                          "city car",
+                                          "low-budget client"
+                                      ],
+                         "why_buy":  [
+                                         "cheap to run",
+                                         "small buyer demand exists",
+                                         "TUV is a strong value signal"
+                                     ],
+                         "why_not":  [
+                                         "slower resale than VW/Opel",
+                                         "rust and clutch can reduce value"
+                                     ],
+                         "body_checks":  [
+                                             "underbody rust",
+                                             "sills",
+                                             "rear arches"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "clutch",
+                                                   "brakes",
+                                                   "exhaust",
+                                                   "timing proof"
+                                               ],
+                         "seller_questions":  [
+                                                  "Wie lange TUV?",
+                                                  "Wurde Zahnriemen/Service gemacht?",
+                                                  "Gibt es Rost?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.0",
+                                                              "1,0",
+                                                              "1.1",
+                                                              "1,1"
+                                                          ],
+                                             "label":  "small petrol",
+                                             "verdict":  "simple if maintained",
+                                             "risks":  [
+                                                           "clutch",
+                                                           "rust"
+                                                       ],
+                                             "checks":  [
+                                                            "clutch",
+                                                            "underbody"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "suzuki",
+                         "model":  "swift",
+                         "generation":  "Swift",
+                         "years":  [
+                                       2005,
+                                       2017
+                                   ],
+                         "aliases":  [
+                                         "swift"
+                                     ],
+                         "market_role":  "Light, simple, surprisingly liquid when cheap and clean.",
+                         "good_for":  [
+                                          "first car",
+                                          "fun cheap daily",
+                                          "quick cheap flip"
+                                      ],
+                         "why_buy":  [
+                                         "Japanese reliability image",
+                                         "simple petrols",
+                                         "young buyers like it more than many boring cars"
+                                     ],
+                         "why_not":  [
+                                         "body damage/rust hurts fast-sale appeal",
+                                         "small market if overpriced"
+                                     ],
+                         "body_checks":  [
+                                             "rear arches",
+                                             "sills",
+                                             "bumper alignment",
+                                             "paint mismatch"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "clutch",
+                                                   "brakes",
+                                                   "exhaust",
+                                                   "dashboard warnings"
+                                               ],
+                         "seller_questions":  [
+                                                  "Gibt es Rost oder Unfallschaden?",
+                                                  "Wie lange TUV?",
+                                                  "Laeuft Motor ruhig?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.2",
+                                                              "1,2",
+                                                              "1.3",
+                                                              "1,3"
+                                                          ],
+                                             "label":  "1.2/1.3 petrol",
+                                             "verdict":  "good simple choice",
+                                             "risks":  [
+                                                           "clutch",
+                                                           "rust"
+                                                       ],
+                                             "checks":  [
+                                                            "clutch",
+                                                            "body"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "honda",
+                         "model":  "jazz",
+                         "generation":  "Jazz",
+                         "years":  [
+                                       2002,
+                                       2015
+                                   ],
+                         "aliases":  [
+                                         "jazz"
+                                     ],
+                         "market_role":  "Very practical and reliable, but not always exciting for young buyers.",
+                         "good_for":  [
+                                          "safe first car",
+                                          "family city car",
+                                          "low-risk daily"
+                                      ],
+                         "why_buy":  [
+                                         "reliable reputation",
+                                         "very practical interior",
+                                         "low running costs"
+                                     ],
+                         "why_not":  [
+                                         "can look boring",
+                                         "rust and old CVT/automatic need checks"
+                                     ],
+                         "body_checks":  [
+                                             "rear arches",
+                                             "sills",
+                                             "underbody rust"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "clutch/CVT behavior",
+                                                   "brakes",
+                                                   "AC",
+                                                   "service proof"
+                                               ],
+                         "seller_questions":  [
+                                                  "Schalter oder Automatik?",
+                                                  "Gibt es Servicehistorie?",
+                                                  "Wie lange TUV?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.2",
+                                                              "1,2",
+                                                              "1.4",
+                                                              "1,4"
+                                                          ],
+                                             "label":  "1.2/1.4 petrol",
+                                             "verdict":  "reliable if maintained",
+                                             "risks":  [
+                                                           "rust",
+                                                           "CVT if automatic"
+                                                       ],
+                                             "checks":  [
+                                                            "underbody",
+                                                            "gearbox behavior"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "ford",
+                         "model":  "focus",
+                         "generation":  "Focus Mk3 Turnier/Kombi",
+                         "years":  [
+                                       2011,
+                                       2014
+                                   ],
+                         "aliases":  [
+                                         "focus mk3",
+                                         "focus turnier",
+                                         "focus kombi",
+                                         "focus 2012",
+                                         "ford focus 2012"
+                                     ],
+                         "market_role":  "One of the strongest cheap practical finds when priced very low. A 2011-2014 Focus Turnier around 1500-2200 EUR can disappear fast if TUV, engine and body are acceptable.",
+                         "good_for":  [
+                                          "young family buyer",
+                                          "worker daily",
+                                          "autobahn daily",
+                                          "cheap practical flip"
+                                      ],
+                         "why_buy":  [
+                                         "Kombi/Turnier body has real everyday demand, not just first-car demand",
+                                         "looks modern enough compared with old 2004-2006 budget cars",
+                                         "strong value signal when listed far below normal Focus Mk3 prices",
+                                         "1.6 petrol is usually the easiest story to resell: simple, known and not scary"
+                                     ],
+                         "why_not":  [
+                                         "very low price can hide engine, gearbox, accident or TUV problems",
+                                         "diesel can become expensive through DPF, EGR, injectors, turbo or dual-mass flywheel",
+                                         "1.0 EcoBoost without wet-belt proof is not a beginner-safe deal",
+                                         "high-mileage petrol needs a clear price discount and clean TUV"
+                                     ],
+                         "body_checks":  [
+                                             "rear arches",
+                                             "sills",
+                                             "tailgate",
+                                             "front accident repairs",
+                                             "paint mismatch"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "cold start",
+                                                   "clutch bite",
+                                                   "wheel bearings",
+                                                   "rear suspension",
+                                                   "dashboard warning lights",
+                                                   "OBD scan"
+                                               ],
+                         "seller_questions":  [
+                                                  "Welcher Motor genau: 1.6 Benzin, EcoBoost oder Diesel?",
+                                                  "Hat das Auto gueltigen TUV und gibt es den TUV-Bericht?",
+                                                  "Warum ist der Preis so niedrig fuer einen Focus Turnier?",
+                                                  "Gibt es Motorlampe, DPF/EGR Probleme oder Kupplungsprobleme?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.6",
+                                                              "1,6",
+                                                              "1.6 benzin",
+                                                              "1,6 benzin"
+                                                          ],
+                                             "label":  "1.6 petrol",
+                                             "verdict":  "best simple Focus Mk3 budget choice if TUV/body are clean",
+                                             "risks":  [
+                                                           "timing belt age",
+                                                           "oil leaks",
+                                                           "coil/misfire",
+                                                           "cooling issues"
+                                                       ],
+                                             "checks":  [
+                                                            "belt/service invoice",
+                                                            "cold idle",
+                                                            "OBD",
+                                                            "coolant/oil mix"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.0 ecoboost",
+                                                              "ecoboost"
+                                                          ],
+                                             "label":  "1.0 EcoBoost",
+                                             "verdict":  "only interesting with wet-belt proof and big discount",
+                                             "risks":  [
+                                                           "wet belt",
+                                                           "turbo",
+                                                           "overheating",
+                                                           "oil service neglect"
+                                                       ],
+                                             "checks":  [
+                                                            "wet-belt invoice",
+                                                            "coolant level",
+                                                            "engine noise",
+                                                            "service history"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "tdci",
+                                                              "diesel",
+                                                              "1.6 tdci",
+                                                              "2.0 tdci"
+                                                          ],
+                                             "label":  "TDCi diesel",
+                                             "verdict":  "can be good for mileage buyers, but repair risk must be priced in",
+                                             "risks":  [
+                                                           "DPF",
+                                                           "EGR",
+                                                           "injectors",
+                                                           "turbo",
+                                                           "dual-mass flywheel"
+                                                       ],
+                                             "checks":  [
+                                                            "DPF warning",
+                                                            "smoke under load",
+                                                            "turbo pull",
+                                                            "clutch/DMF noise"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "volkswagen",
+                         "model":  "golf",
+                         "generation":  "Golf 5 GT / 1.4 TSI 170",
+                         "years":  [
+                                       2006,
+                                       2008
+                                   ],
+                         "aliases":  [
+                                         "golf gt",
+                                         "1.4 tsi 170",
+                                         "1,4 tsi 170",
+                                         "170 ps",
+                                         "abt sportsline"
+                                     ],
+                         "market_role":  "High-risk, high-attention youth car. Very cheap GT/170 PS listings are not safe deals, but they must be shown as speculative opportunities because demand can be strong.",
+                         "good_for":  [
+                                          "experienced buyer",
+                                          "risk flip",
+                                          "youth demand",
+                                          "parts/value play"
+                                      ],
+                         "why_buy":  [
+                                         "170 PS Golf has emotional demand and can attract young buyers fast",
+                                         "very low entry price can leave room if the issue is small",
+                                         "sporty trim, wheels or clean interior help resale more than on boring cars",
+                                         "can be worth opening even with export wording, but only as HIGH RISK"
+                                     ],
+                         "why_not":  [
+                                         "1.4 TSI twincharged engine is known as expensive risk when neglected",
+                                         "export wording often means seller wants no comeback after sale",
+                                         "chain, turbo/compressor, oil consumption and misfire can destroy the whole margin",
+                                         "not suitable for normal first-car clients without diagnosis"
+                                     ],
+                         "body_checks":  [
+                                             "front accident repairs",
+                                             "panel gaps",
+                                             "rust on arches/sills",
+                                             "cheap tuning signs"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "cold chain rattle",
+                                                   "misfire under load",
+                                                   "turbo/compressor behavior",
+                                                   "oil consumption",
+                                                   "cooling system",
+                                                   "OBD scan"
+                                               ],
+                         "seller_questions":  [
+                                                  "Warum lieber Export?",
+                                                  "Wurde die Steuerkette gemacht und gibt es Rechnungen?",
+                                                  "Hat der Motor Aussetzer, Oelverbrauch oder Motorkontrollleuchte?",
+                                                  "Kann man kalt starten und eine Probefahrt machen?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.4 tsi",
+                                                              "1,4 tsi",
+                                                              "170 ps",
+                                                              "gt"
+                                                          ],
+                                             "label":  "1.4 TSI 170 GT",
+                                             "verdict":  "speculative only; cheap price is interesting but technical risk is high",
+                                             "risks":  [
+                                                           "timing chain",
+                                                           "turbo/compressor",
+                                                           "oil consumption",
+                                                           "piston/ring wear",
+                                                           "misfire"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start chain noise",
+                                                            "OBD misfire codes",
+                                                            "boost under load",
+                                                            "oil use question",
+                                                            "coolant/oil inspection"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "opel",
+                         "model":  "corsa",
+                         "generation":  "Corsa C budget buyer",
+                         "years":  [
+                                       2000,
+                                       2006
+                                   ],
+                         "aliases":  [
+                                         "corsa c",
+                                         "corsa 2005",
+                                         "twinport"
+                                     ],
+                         "market_role":  "Budget Corsa C is interesting when it has 5 doors, TUV, Klima and a low price. It is not glamorous, but buyers need cheap transport.",
+                         "good_for":  [
+                                          "first cheap car",
+                                          "short-distance daily",
+                                          "student budget",
+                                          "low-risk cheap lead"
+                                      ],
+                         "why_buy":  [
+                                         "5-door Corsa with TUV is easy to explain to budget buyers",
+                                         "parts are cheap and many small repairs are simple",
+                                         "Klima and long TUV matter more than fancy equipment at this price",
+                                         "under 1200-1500 EUR with TUV can move quickly if body is not rotten"
+                                     ],
+                         "why_not":  [
+                                         "old Corsa without TUV is usually not worth the trip",
+                                         "rust on sills, subframe or brake lines can kill the deal",
+                                         "chain noise or bad cold start can cost too much relative to price",
+                                         "3-door and ugly body reduce resale speed"
+                                     ],
+                         "body_checks":  [
+                                             "sills",
+                                             "rear arches",
+                                             "subframe",
+                                             "brake lines",
+                                             "floor rust"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "cold start chain noise",
+                                                   "idle quality",
+                                                   "clutch",
+                                                   "brakes",
+                                                   "cooling",
+                                                   "dashboard lights"
+                                               ],
+                         "seller_questions":  [
+                                                  "Wie lange TUV genau?",
+                                                  "Ist Rost am Unterboden, Schweller oder Bremsleitungen bekannt?",
+                                                  "Klappert die Steuerkette beim Kaltstart?",
+                                                  "Funktioniert Klima?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.0",
+                                                              "1,0"
+                                                          ],
+                                             "label":  "1.0 petrol",
+                                             "verdict":  "only if very cheap with TUV",
+                                             "risks":  [
+                                                           "weak engine",
+                                                           "timing chain",
+                                                           "rough idle"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start",
+                                                            "chain noise",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.2",
+                                                              "1,2",
+                                                              "twinport"
+                                                          ],
+                                             "label":  "1.2 Twinport",
+                                             "verdict":  "best common cheap Corsa C engine if chain is quiet",
+                                             "risks":  [
+                                                           "timing chain",
+                                                           "coil/misfire",
+                                                           "oil leaks",
+                                                           "EGR/idle issues"
+                                                       ],
+                                             "checks":  [
+                                                            "cold idle",
+                                                            "OBD",
+                                                            "chain rattle",
+                                                            "service proof"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "opel",
+                         "model":  "corsa",
+                         "generation":  "Corsa D strong budget",
+                         "years":  [
+                                       2006,
+                                       2014
+                                   ],
+                         "aliases":  [
+                                         "corsa d",
+                                         "opel corsa d",
+                                         "corsa 2011",
+                                         "corsa 2014"
+                                     ],
+                         "market_role":  "One of the better budget cars for real buyers. Fresh TUV, 5 doors, 1.2/1.4 petrol and fair price make it very easy to sell.",
+                         "good_for":  [
+                                          "first car",
+                                          "female/young buyer",
+                                          "student car",
+                                          "quick resale"
+                                      ],
+                         "why_buy":  [
+                                         "newer-looking than Corsa C and still cheap to maintain",
+                                         "5 doors and fresh TUV are strong buyer triggers",
+                                         "1.4 petrol is especially easy to sell if clean",
+                                         "diesel can be interesting only when price is low and mileage/story fit"
+                                     ],
+                         "why_not":  [
+                                         "chain noise on 1.2/1.4 must be checked before trusting the car",
+                                         "seller text like startet schlecht or Motorlampe changes it from good to risky",
+                                         "dealer price often has no margin unless car is clearly under market",
+                                         "without TUV it loses most beginner-buyer appeal"
+                                     ],
+                         "body_checks":  [
+                                             "front subframe",
+                                             "sills",
+                                             "rear arches",
+                                             "front crash repair",
+                                             "door bottoms"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "cold chain rattle",
+                                                   "idle",
+                                                   "clutch",
+                                                   "brakes",
+                                                   "air conditioning",
+                                                   "OBD scan"
+                                               ],
+                         "seller_questions":  [
+                                                  "Wurde die Steuerkette schon gemacht?",
+                                                  "Ist TUV-Bericht vorhanden?",
+                                                  "Startet der Motor kalt sofort und ohne Rasseln?",
+                                                  "Gibt es Warnleuchten oder bekannte Maengel?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.2",
+                                                              "1,2"
+                                                          ],
+                                             "label":  "1.2 petrol",
+                                             "verdict":  "good beginner engine if chain is quiet/done",
+                                             "risks":  [
+                                                           "timing chain",
+                                                           "coil/misfire",
+                                                           "rough idle"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start",
+                                                            "chain noise",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.4",
+                                                              "1,4"
+                                                          ],
+                                             "label":  "1.4 petrol",
+                                             "verdict":  "stronger and easier to sell than 1.2 if condition is clean",
+                                             "risks":  [
+                                                           "chain/service",
+                                                           "oil leaks",
+                                                           "cooling"
+                                                       ],
+                                             "checks":  [
+                                                            "service proof",
+                                                            "cold start",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.3 cdti",
+                                                              "1,3 cdti",
+                                                              "diesel"
+                                                          ],
+                                             "label":  "1.3 CDTI diesel",
+                                             "verdict":  "can be good at low price, but DPF/EGR risk must be priced in",
+                                             "risks":  [
+                                                           "DPF",
+                                                           "EGR",
+                                                           "turbo",
+                                                           "injectors"
+                                                       ],
+                                             "checks":  [
+                                                            "DPF warning",
+                                                            "smoke",
+                                                            "turbo pull",
+                                                            "emissions/TUV"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "opel",
+                         "model":  "astra",
+                         "generation":  "Astra G/H cheap value",
+                         "years":  [
+                                       2000,
+                                       2010
+                                   ],
+                         "aliases":  [
+                                         "astra g",
+                                         "astra h",
+                                         "astra caravan",
+                                         "astra kombi"
+                                     ],
+                         "market_role":  "Not as hot as Polo/Golf/Corsa, but very useful when cheap with long TUV. Buyers like them when they need space and low entry cost.",
+                         "good_for":  [
+                                          "cheap daily",
+                                          "work car",
+                                          "family budget",
+                                          "value flip"
+                                      ],
+                         "why_buy":  [
+                                         "often cheaper than Golf with similar usefulness",
+                                         "Caravan/Kombi versions have practical buyer demand",
+                                         "long TUV can make an old Astra easy to sell",
+                                         "simple petrol engines are understandable and parts are cheap"
+                                     ],
+                         "why_not":  [
+                                         "rust and neglected maintenance are the main deal killers",
+                                         "not an emotional youth car, so price must be clearly good",
+                                         "old diesel without proof can hide EGR, turbo or injector cost",
+                                         "high price old Astra will sit"
+                                     ],
+                         "body_checks":  [
+                                             "rear arches",
+                                             "sills",
+                                             "underbody",
+                                             "tailgate",
+                                             "exhaust rust"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "cooling system",
+                                                   "Twinport idle",
+                                                   "oil leaks",
+                                                   "clutch",
+                                                   "brakes",
+                                                   "OBD"
+                                               ],
+                         "seller_questions":  [
+                                                  "Wie lange TUV und gibt es den Bericht?",
+                                                  "Gibt es Rost an Schweller, Radlauf oder Unterboden?",
+                                                  "Wurde Zahnriemen oder Steuerkette gemacht?",
+                                                  "Warum wird das Auto verkauft?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.2",
+                                                              "1,2"
+                                                          ],
+                                             "label":  "1.2 petrol",
+                                             "verdict":  "economy engine; okay only if cheap and not overloaded by condition",
+                                             "risks":  [
+                                                           "weak power",
+                                                           "chain/service",
+                                                           "high mileage wear"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start",
+                                                            "service proof",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.4",
+                                                              "1,4",
+                                                              "twinport"
+                                                          ],
+                                             "label":  "1.4 Twinport",
+                                             "verdict":  "acceptable cheap daily engine if idle is clean",
+                                             "risks":  [
+                                                           "rough idle",
+                                                           "EGR/sensors",
+                                                           "oil leaks"
+                                                       ],
+                                             "checks":  [
+                                                            "idle",
+                                                            "OBD",
+                                                            "service"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.6",
+                                                              "1,6"
+                                                          ],
+                                             "label":  "1.6 petrol",
+                                             "verdict":  "best balanced Astra budget petrol",
+                                             "risks":  [
+                                                           "timing belt/service",
+                                                           "oil leaks",
+                                                           "cooling"
+                                                       ],
+                                             "checks":  [
+                                                            "belt invoice",
+                                                            "coolant",
+                                                            "cold start"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.7 cdti",
+                                                              "1,7 cdti",
+                                                              "1.9 cdti",
+                                                              "1,9 cdti",
+                                                              "diesel"
+                                                          ],
+                                             "label":  "CDTI diesel",
+                                             "verdict":  "good mileage engine only when TUV/service are strong",
+                                             "risks":  [
+                                                           "EGR",
+                                                           "turbo",
+                                                           "injectors",
+                                                           "DPF on later cars",
+                                                           "dual-mass flywheel"
+                                                       ],
+                                             "checks":  [
+                                                            "smoke",
+                                                            "turbo pull",
+                                                            "clutch/DMF",
+                                                            "emissions/TUV"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "volkswagen",
+                         "model":  "polo",
+                         "generation":  "Polo 9N/9N3/6R buyer logic",
+                         "years":  [
+                                       2002,
+                                       2014
+                                   ],
+                         "aliases":  [
+                                         "polo 9n",
+                                         "polo 9n3",
+                                         "polo 6r",
+                                         "vw polo"
+                                     ],
+                         "market_role":  "Core first-car demand. Cheap Polo with TUV, 5 doors, Klima and private seller can sell very fast even if not perfect.",
+                         "good_for":  [
+                                          "first car",
+                                          "student car",
+                                          "fast cheap resale",
+                                          "client-safe lead"
+                                      ],
+                         "why_buy":  [
+                                         "Polo is one of the easiest cars to explain to beginners",
+                                         "5 doors, Klima, TUV and low price are stronger than fancy equipment",
+                                         "very cheap Polo with valid TUV should always be opened quickly",
+                                         "1 owner or family description is a strong trust signal"
+                                     ],
+                         "why_not":  [
+                                         "1.2 chain/idle issues are common enough to ask directly",
+                                         "price above normal market kills the deal even if model is popular",
+                                         "rust, warning lights and no TUV turn it into a risk car",
+                                         "dealer/autohaus Polo is often already priced with margin removed"
+                                     ],
+                         "body_checks":  [
+                                             "sills",
+                                             "rear arches",
+                                             "door bottoms",
+                                             "front suspension",
+                                             "paint mismatch"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "cold chain rattle",
+                                                   "idle misfire",
+                                                   "clutch",
+                                                   "brakes",
+                                                   "dashboard warning lights",
+                                                   "OBD"
+                                               ],
+                         "seller_questions":  [
+                                                  "Wurde die Steuerkette gemacht?",
+                                                  "Wie lange TUV genau?",
+                                                  "Ist es 3-Tuerer oder 5-Tuerer?",
+                                                  "Gibt es Rost, Warnleuchten oder Startprobleme?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.2 tsi",
+                                                              "1,2 tsi"
+                                                          ],
+                                             "label":  "1.2 TSI",
+                                             "verdict":  "desirable but chain/turbo proof matters",
+                                             "risks":  [
+                                                           "timing chain",
+                                                           "turbo",
+                                                           "oil use"
+                                                       ],
+                                             "checks":  [
+                                                            "chain invoice",
+                                                            "cold start",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.2",
+                                                              "1,2"
+                                                          ],
+                                             "label":  "1.2 petrol",
+                                             "verdict":  "liquid cheap engine if chain/idle are clean",
+                                             "risks":  [
+                                                           "timing chain",
+                                                           "misfire",
+                                                           "rough idle"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start",
+                                                            "OBD",
+                                                            "chain noise"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.4",
+                                                              "1,4"
+                                                          ],
+                                             "label":  "1.4 petrol",
+                                             "verdict":  "often better resale story than 1.2 if service is clean",
+                                             "risks":  [
+                                                           "belt/service",
+                                                           "oil leaks",
+                                                           "cooling"
+                                                       ],
+                                             "checks":  [
+                                                            "service invoice",
+                                                            "idle",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "tdi",
+                                                              "diesel"
+                                                          ],
+                                             "label":  "TDI diesel",
+                                             "verdict":  "good only when mileage, TUV and emissions story fit",
+                                             "risks":  [
+                                                           "EGR",
+                                                           "turbo",
+                                                           "clutch",
+                                                           "emissions/TUV"
+                                                       ],
+                                             "checks":  [
+                                                            "smoke",
+                                                            "turbo pull",
+                                                            "TUV report"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "toyota",
+                         "model":  "yaris",
+                         "generation":  "Yaris XP9/early XP13",
+                         "years":  [
+                                       2005,
+                                       2014
+                                   ],
+                         "aliases":  [
+                                         "yaris",
+                                         "vvt-i",
+                                         "vvt i"
+                                     ],
+                         "market_role":  "One of the safest client cars. Not always the highest margin, but easy to recommend when clean because buyers trust Toyota.",
+                         "good_for":  [
+                                          "first car",
+                                          "low-risk client",
+                                          "student daily",
+                                          "quick safe sale"
+                                      ],
+                         "why_buy":  [
+                                         "Toyota trust makes the car easier to sell than many same-price rivals",
+                                         "small petrol engines are simple and economical",
+                                         "good condition and long TUV matter more than aggressive styling",
+                                         "higher mileage can still be acceptable when service and condition match"
+                                     ],
+                         "why_not":  [
+                                         "cheap Toyota can still hide rust, clutch or neglected maintenance",
+                                         "profit is often smaller because sellers and buyers know Toyota value",
+                                         "3-door versions sell slower than 5-door",
+                                         "very old/rough interior reduces beginner trust"
+                                     ],
+                         "body_checks":  [
+                                             "rear arches",
+                                             "sills",
+                                             "underbody",
+                                             "front accident repairs"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "clutch",
+                                                   "cold start",
+                                                   "oil leaks",
+                                                   "brakes",
+                                                   "dashboard lights"
+                                               ],
+                         "seller_questions":  [
+                                                  "Ist es 5-Tuerer?",
+                                                  "Wie lange TUV?",
+                                                  "Gibt es Serviceheft oder Rechnungen?",
+                                                  "Ist die Kupplung noch gut?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.0",
+                                                              "1,0"
+                                                          ],
+                                             "label":  "1.0 VVT-i",
+                                             "verdict":  "excellent low-cost engine if not neglected",
+                                             "risks":  [
+                                                           "clutch wear",
+                                                           "oil leaks",
+                                                           "rough idle"
+                                                       ],
+                                             "checks":  [
+                                                            "cold idle",
+                                                            "clutch",
+                                                            "service"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.3",
+                                                              "1,3"
+                                                          ],
+                                             "label":  "1.3 VVT-i",
+                                             "verdict":  "best all-round Yaris choice",
+                                             "risks":  [
+                                                           "oil leaks",
+                                                           "clutch",
+                                                           "cooling neglect"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start",
+                                                            "service invoices",
+                                                            "test drive"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "suzuki",
+                         "model":  "swift",
+                         "generation":  "Swift 2005-2013",
+                         "years":  [
+                                       2005,
+                                       2013
+                                   ],
+                         "aliases":  [
+                                         "swift",
+                                         "suzuki swift"
+                                     ],
+                         "market_role":  "Small, simple and liked by young buyers. A cheap clean Swift can sell quickly, especially with TUV and Klima.",
+                         "good_for":  [
+                                          "first car",
+                                          "young buyer",
+                                          "city daily",
+                                          "cheap flip"
+                                      ],
+                         "why_buy":  [
+                                         "more emotional than many boring small cars",
+                                         "Japanese reliability image helps buyer trust",
+                                         "simple 1.2/1.3 petrol can be a good low-risk story",
+                                         "cheap price with clean body is worth opening fast"
+                                     ],
+                         "why_not":  [
+                                         "body condition matters a lot; rough bumpers/paint reduce price",
+                                         "rust and accident repairs must be checked carefully",
+                                         "rare trim/3-door can narrow buyer audience",
+                                         "high price Swift is often not enough margin"
+                                     ],
+                         "body_checks":  [
+                                             "rear arches",
+                                             "sills",
+                                             "front bumper alignment",
+                                             "paint mismatch",
+                                             "accident repairs"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "clutch",
+                                                   "cold start",
+                                                   "gearbox",
+                                                   "brakes",
+                                                   "dashboard lights"
+                                               ],
+                         "seller_questions":  [
+                                                  "Wie lange TUV?",
+                                                  "Gibt es Rost oder Unfallschaeden?",
+                                                  "Funktioniert Klima?",
+                                                  "Laeuft Motor/Getriebe ohne Geraeusche?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.2",
+                                                              "1,2"
+                                                          ],
+                                             "label":  "1.2 petrol",
+                                             "verdict":  "good simple Swift engine if service is clean",
+                                             "risks":  [
+                                                           "clutch wear",
+                                                           "oil leaks",
+                                                           "cooling neglect"
+                                                       ],
+                                             "checks":  [
+                                                            "clutch",
+                                                            "cold start",
+                                                            "service"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.3",
+                                                              "1,3"
+                                                          ],
+                                             "label":  "1.3 petrol",
+                                             "verdict":  "good cheap Swift engine",
+                                             "risks":  [
+                                                           "clutch",
+                                                           "rust more than engine",
+                                                           "service neglect"
+                                                       ],
+                                             "checks":  [
+                                                            "test drive",
+                                                            "body inspection",
+                                                            "OBD"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "honda",
+                         "model":  "jazz",
+                         "generation":  "Honda Jazz GD/GE",
+                         "years":  [
+                                       2002,
+                                       2015
+                                   ],
+                         "aliases":  [
+                                         "honda jazz",
+                                         "jazz 1.3",
+                                         "jazz 1.4"
+                                     ],
+                         "market_role":  "Very useful small car with strong reliability image. Good for clients, but ugly/old examples need low price to flip.",
+                         "good_for":  [
+                                          "first car",
+                                          "older buyer",
+                                          "practical city car",
+                                          "low-risk client"
+                                      ],
+                         "why_buy":  [
+                                         "Honda reliability image builds buyer trust",
+                                         "small outside but practical inside, good for daily use",
+                                         "petrol engines can handle mileage if maintained",
+                                         "automatic can be attractive to the right buyer if gearbox is healthy"
+                                     ],
+                         "why_not":  [
+                                         "not as emotional as Polo/Golf, so price and TUV must be good",
+                                         "rust can appear on older cars",
+                                         "CVT/automatic needs careful test drive",
+                                         "tired interior can make buyers doubt mileage"
+                                     ],
+                         "body_checks":  [
+                                             "rear arches",
+                                             "sills",
+                                             "floor",
+                                             "tailgate",
+                                             "paint mismatch"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "CVT/automatic smoothness",
+                                                   "clutch",
+                                                   "cold start",
+                                                   "brakes",
+                                                   "dashboard warnings"
+                                               ],
+                         "seller_questions":  [
+                                                  "Ist es Schalter oder Automatik/CVT?",
+                                                  "Wie lange TUV?",
+                                                  "Gibt es Rost?",
+                                                  "Gibt es Servicebelege?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.3",
+                                                              "1,3"
+                                                          ],
+                                             "label":  "1.3 petrol",
+                                             "verdict":  "reliable small petrol if serviced",
+                                             "risks":  [
+                                                           "ignition coils",
+                                                           "clutch/CVT",
+                                                           "rust"
+                                                       ],
+                                             "checks":  [
+                                                            "cold start",
+                                                            "gearbox test",
+                                                            "service"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "1.4",
+                                                              "1,4"
+                                                          ],
+                                             "label":  "1.4 petrol",
+                                             "verdict":  "good Jazz choice for daily use",
+                                             "risks":  [
+                                                           "coils",
+                                                           "gearbox feel",
+                                                           "rust"
+                                                       ],
+                                             "checks":  [
+                                                            "OBD",
+                                                            "test drive",
+                                                            "body inspection"
+                                                        ]
+                                         }
+                                     ]
+                     },
+                     {
+                         "brand":  "audi",
+                         "model":  "a3",
+                         "generation":  "Audi A3 8P",
+                         "years":  [
+                                       2003,
+                                       2012
+                                   ],
+                         "aliases":  [
+                                         "a3 8p",
+                                         "audi a3",
+                                         "s-line",
+                                         "sportback"
+                                     ],
+                         "market_role":  "Youth-desirable premium compact. Good-looking cheap A3 can sell fast, but engine/gearbox risk decides everything.",
+                         "good_for":  [
+                                          "youth buyer",
+                                          "style-first client",
+                                          "risk-aware flip",
+                                          "premium compact"
+                                      ],
+                         "why_buy":  [
+                                         "A3 has stronger emotional demand than many boring budget cars",
+                                         "Sportback and S-line help resale if condition is clean",
+                                         "1.9 TDI with history is one of the better old diesel stories",
+                                         "nice interior/photos can make it sell quickly"
+                                     ],
+                         "why_not":  [
+                                         "premium repair costs are higher than Polo/Corsa",
+                                         "2.0 TDI, TFSI and S-tronic/DSG need caution",
+                                         "cheap S-line can hide accident, engine or gearbox issues",
+                                         "no TUV or export wording should push it into high-risk only"
+                                     ],
+                         "body_checks":  [
+                                             "front accident repairs",
+                                             "panel gaps",
+                                             "sills",
+                                             "rear arches",
+                                             "paint mismatch"
+                                         ],
+                         "mechanical_checks":  [
+                                                   "DSG/S-tronic shifts",
+                                                   "turbo",
+                                                   "DPF/EGR",
+                                                   "oil consumption",
+                                                   "dashboard warnings",
+                                                   "OBD"
+                                               ],
+                         "seller_questions":  [
+                                                  "Welcher Motor genau und welcher Motorcode?",
+                                                  "Ist es Schalter oder S-tronic/DSG?",
+                                                  "Wie lange TUV?",
+                                                  "Gibt es Rechnungen zu Zahnriemen/Kette/Service?"
+                                              ],
+                         "engines":  [
+                                         {
+                                             "patterns":  [
+                                                              "1.9 tdi",
+                                                              "1,9 tdi"
+                                                          ],
+                                             "label":  "1.9 TDI",
+                                             "verdict":  "best old A3 diesel story if TUV/service are strong",
+                                             "risks":  [
+                                                           "turbo",
+                                                           "EGR",
+                                                           "dual-mass flywheel",
+                                                           "injectors"
+                                                       ],
+                                             "checks":  [
+                                                            "smoke",
+                                                            "turbo pull",
+                                                            "clutch/DMF",
+                                                            "belt invoice"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "2.0 tdi",
+                                                              "2,0 tdi"
+                                                          ],
+                                             "label":  "2.0 TDI",
+                                             "verdict":  "can be good, but history matters much more",
+                                             "risks":  [
+                                                           "DPF/EGR",
+                                                           "injectors",
+                                                           "turbo",
+                                                           "DMF"
+                                                       ],
+                                             "checks":  [
+                                                            "service",
+                                                            "smoke",
+                                                            "DPF warning",
+                                                            "OBD"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "tfsi",
+                                                              "tsi"
+                                                          ],
+                                             "label":  "TFSI/TSI petrol",
+                                             "verdict":  "desirable but high caution",
+                                             "risks":  [
+                                                           "oil consumption",
+                                                           "timing chain",
+                                                           "turbo",
+                                                           "carbon buildup"
+                                                       ],
+                                             "checks":  [
+                                                            "oil use question",
+                                                            "cold start",
+                                                            "OBD",
+                                                            "service invoices"
+                                                        ]
+                                         },
+                                         {
+                                             "patterns":  [
+                                                              "s-tronic",
+                                                              "stronic",
+                                                              "dsg",
+                                                              "automatik"
+                                                          ],
+                                             "label":  "S-tronic/DSG",
+                                             "verdict":  "gearbox proof required",
+                                             "risks":  [
+                                                           "mechatronic",
+                                                           "clutch packs",
+                                                           "rough shifts"
+                                                       ],
+                                             "checks":  [
+                                                            "hot/cold shifting",
+                                                            "service invoice",
+                                                            "OBD"
+                                                        ]
+                                         }
+                                     ]
+                     }
+                 ]
+}

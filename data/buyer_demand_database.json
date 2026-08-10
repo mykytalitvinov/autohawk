@@ -1,0 +1,2087 @@
+﻿{
+    "version":  "2026-06-18-expert-confirmed-corsa-polo-v2",
+    "purpose":  "Classify listings by the real buyer question: who grabs this car quickly and why?",
+    "categories":  {
+                       "FAST_BUY":  "Likely to attract ordinary buyers quickly. Open first.",
+                       "SAFE_BUY":  "Good/safe buyer-service car, but not urgent or not underpriced enough.",
+                       "FLIP_BUY":  "Possible margin for experienced reseller; needs inspection/negotiation.",
+                       "REJECT":  "Do not spend time."
+                   },
+    "fast_buyer_models":  {
+                              "hyundai":  [
+                                              "i10",
+                                              "i20",
+                                              "atos"
+                                          ],
+                              "toyota":  [
+                                             "yaris",
+                                             "aygo"
+                                         ],
+                              "volkswagen":  [
+                                                 "polo",
+                                                 "up",
+                                                 "golf",
+                                                 "jetta"
+                                             ],
+                              "vw":  [
+                                         "polo",
+                                         "up",
+                                         "golf",
+                                         "jetta"
+                                     ],
+                              "opel":  [
+                                           "corsa"
+                                       ],
+                              "ford":  [
+                                           "fiesta",
+                                           "ka"
+                                       ],
+                              "skoda":  [
+                                            "fabia",
+                                            "citigo",
+                                            "octavia"
+                                        ],
+                              "suzuki":  [
+                                             "swift",
+                                             "splash"
+                                         ],
+                              "honda":  [
+                                            "jazz"
+                                        ],
+                              "nissan":  [
+                                             "micra",
+                                             "note"
+                                         ],
+                              "mazda":  [
+                                            "2"
+                                        ],
+                              "seat":  [
+                                           "ibiza",
+                                           "mii"
+                                       ],
+                              "fiat":  [
+                                           "panda",
+                                           "500"
+                                       ],
+                              "citroen":  [
+
+                                          ],
+                              "peugeot":  [
+
+                                          ],
+                              "kia":  [
+                                          "picanto"
+                                      ],
+                              "mitsubishi":  [
+                                                 "colt",
+                                                 "space star"
+                                             ],
+                              "renault":  [
+
+                                          ],
+                              "dacia":  [
+                                            "sandero"
+                                        ]
+                          },
+    "safe_but_not_urgent":  {
+                                "opel":  [
+                                             "astra",
+                                             "meriva",
+                                             "zafira"
+                                         ],
+                                "ford":  [
+                                             "focus",
+                                             "fusion",
+                                             "c-max",
+                                             "s-max",
+                                             "mondeo"
+                                         ],
+                                "volkswagen":  [
+                                                   "golf plus",
+                                                   "touran",
+                                                   "passat"
+                                               ],
+                                "vw":  [
+                                           "golf plus",
+                                           "touran",
+                                           "passat"
+                                       ],
+                                "renault":  [
+                                                "clio",
+                                                "modus",
+                                                "megane",
+                                                "kangoo"
+                                            ],
+                                "peugeot":  [
+                                                "206",
+                                                "207",
+                                                "208",
+                                                "308"
+                                            ],
+                                "citroen":  [
+                                                "c1",
+                                                "c3",
+                                                "c4"
+                                            ],
+                                "kia":  [
+                                            "picanto",
+                                            "rio",
+                                            "ceed"
+                                        ],
+                                "hyundai":  [
+                                                "i30"
+                                            ],
+                                "toyota":  [
+                                               "corolla",
+                                               "auris"
+                                           ],
+                                "honda":  [
+                                              "civic"
+                                          ],
+                                "mazda":  [
+                                              "3"
+                                          ],
+                                "seat":  [
+                                             "leon"
+                                         ],
+                                "dacia":  [
+                                              "logan",
+                                              "dokker"
+                                          ],
+                                "audi":  [
+                                             "a3",
+                                             "a4"
+                                         ]
+                            },
+    "hard_reject_words":  [
+                              "bastler",
+                              "bastlerfahrzeug",
+                              "projektfahrzeug",
+                              "exportfahrzeug",
+                              "nur export",
+                              "motorschaden",
+                              "motor defekt",
+                              "motorproblem",
+                              "getriebeschaden",
+                              "getriebe defekt",
+                              "motorkontrollleuchte",
+                              "kontrollleuchte",
+                              "check engine",
+                              "laeuft auf 3",
+                              "lÃƒÂ¤uft auf 3",
+                              "injektor defekt",
+                              "springt nicht an",
+                              "nicht fahrbereit",
+                              "unfallwagen",
+                              "unfallschaden",
+                              "ohne papiere",
+                              "ohne brief",
+                              "kein brief",
+                              "kein tuev",
+                              "ohne tuev",
+                              "tuv abgelaufen",
+                              "motor startet nicht",
+                              "startet nicht",
+                              "unbekannter defekt",
+                              "defekt unbekannt",
+                              "technischer defekt",
+                              "motor laeuft unruhig",
+                              "motor lauft unruhig",
+                              "kalt schlecht",
+                              "kaltstart problem",
+                              "oelverbrauch",
+                              "ol verbrauch",
+                              "verbrauch oel",
+                              "airbag leuchtet",
+                              "abs leuchtet",
+                              "brief fehlt",
+                              "totalschaden",
+                              "durchrostung"
+                          ],
+    "trust_words":  [
+                        "tuev neu",
+                        "tuv neu",
+                        "hu neu",
+                        "tuev bis",
+                        "tuv bis",
+                        "scheckheft",
+                        "1.hand",
+                        "erste hand",
+                        "service neu",
+                        "bremsen neu",
+                        "reifen neu",
+                        "zahnriemen",
+                        "8-fach",
+                        "garagenwagen",
+                        "2 schluessel",
+                        "nichtraucher",
+                        "regelmaessig service",
+                        "regelmaessig gewartet",
+                        "oelwechsel neu",
+                        "bremsen erneuert",
+                        "kupplung neu",
+                        "zahnriemen gewechselt",
+                        "rechnung vorhanden",
+                        "rechnungen vorhanden"
+                    ],
+    "motivation_words":  [
+                             "dringend",
+                             "muss weg",
+                             "wegen umzug",
+                             "umzug",
+                             "wegen neuanschaffung",
+                             "neues auto",
+                             "platzmangel",
+                             "schnell abzugeben",
+                             "vb",
+                             "vhb",
+                             "verhandlungsbasis",
+                             "muss heute weg",
+                             "bis wochenende",
+                             "schnellstmoeglich",
+                             "sofort abzugeben",
+                             "auto schon gekauft",
+                             "wegen neuem auto",
+                             "platz wird gebraucht",
+                             "vor ort verhandelbar"
+                         ],
+    "equipment_words":  [
+                            "klima",
+                            "sitzheizung",
+                            "bluetooth",
+                            "carplay",
+                            "tempomat",
+                            "pdc",
+                            "navi"
+                        ],
+    "youth_demand_models":  {
+                                "bmw":  [
+                                            "3er",
+                                            "e46",
+                                            "318i",
+                                            "320i",
+                                            "323i",
+                                            "325i",
+                                            "328i",
+                                            "330i"
+                                        ],
+                                "audi":  [
+                                             "a3",
+                                             "a4"
+                                         ],
+                                "mercedes":  [
+                                                 "c-klasse",
+                                                 "c klasse",
+                                                 "c180",
+                                                 "c200",
+                                                 "clk"
+                                             ],
+                                "mercedes-benz":  [
+                                                      "c-klasse",
+                                                      "c klasse",
+                                                      "c180",
+                                                      "c200",
+                                                      "clk"
+                                                  ],
+                                "seat":  [
+                                             "leon"
+                                         ],
+                                "honda":  [
+                                              "civic"
+                                          ],
+                                "mazda":  [
+                                              "3"
+                                          ]
+                            },
+    "youth_condition_words":  [
+                                  "sehr gepflegt",
+                                  "gepflegt",
+                                  "top zustand",
+                                  "guter zustand",
+                                  "sehr guter zustand",
+                                  "rostfrei",
+                                  "kein rost",
+                                  "unfallfrei",
+                                  "scheckheft",
+                                  "serviceheft",
+                                  "1.hand",
+                                  "erste hand",
+                                  "garagenwagen",
+                                  "liebhaberfahrzeug",
+                                  "innen sehr sauber",
+                                  "nichtraucher"
+                              ],
+    "youth_risk_words":  [
+                             "rost",
+                             "durchrostung",
+                             "durchrost",
+                             "schweller",
+                             "radlauf rost",
+                             "unfall",
+                             "unfallschaden",
+                             "nachlackiert",
+                             "getriebeschaden",
+                             "getriebe defekt",
+                             "automatik probleme",
+                             "motorkontrollleuchte",
+                             "mkl",
+                             "check engine",
+                             "oelverbrauch",
+                             "ÃƒÂ¶lverbrauch",
+                             "qualmt",
+                             "ruckelt",
+                             "notlauf"
+                         ],
+    "psychological_price_zones":  [
+                                      {
+                                          "brand":  "opel",
+                                          "model":  "corsa",
+                                          "generation":  "Corsa C",
+                                          "year_min":  2000,
+                                          "year_max":  2006,
+                                          "fast":  900,
+                                          "safe":  1500,
+                                          "note":  "Corsa C: only cheap/TUV/simple petrol is interesting"
+                                      },
+                                      {
+                                          "brand":  "opel",
+                                          "model":  "corsa",
+                                          "generation":  "Corsa D",
+                                          "year_min":  2006,
+                                          "year_max":  2014,
+                                          "fast":  2200,
+                                          "safe":  3200,
+                                          "note":  "Corsa D: core first-car demand, but retail price is not a flip"
+                                      },
+                                      {
+                                          "brand":  "opel",
+                                          "model":  "corsa",
+                                          "generation":  "Corsa E",
+                                          "year_min":  2014,
+                                          "year_max":  2019,
+                                          "fast":  3800,
+                                          "safe":  5200,
+                                          "note":  "Corsa E: modern buyer demand, needs under-market price"
+                                      },
+                                      {
+                                          "brand":  "opel",
+                                          "model":  "astra",
+                                          "generation":  "Astra G",
+                                          "year_min":  1998,
+                                          "year_max":  2004,
+                                          "fast":  1000,
+                                          "safe":  1600,
+                                          "note":  "Astra G: old, useful only cheap with TUV/rust proof"
+                                      },
+                                      {
+                                          "brand":  "opel",
+                                          "model":  "astra",
+                                          "generation":  "Astra H",
+                                          "year_min":  2004,
+                                          "year_max":  2010,
+                                          "fast":  1700,
+                                          "safe":  2700,
+                                          "note":  "Astra H: practical cheap car, Kombi/1.6 petrol can work"
+                                      },
+                                      {
+                                          "brand":  "opel",
+                                          "model":  "astra",
+                                          "generation":  "Astra J",
+                                          "year_min":  2010,
+                                          "year_max":  2015,
+                                          "fast":  2700,
+                                          "safe":  4200,
+                                          "note":  "Astra J: better buyer car than flip unless clearly cheap"
+                                      },
+                                      {
+                                          "brand":  "ford",
+                                          "model":  "fiesta",
+                                          "generation":  "Fiesta Mk5",
+                                          "year_min":  2002,
+                                          "year_max":  2008,
+                                          "fast":  1200,
+                                          "safe":  1900,
+                                          "note":  "Fiesta Mk5: cheap simple 1.25 petrol/TUV only"
+                                      },
+                                      {
+                                          "brand":  "ford",
+                                          "model":  "fiesta",
+                                          "generation":  "Fiesta Mk6",
+                                          "year_min":  2008,
+                                          "year_max":  2016,
+                                          "fast":  2500,
+                                          "safe":  3600,
+                                          "note":  "Fiesta Mk6: strong if 1.25 petrol, 5-door, TUV"
+                                      },
+                                      {
+                                          "brand":  "ford",
+                                          "model":  "fiesta",
+                                          "generation":  "Fiesta Mk7",
+                                          "year_min":  2017,
+                                          "year_max":  2020,
+                                          "fast":  5200,
+                                          "safe":  7000,
+                                          "note":  "Fiesta Mk7: good demand but usually above current young-flip budget"
+                                      },
+                                      {
+                                          "brand":  "ford",
+                                          "model":  "focus",
+                                          "generation":  "Focus Mk2",
+                                          "year_min":  2004,
+                                          "year_max":  2011,
+                                          "fast":  1700,
+                                          "safe":  2700,
+                                          "note":  "Focus Mk2: good if simple petrol/Turnier/TUV; rust and clutch matter"
+                                      },
+                                      {
+                                          "brand":  "ford",
+                                          "model":  "focus",
+                                          "generation":  "Focus Mk3",
+                                          "year_min":  2011,
+                                          "year_max":  2018,
+                                          "fast":  3500,
+                                          "safe":  5200,
+                                          "note":  "Focus Mk3: modern enough, but avoid PowerShift/EcoBoost without proof"
+                                      },
+                                      {
+                                          "brand":  "skoda",
+                                          "model":  "fabia",
+                                          "generation":  "Fabia I",
+                                          "year_min":  1999,
+                                          "year_max":  2007,
+                                          "fast":  1100,
+                                          "safe":  1800,
+                                          "note":  "Fabia I: practical but old; needs TUV and cheap entry"
+                                      },
+                                      {
+                                          "brand":  "skoda",
+                                          "model":  "fabia",
+                                          "generation":  "Fabia II",
+                                          "year_min":  2007,
+                                          "year_max":  2014,
+                                          "fast":  2300,
+                                          "safe":  3400,
+                                          "note":  "Fabia II: practical first-car demand, Combi can be useful"
+                                      },
+                                      {
+                                          "brand":  "skoda",
+                                          "model":  "fabia",
+                                          "generation":  "Fabia III",
+                                          "year_min":  2014,
+                                          "year_max":  2021,
+                                          "fast":  4200,
+                                          "safe":  5800,
+                                          "note":  "Fabia III: safe buyer car, only flip if underpriced"
+                                      },
+                                      {
+                                          "brand":  "toyota",
+                                          "model":  "yaris",
+                                          "generation":  "Yaris P1",
+                                          "year_min":  1999,
+                                          "year_max":  2005,
+                                          "fast":  1300,
+                                          "safe":  2000,
+                                          "note":  "Yaris P1: reliable, but old/rust/TUV decide"
+                                      },
+                                      {
+                                          "brand":  "toyota",
+                                          "model":  "yaris",
+                                          "generation":  "Yaris XP90",
+                                          "year_min":  2005,
+                                          "year_max":  2011,
+                                          "fast":  2200,
+                                          "safe":  3300,
+                                          "note":  "Yaris XP90: very liquid, low-risk first car"
+                                      },
+                                      {
+                                          "brand":  "toyota",
+                                          "model":  "yaris",
+                                          "generation":  "Yaris XP130",
+                                          "year_min":  2011,
+                                          "year_max":  2020,
+                                          "fast":  4300,
+                                          "safe":  6000,
+                                          "note":  "Yaris XP130: very strong buyer demand, but often not cheap"
+                                      },
+                                      {
+                                          "brand":  "toyota",
+                                          "model":  "aygo",
+                                          "generation":  "Aygo I",
+                                          "year_min":  2005,
+                                          "year_max":  2014,
+                                          "fast":  2200,
+                                          "safe":  3500,
+                                          "note":  "Aygo I: safe small car; TUV and clutch/rust matter"
+                                      },
+                                      {
+                                          "brand":  "toyota",
+                                          "model":  "aygo",
+                                          "generation":  "Aygo II",
+                                          "year_min":  2014,
+                                          "year_max":  2021,
+                                          "fast":  4300,
+                                          "safe":  5800,
+                                          "note":  "Aygo II: easy resale but usually above flip budget"
+                                      },
+                                      {
+                                          "brand":  "hyundai",
+                                          "model":  "i10",
+                                          "generation":  "i10 PA",
+                                          "year_min":  2008,
+                                          "year_max":  2013,
+                                          "fast":  2200,
+                                          "safe":  3200,
+                                          "note":  "i10 PA: strong cheap first-car demand"
+                                      },
+                                      {
+                                          "brand":  "hyundai",
+                                          "model":  "i10",
+                                          "generation":  "i10 IA",
+                                          "year_min":  2014,
+                                          "year_max":  2019,
+                                          "fast":  3800,
+                                          "safe":  5200,
+                                          "note":  "i10 IA: low-risk modern city car"
+                                      },
+                                      {
+                                          "brand":  "hyundai",
+                                          "model":  "i20",
+                                          "generation":  "i20 PB",
+                                          "year_min":  2008,
+                                          "year_max":  2014,
+                                          "fast":  2600,
+                                          "safe":  3600,
+                                          "note":  "i20 PB: one of the best safe first-car patterns"
+                                      },
+                                      {
+                                          "brand":  "hyundai",
+                                          "model":  "i20",
+                                          "generation":  "i20 GB",
+                                          "year_min":  2015,
+                                          "year_max":  2020,
+                                          "fast":  4800,
+                                          "safe":  6500,
+                                          "note":  "i20 GB: very sellable, but needs real discount"
+                                      },
+                                      {
+                                          "brand":  "suzuki",
+                                          "model":  "swift",
+                                          "generation":  "Swift MZ/EZ",
+                                          "year_min":  2005,
+                                          "year_max":  2010,
+                                          "fast":  1900,
+                                          "safe":  2800,
+                                          "note":  "Swift old: simple Japanese demand, body/rust important"
+                                      },
+                                      {
+                                          "brand":  "suzuki",
+                                          "model":  "swift",
+                                          "generation":  "Swift FZ/NZ",
+                                          "year_min":  2010,
+                                          "year_max":  2017,
+                                          "fast":  3300,
+                                          "safe":  4700,
+                                          "note":  "Swift 2010+: strong quick-sale DNA if clean/TUV"
+                                      },
+                                      {
+                                          "brand":  "suzuki",
+                                          "model":  "splash",
+                                          "generation":  "Splash",
+                                          "year_min":  2008,
+                                          "year_max":  2014,
+                                          "fast":  1900,
+                                          "safe":  2800,
+                                          "note":  "Splash: safe small car, not exciting but can sell fast cheap"
+                                      },
+                                      {
+                                          "brand":  "honda",
+                                          "model":  "jazz",
+                                          "generation":  "Jazz GD",
+                                          "year_min":  2001,
+                                          "year_max":  2008,
+                                          "fast":  1700,
+                                          "safe":  2600,
+                                          "note":  "Jazz GD: high practicality/reliability, rust/TUV decide"
+                                      },
+                                      {
+                                          "brand":  "honda",
+                                          "model":  "jazz",
+                                          "generation":  "Jazz GE",
+                                          "year_min":  2008,
+                                          "year_max":  2015,
+                                          "fast":  3200,
+                                          "safe":  4600,
+                                          "note":  "Jazz GE: excellent safe first-car/family small car"
+                                      },
+                                      {
+                                          "brand":  "nissan",
+                                          "model":  "micra",
+                                          "generation":  "Micra K12",
+                                          "year_min":  2003,
+                                          "year_max":  2010,
+                                          "fast":  1400,
+                                          "safe":  2200,
+                                          "note":  "Micra K12: cheap city car, only clean/TUV"
+                                      },
+                                      {
+                                          "brand":  "nissan",
+                                          "model":  "micra",
+                                          "generation":  "Micra K13",
+                                          "year_min":  2010,
+                                          "year_max":  2017,
+                                          "fast":  2500,
+                                          "safe":  3600,
+                                          "note":  "Micra K13: decent low-risk city car if not CVT"
+                                      },
+                                      {
+                                          "brand":  "volkswagen",
+                                          "model":  "golf",
+                                          "generation":  "Golf 4",
+                                          "year_min":  1997,
+                                          "year_max":  2003,
+                                          "fast":  1300,
+                                          "safe":  1800,
+                                          "note":  "Golf 4: cheap 1.6 petrol/manual around 1000-1300 EUR can be a strong manual CHECK even with short TUV, if no engine/gearbox/rust/document red flags."
+                                      },
+                                      {
+                                          "brand":  "volkswagen",
+                                          "model":  "golf",
+                                          "generation":  "Golf 5",
+                                          "year_min":  2004,
+                                          "year_max":  2008,
+                                          "fast":  1800,
+                                          "safe":  2600,
+                                          "note":  "Golf 5: liquid, but normal price is not opportunity"
+                                      },
+                                      {
+                                          "brand":  "volkswagen",
+                                          "model":  "golf",
+                                          "generation":  "Golf 6",
+                                          "year_min":  2009,
+                                          "year_max":  2012,
+                                          "fast":  3000,
+                                          "safe":  4300,
+                                          "note":  "Golf 6: good only if engine/gearbox safe; TSI/DSG punished"
+                                      },
+                                      {
+                                          "brand":  "volkswagen",
+                                          "model":  "golf",
+                                          "generation":  "Golf 7",
+                                          "year_min":  2013,
+                                          "year_max":  2017,
+                                          "fast":  4800,
+                                          "safe":  6500,
+                                          "note":  "Golf 7: modern demand but often above current youth-flip budget"
+                                      },
+                                      {
+                                          "brand":  "volkswagen",
+                                          "model":  "polo",
+                                          "generation":  "Polo 9N/9N3",
+                                          "year_min":  2002,
+                                          "year_max":  2009,
+                                          "fast":  1700,
+                                          "safe":  2400,
+                                          "note":  "Polo 9N: quick only cheap, TUV and clean body"
+                                      },
+                                      {
+                                          "brand":  "volkswagen",
+                                          "model":  "polo",
+                                          "generation":  "Polo 6R",
+                                          "year_min":  2010,
+                                          "year_max":  2014,
+                                          "fast":  2900,
+                                          "safe":  3900,
+                                          "note":  "Polo 6R: strong young-buyer demand when clean, 5-door/TUV/1.Hand"
+                                      },
+                                      {
+                                          "brand":  "vw",
+                                          "model":  "golf",
+                                          "generation":  "Golf 4",
+                                          "year_min":  1997,
+                                          "year_max":  2003,
+                                          "fast":  1200,
+                                          "safe":  1800,
+                                          "note":  "VW alias"
+                                      },
+                                      {
+                                          "brand":  "vw",
+                                          "model":  "golf",
+                                          "generation":  "Golf 5",
+                                          "year_min":  2004,
+                                          "year_max":  2008,
+                                          "fast":  1800,
+                                          "safe":  2600,
+                                          "note":  "VW alias"
+                                      },
+                                      {
+                                          "brand":  "vw",
+                                          "model":  "golf",
+                                          "generation":  "Golf 6",
+                                          "year_min":  2009,
+                                          "year_max":  2012,
+                                          "fast":  3000,
+                                          "safe":  4300,
+                                          "note":  "VW alias"
+                                      },
+                                      {
+                                          "brand":  "vw",
+                                          "model":  "polo",
+                                          "generation":  "Polo 9N/9N3",
+                                          "year_min":  2002,
+                                          "year_max":  2009,
+                                          "fast":  1700,
+                                          "safe":  2400,
+                                          "note":  "VW alias"
+                                      },
+                                      {
+                                          "brand":  "vw",
+                                          "model":  "polo",
+                                          "generation":  "Polo 6R",
+                                          "year_min":  2010,
+                                          "year_max":  2014,
+                                          "fast":  2900,
+                                          "safe":  3900,
+                                          "note":  "VW alias"
+                                      },
+                                      {
+                                          "brand":  "hyundai",
+                                          "model":  "atos",
+                                          "fast":  1400,
+                                          "safe":  1900
+                                      },
+                                      {
+                                          "brand":  "mazda",
+                                          "model":  "2",
+                                          "year_max":  2010,
+                                          "fast":  1800,
+                                          "safe":  2500
+                                      },
+                                      {
+                                          "brand":  "bmw",
+                                          "model":  "3er",
+                                          "fast":  2400,
+                                          "safe":  3600,
+                                          "year_min":  1998,
+                                          "year_max":  2006
+                                      },
+                                      {
+                                          "brand":  "bmw",
+                                          "model":  "e46",
+                                          "fast":  2400,
+                                          "safe":  3600,
+                                          "year_min":  1998,
+                                          "year_max":  2006
+                                      },
+                                      {
+                                          "brand":  "audi",
+                                          "model":  "a3",
+                                          "fast":  2400,
+                                          "safe":  3600,
+                                          "year_min":  2003,
+                                          "year_max":  2012
+                                      },
+                                      {
+                                          "brand":  "audi",
+                                          "model":  "a4",
+                                          "fast":  2600,
+                                          "safe":  3900,
+                                          "year_min":  2001,
+                                          "year_max":  2008
+                                      },
+                                      {
+                                          "brand":  "mercedes",
+                                          "model":  "c-klasse",
+                                          "fast":  2600,
+                                          "safe":  3900,
+                                          "year_min":  2001,
+                                          "year_max":  2007
+                                      },
+                                      {
+                                          "brand":  "mercedes",
+                                          "model":  "c klasse",
+                                          "fast":  2600,
+                                          "safe":  3900,
+                                          "year_min":  2001,
+                                          "year_max":  2007
+                                      },
+                                      {
+                                          "brand":  "mercedes",
+                                          "model":  "c-klasse",
+                                          "fast":  4500,
+                                          "safe":  6500,
+                                          "year_min":  2008,
+                                          "year_max":  2013
+                                      },
+                                      {
+                                          "brand":  "mercedes",
+                                          "model":  "clk",
+                                          "fast":  3000,
+                                          "safe":  4500,
+                                          "year_min":  2002,
+                                          "year_max":  2009
+                                      },
+                                      {
+                                          "brand":  "citroen",
+                                          "model":  "c3",
+                                          "fast":  1100,
+                                          "safe":  1700,
+                                          "year_min":  2002,
+                                          "year_max":  2009
+                                      },
+                                      {
+                                          "brand":  "citroen",
+                                          "model":  "c1",
+                                          "fast":  1400,
+                                          "safe":  2200,
+                                          "year_min":  2005,
+                                          "year_max":  2014
+                                      },
+                                      {
+                                          "brand":  "citroen",
+                                          "model":  "c4",
+                                          "fast":  1200,
+                                          "safe":  1900,
+                                          "year_min":  2004,
+                                          "year_max":  2010
+                                      },
+                                      {
+                                          "brand":  "peugeot",
+                                          "model":  "206",
+                                          "fast":  900,
+                                          "safe":  1400,
+                                          "year_min":  1999,
+                                          "year_max":  2009
+                                      },
+                                      {
+                                          "brand":  "peugeot",
+                                          "model":  "207",
+                                          "fast":  1200,
+                                          "safe":  1900,
+                                          "year_min":  2006,
+                                          "year_max":  2012
+                                      },
+                                      {
+                                          "brand":  "peugeot",
+                                          "model":  "107",
+                                          "fast":  1400,
+                                          "safe":  2200,
+                                          "year_min":  2005,
+                                          "year_max":  2014
+                                      },
+                                      {
+                                          "brand":  "ford",
+                                          "model":  "ka",
+                                          "fast":  1400,
+                                          "safe":  2100,
+                                          "year_min":  2008,
+                                          "year_max":  2016
+                                      },
+                                      {
+                                          "brand":  "opel",
+                                          "model":  "meriva",
+                                          "fast":  1000,
+                                          "safe":  1600,
+                                          "year_min":  2003,
+                                          "year_max":  2010
+                                      },
+                                      {
+                                          "brand":  "opel",
+                                          "model":  "meriva",
+                                          "fast":  1600,
+                                          "safe":  2500,
+                                          "year_min":  2010,
+                                          "year_max":  2014
+                                      },
+                                      {
+                                          "brand":  "renault",
+                                          "model":  "modus",
+                                          "fast":  900,
+                                          "safe":  1500,
+                                          "year_min":  2004,
+                                          "year_max":  2012
+                                      },
+                                      {
+                                          "brand":  "renault",
+                                          "model":  "twingo",
+                                          "fast":  900,
+                                          "safe":  1500,
+                                          "year_min":  2000,
+                                          "year_max":  2007
+                                      },
+                                      {
+                                          "brand":  "renault",
+                                          "model":  "twingo",
+                                          "fast":  1300,
+                                          "safe":  2200,
+                                          "year_min":  2008,
+                                          "year_max":  2014
+                                      },
+                                      {
+                                          "brand":  "renault",
+                                          "model":  "clio",
+                                          "fast":  1300,
+                                          "safe":  2300,
+                                          "year_min":  2005,
+                                          "year_max":  2012
+                                      },
+                                      {
+                                          "brand":  "mazda",
+                                          "model":  "3",
+                                          "fast":  1300,
+                                          "safe":  2100,
+                                          "year_min":  2003,
+                                          "year_max":  2009
+                                      },
+                                      {
+                                          "brand":  "mitsubishi",
+                                          "model":  "space",
+                                          "fast":  2200,
+                                          "safe":  3200,
+                                          "year_min":  2013,
+                                          "year_max":  2020
+                                      },
+                                      {
+                                          "brand":  "mitsubishi",
+                                          "model":  "space star",
+                                          "fast":  2200,
+                                          "safe":  3200,
+                                          "year_min":  2013,
+                                          "year_max":  2020
+                                      },
+                                      {
+                                          "brand":  "peugeot",
+                                          "model":  "206",
+                                          "fast":  1300,
+                                          "safe":  1600,
+                                          "year_min":  2004,
+                                          "year_max":  2012
+                                      },
+                                      {
+                                          "brand":  "volkswagen",
+                                          "model":  "lupo",
+                                          "generation":  "Lupo",
+                                          "year_min":  1998,
+                                          "year_max":  2005,
+                                          "fast":  1000,
+                                          "safe":  1600
+                                      },
+                                      {
+                                          "brand":  "vw",
+                                          "model":  "lupo",
+                                          "generation":  "Lupo",
+                                          "year_min":  1998,
+                                          "year_max":  2005,
+                                          "fast":  1000,
+                                          "safe":  1600
+                                      },
+                                      {
+                                          "brand":  "volkswagen",
+                                          "model":  "fox",
+                                          "generation":  "Fox",
+                                          "year_min":  2005,
+                                          "year_max":  2011,
+                                          "fast":  1200,
+                                          "safe":  1900
+                                      },
+                                      {
+                                          "brand":  "vw",
+                                          "model":  "fox",
+                                          "generation":  "Fox",
+                                          "year_min":  2005,
+                                          "year_max":  2011,
+                                          "fast":  1200,
+                                          "safe":  1900
+                                      },
+                                      {
+                                          "brand":  "skoda",
+                                          "model":  "citigo",
+                                          "generation":  "Citigo",
+                                          "year_min":  2012,
+                                          "year_max":  2020,
+                                          "fast":  3300,
+                                          "safe":  4800
+                                      },
+                                      {
+                                          "brand":  "seat",
+                                          "model":  "mii",
+                                          "generation":  "Mii",
+                                          "year_min":  2012,
+                                          "year_max":  2020,
+                                          "fast":  3300,
+                                          "safe":  4800
+                                      },
+                                      {
+                                          "brand":  "kia",
+                                          "model":  "picanto",
+                                          "generation":  "Picanto I",
+                                          "year_min":  2004,
+                                          "year_max":  2011,
+                                          "fast":  1300,
+                                          "safe":  2200
+                                      },
+                                      {
+                                          "brand":  "kia",
+                                          "model":  "picanto",
+                                          "generation":  "Picanto II",
+                                          "year_min":  2011,
+                                          "year_max":  2017,
+                                          "fast":  2500,
+                                          "safe":  3800
+                                      },
+                                      {
+                                          "brand":  "kia",
+                                          "model":  "rio",
+                                          "generation":  "Rio UB",
+                                          "year_min":  2011,
+                                          "year_max":  2017,
+                                          "fast":  3000,
+                                          "safe":  4500
+                                      },
+                                      {
+                                          "brand":  "mitsubishi",
+                                          "model":  "colt",
+                                          "generation":  "Colt Z30",
+                                          "year_min":  2004,
+                                          "year_max":  2012,
+                                          "fast":  1300,
+                                          "safe":  2200
+                                      },
+                                      {
+                                          "brand":  "renault",
+                                          "model":  "clio",
+                                          "generation":  "Clio IV",
+                                          "year_min":  2012,
+                                          "year_max":  2019,
+                                          "fast":  3500,
+                                          "safe":  5200
+                                      },
+                                      {
+                                          "brand":  "renault",
+                                          "model":  "twingo",
+                                          "generation":  "Twingo III",
+                                          "year_min":  2014,
+                                          "year_max":  2020,
+                                          "fast":  3300,
+                                          "safe":  4800
+                                      },
+                                      {
+                                          "brand":  "citroen",
+                                          "model":  "c1",
+                                          "generation":  "C1 II",
+                                          "year_min":  2014,
+                                          "year_max":  2021,
+                                          "fast":  3500,
+                                          "safe":  5000
+                                      },
+                                      {
+                                          "brand":  "peugeot",
+                                          "model":  "108",
+                                          "generation":  "108",
+                                          "year_min":  2014,
+                                          "year_max":  2021,
+                                          "fast":  3500,
+                                          "safe":  5000
+                                      },
+                                      {
+                                          "brand":  "dacia",
+                                          "model":  "sandero",
+                                          "generation":  "Sandero II",
+                                          "year_min":  2012,
+                                          "year_max":  2020,
+                                          "fast":  2600,
+                                          "safe":  4200
+                                      },
+                                      {
+                                          "brand":  "toyota",
+                                          "model":  "corolla",
+                                          "generation":  "Corolla E12",
+                                          "year_min":  2002,
+                                          "year_max":  2007,
+                                          "fast":  1800,
+                                          "safe":  2800
+                                      },
+                                      {
+                                          "brand":  "toyota",
+                                          "model":  "auris",
+                                          "generation":  "Auris I",
+                                          "year_min":  2007,
+                                          "year_max":  2012,
+                                          "fast":  2500,
+                                          "safe":  3800
+                                      },
+                                      {
+                                          "brand":  "toyota",
+                                          "model":  "auris",
+                                          "generation":  "Auris II",
+                                          "year_min":  2013,
+                                          "year_max":  2018,
+                                          "fast":  4500,
+                                          "safe":  6500
+                                      },
+                                      {
+                                          "brand":  "honda",
+                                          "model":  "civic",
+                                          "generation":  "Civic VIII",
+                                          "year_min":  2006,
+                                          "year_max":  2011,
+                                          "fast":  2200,
+                                          "safe":  3500
+                                      },
+                                      {
+                                          "brand":  "honda",
+                                          "model":  "civic",
+                                          "generation":  "Civic IX",
+                                          "year_min":  2012,
+                                          "year_max":  2017,
+                                          "fast":  4200,
+                                          "safe":  6200
+                                      },
+                                      {
+                                          "brand":  "seat",
+                                          "model":  "leon",
+                                          "generation":  "Leon 1P",
+                                          "year_min":  2005,
+                                          "year_max":  2012,
+                                          "fast":  1800,
+                                          "safe":  2800
+                                      },
+                                      {
+                                          "brand":  "seat",
+                                          "model":  "leon",
+                                          "generation":  "Leon 5F",
+                                          "year_min":  2013,
+                                          "year_max":  2019,
+                                          "fast":  4300,
+                                          "safe":  6200
+                                      },
+                                      {
+                                          "brand":  "mazda",
+                                          "model":  "2",
+                                          "generation":  "Mazda 2 DE",
+                                          "year_min":  2007,
+                                          "year_max":  2014,
+                                          "fast":  2200,
+                                          "safe":  3400
+                                      },
+                                      {
+                                          "brand":  "mazda",
+                                          "model":  "2",
+                                          "generation":  "Mazda 2 DJ",
+                                          "year_min":  2015,
+                                          "year_max":  2020,
+                                          "fast":  4200,
+                                          "safe":  6000
+                                      },
+                                      {
+                                          "brand":  "skoda",
+                                          "model":  "octavia",
+                                          "generation":  "Octavia I",
+                                          "year_min":  1996,
+                                          "year_max":  2004,
+                                          "fast":  1200,
+                                          "safe":  1900
+                                      },
+                                      {
+                                          "brand":  "skoda",
+                                          "model":  "octavia",
+                                          "generation":  "Octavia II",
+                                          "year_min":  2004,
+                                          "year_max":  2013,
+                                          "fast":  2200,
+                                          "safe":  3400
+                                      },
+                                      {
+                                          "brand":  "skoda",
+                                          "model":  "octavia",
+                                          "generation":  "Octavia III",
+                                          "year_min":  2013,
+                                          "year_max":  2020,
+                                          "fast":  4500,
+                                          "safe":  6500
+                                      },
+                                      {
+                                          "brand":  "volkswagen",
+                                          "model":  "jetta",
+                                          "generation":  "Jetta V",
+                                          "year_min":  2005,
+                                          "year_max":  2010,
+                                          "fast":  1800,
+                                          "safe":  2800
+                                      },
+                                      {
+                                          "brand":  "vw",
+                                          "model":  "jetta",
+                                          "generation":  "Jetta V",
+                                          "year_min":  2005,
+                                          "year_max":  2010,
+                                          "fast":  1800,
+                                          "safe":  2800
+                                      },
+                                      {
+                                          "brand":  "volkswagen",
+                                          "model":  "jetta",
+                                          "generation":  "Jetta VI",
+                                          "year_min":  2011,
+                                          "year_max":  2018,
+                                          "fast":  3500,
+                                          "safe":  5200
+                                      },
+                                      {
+                                          "brand":  "vw",
+                                          "model":  "jetta",
+                                          "generation":  "Jetta VI",
+                                          "year_min":  2011,
+                                          "year_max":  2018,
+                                          "fast":  3500,
+                                          "safe":  5200
+                                      },
+                                      {
+                                          "brand":  "volkswagen",
+                                          "model":  "passat",
+                                          "generation":  "Passat B6",
+                                          "year_min":  2005,
+                                          "year_max":  2010,
+                                          "fast":  2000,
+                                          "safe":  3200
+                                      },
+                                      {
+                                          "brand":  "vw",
+                                          "model":  "passat",
+                                          "generation":  "Passat B6",
+                                          "year_min":  2005,
+                                          "year_max":  2010,
+                                          "fast":  2000,
+                                          "safe":  3200
+                                      },
+                                      {
+                                          "brand":  "volkswagen",
+                                          "model":  "passat",
+                                          "generation":  "Passat B7",
+                                          "year_min":  2010,
+                                          "year_max":  2014,
+                                          "fast":  3200,
+                                          "safe":  4800
+                                      },
+                                      {
+                                          "brand":  "vw",
+                                          "model":  "passat",
+                                          "generation":  "Passat B7",
+                                          "year_min":  2010,
+                                          "year_max":  2014,
+                                          "fast":  3200,
+                                          "safe":  4800
+                                      }
+                                  ],
+    "sold_velocity_profiles":  [
+                                   {
+                                       "name":  "Corsa D cheap TUV velocity",
+                                       "brand":  "opel",
+                                       "models":  [
+                                                      "corsa"
+                                                  ],
+                                       "year_min":  2006,
+                                       "year_max":  2014,
+                                       "price_max":  2400,
+                                       "mileage_max":  195000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "5 tuer",
+                                                        "5-tuer",
+                                                        "1 hand",
+                                                        "scheckheft",
+                                                        "service",
+                                                        "gepflegt",
+                                                        "8-fach"
+                                                    ],
+                                       "bonus":  34,
+                                       "why":  "Confirmed sold feedback: cheap TUV-backed Corsa D is a real fast-buyer car, not just a normal cheap listing."
+                                   },
+                                   {
+                                       "name":  "Fiesta Mk6 1.25 velocity",
+                                       "brand":  "ford",
+                                       "models":  [
+                                                      "fiesta"
+                                                  ],
+                                       "year_min":  2008,
+                                       "year_max":  2016,
+                                       "price_max":  2600,
+                                       "mileage_max":  180000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "1.25",
+                                                        "1,25",
+                                                        "klima",
+                                                        "5 tuer",
+                                                        "5-tuer",
+                                                        "scheckheft"
+                                                    ],
+                                       "bonus":  30,
+                                       "why":  "Fiesta 1.25 with TUV is one of the cleanest cheap first-car stories."
+                                   },
+                                   {
+                                       "name":  "Focus Mk2 useful cheap velocity",
+                                       "brand":  "ford",
+                                       "models":  [
+                                                      "focus",
+                                                      "fokus"
+                                                  ],
+                                       "year_min":  2004,
+                                       "year_max":  2011,
+                                       "price_max":  2300,
+                                       "mileage_max":  190000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "kombi",
+                                                        "turnier",
+                                                        "1.6",
+                                                        "1,6",
+                                                        "klima",
+                                                        "zahnriemen"
+                                                    ],
+                                       "bonus":  24,
+                                       "why":  "Focus Mk2 can sell fast if it is cheap, useful and not rusty; normal price stays CHECK."
+                                   },
+                                   {
+                                       "name":  "Fabia II practical velocity",
+                                       "brand":  "skoda",
+                                       "models":  [
+                                                      "fabia"
+                                                  ],
+                                       "year_min":  2007,
+                                       "year_max":  2014,
+                                       "price_max":  2400,
+                                       "mileage_max":  180000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "combi",
+                                                        "kombi",
+                                                        "klima",
+                                                        "scheckheft",
+                                                        "1 hand"
+                                                    ],
+                                       "bonus":  25,
+                                       "why":  "Fabia II is not emotional, but cheap clean TUV cars have practical first-car demand."
+                                   },
+                                   {
+                                       "name":  "Yaris XP90 low-risk velocity",
+                                       "brand":  "toyota",
+                                       "models":  [
+                                                      "yaris"
+                                                  ],
+                                       "year_min":  2005,
+                                       "year_max":  2011,
+                                       "price_max":  2400,
+                                       "mileage_max":  190000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "1.0",
+                                                        "1,0",
+                                                        "vvt",
+                                                        "klima",
+                                                        "scheckheft"
+                                                    ],
+                                       "bonus":  31,
+                                       "why":  "Yaris XP90 is a low-risk buyer magnet when priced below comfort zone."
+                                   },
+                                   {
+                                       "name":  "Swift cheap Japanese velocity",
+                                       "brand":  "suzuki",
+                                       "models":  [
+                                                      "swift"
+                                                  ],
+                                       "year_min":  2005,
+                                       "year_max":  2017,
+                                       "price_max":  2600,
+                                       "mileage_max":  185000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "1.3",
+                                                        "1,3",
+                                                        "1.2",
+                                                        "1,2",
+                                                        "scheckheft"
+                                                    ],
+                                       "bonus":  29,
+                                       "why":  "Real feedback: cheap simple Swift can disappear faster than boring German retail cars."
+                                   },
+                                   {
+                                       "name":  "Honda Jazz cheap HU velocity",
+                                       "brand":  "honda",
+                                       "models":  [
+                                                      "jazz"
+                                                  ],
+                                       "year_min":  2005,
+                                       "year_max":  2010,
+                                       "price_max":  1700,
+                                       "mileage_max":  160000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "bonus":  30,
+                                       "why":  "Sold example: Jazz 2007, HU 07/2027, Klima, all-weather tyres, 132k, 1499 EUR."
+                                   },
+                                   {
+                                       "name":  "Hyundai i20 2013 first-car velocity",
+                                       "brand":  "hyundai",
+                                       "models":  [
+                                                      "i20"
+                                                  ],
+                                       "year_min":  2010,
+                                       "year_max":  2014,
+                                       "price_max":  2500,
+                                       "mileage_max":  165000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "5 tueren",
+                                                        "5 turen",
+                                                        "5-tuer",
+                                                        "5-tur"
+                                                    ],
+                                       "bonus":  32,
+                                       "why":  "Sold example: i20 2013, 148k, TUV 01/2027, Klima, 5 doors, 2300 EUR."
+                                   },
+                                   {
+                                       "name":  "Peugeot 206/206+ cheap simple velocity",
+                                       "brand":  "peugeot",
+                                       "models":  [
+                                                      "206",
+                                                      "206+"
+                                                  ],
+                                       "year_min":  2004,
+                                       "year_max":  2012,
+                                       "price_max":  1600,
+                                       "mileage_max":  160000,
+                                       "bonus":  28,
+                                       "why":  "Sold examples: 206+ 2011 135k 1050 EUR and 206 2006 90k TUV 1500 EUR."
+                                   },
+                                   {
+                                       "name":  "Ford Focus DA3 low-km clean velocity",
+                                       "brand":  "ford",
+                                       "models":  [
+                                                      "focus",
+                                                      "fokus"
+                                                  ],
+                                       "year_min":  2005,
+                                       "year_max":  2011,
+                                       "price_max":  3600,
+                                       "mileage_max":  130000,
+                                       "nice_any":  [
+                                                        "gepflegt",
+                                                        "guter zustand",
+                                                        "sehr gut",
+                                                        "tuev",
+                                                        "tuv",
+                                                        "hu",
+                                                        "klima"
+                                                    ],
+                                       "bonus":  24,
+                                       "why":  "Sold example: Focus DA3 2009, 115k, petrol/manual, 3500 EUR."
+                                   },
+                                   {
+                                       "name":  "Polo/Golf cheap core velocity",
+                                       "brand":  "volkswagen",
+                                       "models":  [
+                                                      "polo",
+                                                      "golf"
+                                                  ],
+                                       "year_min":  2004,
+                                       "year_max":  2013,
+                                       "price_max":  2600,
+                                       "mileage_max":  190000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "bonus":  26,
+                                       "why":  "Historical feedback: cheap fresh Polo/Golf with TUV and normal condition disappear fast."
+                                   },
+                                   {
+                                       "name":  "Old HOT DNA - Golf 5 pain-price velocity",
+                                       "brand":  "volkswagen",
+                                       "models":  [
+                                                      "golf"
+                                                  ],
+                                       "year_min":  2004,
+                                       "year_max":  2008,
+                                       "price_max":  1750,
+                                       "mileage_max":  195000,
+                                       "required_any":  [
+
+                                                        ],
+                                       "nice_any":  [
+                                                        "tuev",
+                                                        "tuv",
+                                                        "hu",
+                                                        "klima",
+                                                        "motor",
+                                                        "getriebe",
+                                                        "1a",
+                                                        "gepflegt"
+                                                    ],
+                                       "bonus":  34,
+                                       "why":  "Old strongest pattern: Golf 5 around 1100-1700 EUR is a pain-price car buyers call immediately."
+                                   },
+                                   {
+                                       "name":  "Old HOT DNA - Polo 9N cheap first-car velocity",
+                                       "brand":  "volkswagen",
+                                       "models":  [
+                                                      "polo"
+                                                  ],
+                                       "year_min":  2002,
+                                       "year_max":  2009,
+                                       "price_max":  2100,
+                                       "mileage_max":  195000,
+                                       "required_any":  [
+
+                                                        ],
+                                       "nice_any":  [
+                                                        "tuev",
+                                                        "tuv",
+                                                        "hu",
+                                                        "klima",
+                                                        "1 hand",
+                                                        "gepflegt",
+                                                        "service",
+                                                        "scheckheft",
+                                                        "8-fach"
+                                                    ],
+                                       "bonus":  38,
+                                       "why":  "Confirmed repeated sold feedback: cheap Polo 9N/9N3 with TUV/Klima/normal condition disappears fast."
+                                   },
+                                   {
+                                       "name":  "Old HOT DNA - Ford Focus Mk2 cheap utility velocity",
+                                       "brand":  "ford",
+                                       "models":  [
+                                                      "focus",
+                                                      "fokus"
+                                                  ],
+                                       "year_min":  2004,
+                                       "year_max":  2011,
+                                       "price_max":  1800,
+                                       "mileage_max":  210000,
+                                       "required_any":  [
+
+                                                        ],
+                                       "nice_any":  [
+                                                        "tuev",
+                                                        "tuv",
+                                                        "hu",
+                                                        "klima",
+                                                        "gepflegt",
+                                                        "motor",
+                                                        "getriebe",
+                                                        "kombi"
+                                                    ],
+                                       "bonus":  32,
+                                       "why":  "Old HOT pattern: Focus Mk2 cheap entry can sell fast even with higher km if it drives and is not rotten."
+                                   },
+                                   {
+                                       "name":  "Old HOT DNA - Fiesta 1.25 first-car velocity",
+                                       "brand":  "ford",
+                                       "models":  [
+                                                      "fiesta"
+                                                  ],
+                                       "year_min":  2008,
+                                       "year_max":  2014,
+                                       "price_max":  2800,
+                                       "mileage_max":  175000,
+                                       "required_any":  [
+
+                                                        ],
+                                       "nice_any":  [
+                                                        "1.25",
+                                                        "tuev",
+                                                        "tuv",
+                                                        "hu",
+                                                        "klima",
+                                                        "1 hand",
+                                                        "scheckheft",
+                                                        "gepflegt"
+                                                    ],
+                                       "bonus":  28,
+                                       "why":  "Fiesta 1.25 is a simple first-car engine; fast only when price is clearly under normal dealer money."
+                                   },
+                                   {
+                                       "name":  "Old HOT DNA - Hyundai i10 cheap reliable city velocity",
+                                       "brand":  "hyundai",
+                                       "models":  [
+                                                      "i10"
+                                                  ],
+                                       "year_min":  2008,
+                                       "year_max":  2013,
+                                       "price_max":  2300,
+                                       "mileage_max":  145000,
+                                       "required_any":  [
+
+                                                        ],
+                                       "nice_any":  [
+                                                        "tuev",
+                                                        "tuv",
+                                                        "hu",
+                                                        "klima",
+                                                        "zahnriemen",
+                                                        "service",
+                                                        "gepflegt"
+                                                    ],
+                                       "bonus":  30,
+                                       "why":  "Cheap i10 with normal mileage is a low-risk first-car car and tends to move faster than boring safe cars."
+                                   },
+                                   {
+                                       "name":  "Old HOT DNA - Toyota Yaris/Aygo low-risk velocity",
+                                       "brand":  "toyota",
+                                       "models":  [
+                                                      "yaris",
+                                                      "aygo"
+                                                  ],
+                                       "year_min":  2004,
+                                       "year_max":  2012,
+                                       "price_max":  2300,
+                                       "mileage_max":  170000,
+                                       "required_any":  [
+
+                                                        ],
+                                       "nice_any":  [
+                                                        "tuev",
+                                                        "tuv",
+                                                        "hu",
+                                                        "klima",
+                                                        "service",
+                                                        "gepflegt"
+                                                    ],
+                                       "bonus":  28,
+                                       "why":  "Toyota small cars sell on trust; they are fast only when the price is not dealer-high."
+                                   },
+                                   {
+                                       "name":  "Golf 4 1.6 suspiciously cheap expert CHECK",
+                                       "brand":  "volkswagen",
+                                       "models":  [
+                                                      "golf"
+                                                  ],
+                                       "year_min":  1997,
+                                       "year_max":  2003,
+                                       "price_max":  1300,
+                                       "mileage_max":  190000,
+                                       "required_any":  [
+                                                            "1.6",
+                                                            "1,6"
+                                                        ],
+                                       "nice_any":  [
+                                                        "tuev",
+                                                        "tuv",
+                                                        "hu",
+                                                        "klima",
+                                                        "1 hand",
+                                                        "scheckheft",
+                                                        "8-fach"
+                                                    ],
+                                       "bonus":  22,
+                                       "why":  "Expert feedback: old Golf 4 1.6 at very low price can be worth opening fast. Treat as urgent CHECK, not blind GOOD, because TUV/rust/mileage/engine/gearbox must be verified."
+                                   },
+                                   {
+                                       "name":  "City triplet fresh TUV velocity",
+                                       "brand":  "citroen",
+                                       "models":  [
+                                                      "c1"
+                                                  ],
+                                       "year_min":  2005,
+                                       "year_max":  2021,
+                                       "price_max":  3600,
+                                       "mileage_max":  165000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "5 tuer",
+                                                        "5-tuer",
+                                                        "service",
+                                                        "scheckheft"
+                                                    ],
+                                       "bonus":  24,
+                                       "why":  "C1/107/Aygo-type cars sell quickly when cheap, simple and TUV-backed."
+                                   },
+                                   {
+                                       "name":  "Peugeot 107 108 city-car velocity",
+                                       "brand":  "peugeot",
+                                       "models":  [
+                                                      "107",
+                                                      "108"
+                                                  ],
+                                       "year_min":  2005,
+                                       "year_max":  2021,
+                                       "price_max":  3600,
+                                       "mileage_max":  165000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "5 tuer",
+                                                        "5-tuer",
+                                                        "service",
+                                                        "scheckheft"
+                                                    ],
+                                       "bonus":  24,
+                                       "why":  "107/108 are attractive first cars when the price is below buyer comfort and TUV is clear."
+                                   },
+                                   {
+                                       "name":  "Kia Picanto cheap TUV velocity",
+                                       "brand":  "kia",
+                                       "models":  [
+                                                      "picanto"
+                                                  ],
+                                       "year_min":  2004,
+                                       "year_max":  2017,
+                                       "price_max":  2600,
+                                       "mileage_max":  160000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "5 tuer",
+                                                        "5-tuer",
+                                                        "1 hand",
+                                                        "service"
+                                                    ],
+                                       "bonus":  24,
+                                       "why":  "Picanto is a small low-risk beginner car; only exciting when cheap with TUV."
+                                   },
+                                   {
+                                       "name":  "Renault Twingo Clio cheap city velocity",
+                                       "brand":  "renault",
+                                       "models":  [
+                                                      "twingo",
+                                                      "clio"
+                                                  ],
+                                       "year_min":  2005,
+                                       "year_max":  2016,
+                                       "price_max":  2400,
+                                       "mileage_max":  170000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "5 tuer",
+                                                        "5-tuer",
+                                                        "service",
+                                                        "zahnriemen"
+                                                    ],
+                                       "bonus":  20,
+                                       "why":  "Twingo/Clio can move fast as cheap first cars, but only with TUV and simple defects."
+                                   },
+                                   {
+                                       "name":  "VW Lupo Fox cheap first-car velocity",
+                                       "brand":  "volkswagen",
+                                       "models":  [
+                                                      "lupo",
+                                                      "fox"
+                                                  ],
+                                       "year_min":  1998,
+                                       "year_max":  2011,
+                                       "price_max":  1600,
+                                       "mileage_max":  180000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "service",
+                                                        "zahnriemen",
+                                                        "1 hand"
+                                                    ],
+                                       "bonus":  22,
+                                       "why":  "Old small VW can sell quickly if very cheap, inspected and not rusty."
+                                   },
+                                   {
+                                       "name":  "Skoda Citigo Seat Mii VW up clone velocity",
+                                       "brand":  "skoda",
+                                       "models":  [
+                                                      "citigo"
+                                                  ],
+                                       "year_min":  2012,
+                                       "year_max":  2020,
+                                       "price_max":  3600,
+                                       "mileage_max":  150000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "5 tuer",
+                                                        "5-tuer",
+                                                        "service",
+                                                        "scheckheft"
+                                                    ],
+                                       "bonus":  26,
+                                       "why":  "Citigo/up/Mii platform is a strong beginner-car profile when priced below market."
+                                   },
+                                   {
+                                       "name":  "Seat Mii city velocity",
+                                       "brand":  "seat",
+                                       "models":  [
+                                                      "mii"
+                                                  ],
+                                       "year_min":  2012,
+                                       "year_max":  2020,
+                                       "price_max":  3600,
+                                       "mileage_max":  150000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "5 tuer",
+                                                        "5-tuer",
+                                                        "service",
+                                                        "scheckheft"
+                                                    ],
+                                       "bonus":  26,
+                                       "why":  "Mii/up/Citigo platform is strong for beginners if cheap, clean and TUV-backed."
+                                   },
+                                   {
+                                       "name":  "Octavia II cheap TUV mainstream velocity",
+                                       "brand":  "skoda",
+                                       "models":  [
+                                                      "octavia"
+                                                  ],
+                                       "year_min":  2004,
+                                       "year_max":  2013,
+                                       "price_max":  2600,
+                                       "mileage_max":  230000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "1.9 tdi",
+                                                        "1,9 tdi",
+                                                        "1.6 mpi",
+                                                        "1,6 mpi",
+                                                        "service",
+                                                        "scheckheft",
+                                                        "zahnriemen",
+                                                        "kombi"
+                                                    ],
+                                       "bonus":  28,
+                                       "why":  "Octavia II is a broad-demand practical car; cheap TUV-backed examples deserve quick manual check."
+                                   },
+                                   {
+                                       "name":  "Golf Polo mainstream first-hour velocity",
+                                       "brand":  "volkswagen",
+                                       "models":  [
+                                                      "golf",
+                                                      "polo"
+                                                  ],
+                                       "year_min":  2002,
+                                       "year_max":  2014,
+                                       "price_max":  3300,
+                                       "mileage_max":  220000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "service",
+                                                        "scheckheft",
+                                                        "1 hand",
+                                                        "zahnriemen",
+                                                        "5 tuer",
+                                                        "5-tuer"
+                                                    ],
+                                       "bonus":  34,
+                                       "why":  "Confirmed sold feedback: Polo/Golf remain core demand. Prioritize clean TUV-backed examples over cheap slow-resale oddballs."
+                                   },
+                                   {
+                                       "name":  "CONFIRMED SOLD - Corsa Polo mainstream quick-sale DNA",
+                                       "brand":  "opel",
+                                       "models":  [
+                                                      "corsa"
+                                                  ],
+                                       "year_min":  2006,
+                                       "year_max":  2015,
+                                       "price_max":  3000,
+                                       "mileage_max":  215000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "5 tuer",
+                                                        "5-tuer",
+                                                        "gepflegt",
+                                                        "service",
+                                                        "scheckheft",
+                                                        "1 hand",
+                                                        "8-fach"
+                                                    ],
+                                       "bonus":  40,
+                                       "why":  "Expert + market confirmed: normal Corsa with TUV/fair price is a high-priority mainstream lead, not a random cheap car."
+                                   },
+                                   {
+                                       "name":  "CONFIRMED SOLD - Polo clean TUV quick-sale DNA",
+                                       "brand":  "volkswagen",
+                                       "models":  [
+                                                      "polo"
+                                                  ],
+                                       "year_min":  2002,
+                                       "year_max":  2014,
+                                       "price_max":  3300,
+                                       "mileage_max":  220000,
+                                       "required_any":  [
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "5 tuer",
+                                                        "5-tuer",
+                                                        "gepflegt",
+                                                        "service",
+                                                        "scheckheft",
+                                                        "1 hand",
+                                                        "8-fach"
+                                                    ],
+                                       "bonus":  42,
+                                       "why":  "Expert + market confirmed: Polo demand is extremely broad; cheap or clean TUV-backed examples should outrank cheap slow-resale models."
+                                   },
+                                   {
+                                       "name":  "EXPERT CONFIRMED SOLD - Corsa 2012-2015 diesel around 3k",
+                                       "brand":  "opel",
+                                       "models":  [
+                                                      "corsa"
+                                                  ],
+                                       "year_min":  2012,
+                                       "year_max":  2015,
+                                       "price_max":  3300,
+                                       "mileage_max":  220000,
+                                       "required_any":  [
+                                                            "diesel",
+                                                            "cdti",
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "5 tuer",
+                                                        "5-tuer",
+                                                        "service",
+                                                        "scheckheft",
+                                                        "gepflegt",
+                                                        "8-fach"
+                                                    ],
+                                       "bonus":  42,
+                                       "why":  "Expert + market confirmed: newer Corsa around 2014, diesel, fair power, around 3k is a strong mainstream first-car/flip lead when TUV and condition are clean."
+                                   },
+                                   {
+                                       "name":  "EXPERT CONFIRMED SOLD - Polo pain-price around 1000",
+                                       "brand":  "volkswagen",
+                                       "models":  [
+                                                      "polo"
+                                                  ],
+                                       "year_min":  2002,
+                                       "year_max":  2010,
+                                       "price_max":  1300,
+                                       "mileage_max":  230000,
+                                       "required_any":  [
+
+                                                        ],
+                                       "nice_any":  [
+                                                        "tuev",
+                                                        "tuv",
+                                                        "hu",
+                                                        "klima",
+                                                        "gepflegt",
+                                                        "service",
+                                                        "1 hand",
+                                                        "5 tuer",
+                                                        "5-tuer"
+                                                    ],
+                                       "bonus":  44,
+                                       "why":  "Expert + market confirmed: Polo around 1000 EUR is a pain-price car. If no hard red flags, it must be opened fast even before perfect margin proof."
+                                   },
+                                   {
+                                       "name":  "EXPERT CONFIRMED SOLD - mainstream newer small diesel",
+                                       "brand":  "ford",
+                                       "models":  [
+                                                      "fiesta",
+                                                      "focus"
+                                                  ],
+                                       "year_min":  2010,
+                                       "year_max":  2016,
+                                       "price_max":  3300,
+                                       "mileage_max":  220000,
+                                       "required_any":  [
+                                                            "diesel",
+                                                            "tdci",
+                                                            "tuev",
+                                                            "tuv",
+                                                            "hu"
+                                                        ],
+                                       "nice_any":  [
+                                                        "klima",
+                                                        "service",
+                                                        "scheckheft",
+                                                        "gepflegt",
+                                                        "8-fach"
+                                                    ],
+                                       "bonus":  28,
+                                       "why":  "Derived from Corsa diesel feedback: newer mainstream diesel can be good at 180-220k when price, TUV and condition are right."
+                                   }
+                               ]
+}

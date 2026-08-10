@@ -1,0 +1,98 @@
+﻿{
+  "version": "2026-06-02-v1",
+  "purpose": "Conservative Germany youth/first-car flip price truth. market_mid is asking-market reference, flip_buy_max is the money-making buy zone.",
+  "rules": [
+    "For flipping, use flip_buy_max/watch_max, not market_mid.",
+    "Retail price can still be good for a normal buyer, but not for profit.",
+    "Fresh HU/TUV, 5 doors, low mileage, 1.Hand and simple petrol can justify watch_max, but rarely over_retail.",
+    "No HU/TUV, accident, engine/gearbox issues or rust require deep discount below flip_buy_max."
+  ],
+  "cards": [
+    {"brand":"Volkswagen","model":"up","aliases":["vw up","volkswagen up"],"bands":[
+      {"years":[2012,2015],"mileage":[0,130000],"market_low":4300,"market_mid":5200,"market_high":6200,"flip_buy_max":3600,"watch_max":4100,"over_retail":5200,"notes":"Very liquid first-car stock. Profit only if bought clearly below 4k or unusually clean with long TUV."},
+      {"years":[2012,2015],"mileage":[130000,180000],"market_low":3300,"market_mid":4300,"market_high":5200,"flip_buy_max":3000,"watch_max":3600,"over_retail":4500,"notes":"Mileage matters; still liquid, but buyer pool starts negotiating."}
+    ]},
+    {"brand":"Volkswagen","model":"Polo","aliases":["vw polo","polo 9n","polo 6r"],"bands":[
+      {"years":[2004,2009],"mileage":[100000,160000],"market_low":2200,"market_mid":3000,"market_high":3800,"flip_buy_max":1700,"watch_max":2300,"over_retail":3100,"notes":"Old Polo sells fast with TUV, but profit price is under about 1700-2000 unless condition is exceptional."},
+      {"years":[2004,2009],"mileage":[160000,220000],"market_low":1600,"market_mid":2300,"market_high":3100,"flip_buy_max":1300,"watch_max":1800,"over_retail":2600,"notes":"High-mile old Polo needs cheap entry. TUV and rust decide."},
+      {"years":[2010,2014],"mileage":[70000,150000],"market_low":3800,"market_mid":4800,"market_high":5800,"flip_buy_max":3200,"watch_max":3800,"over_retail":5000,"notes":"Polo 6R is very liquid. Strong if 5-door, 1.2/1.4 simple petrol, Klima, TUV 18+."},
+      {"years":[2010,2014],"mileage":[150000,210000],"market_low":2800,"market_mid":3800,"market_high":4800,"flip_buy_max":2300,"watch_max":3000,"over_retail":4200,"notes":"Polo 6R with high mileage can still sell, but only if technically clean and not TSI/DSG trouble."}
+    ]},
+    {"brand":"Volkswagen","model":"Golf","aliases":["vw golf","golf 4","golf 5","golf 6","golf 7"],"bands":[
+      {"years":[2001,2003],"mileage":[150000,220000],"market_low":1400,"market_mid":1900,"market_high":2600,"flip_buy_max":1000,"watch_max":1500,"over_retail":2200,"notes":"Golf 4 is only interesting cheap. Rust and TUV dominate."},
+      {"years":[2004,2006],"mileage":[150000,220000],"market_low":1800,"market_mid":2500,"market_high":3300,"flip_buy_max":1500,"watch_max":2200,"over_retail":3000,"notes":"Golf 5 normal market is not profit. Above 2600 only with long TUV, clean body, simple engine."},
+      {"years":[2007,2009],"mileage":[150000,200000],"market_low":2700,"market_mid":3600,"market_high":4300,"flip_buy_max":2200,"watch_max":2800,"over_retail":3800,"notes":"Observed local bucket: q1 around 2700, median around 3600. Flip buy zone below q1 unless exceptional proof."},
+      {"years":[2007,2009],"mileage":[200000,250000],"market_low":2200,"market_mid":2800,"market_high":3400,"flip_buy_max":1700,"watch_max":2300,"over_retail":3200,"notes":"High-mile Golf needs deep discount. Avoid TSI/DSG without proof."},
+      {"years":[2010,2012],"mileage":[120000,200000],"market_low":4200,"market_mid":5200,"market_high":6500,"flip_buy_max":3300,"watch_max":4200,"over_retail":5600,"notes":"Golf 6 is liquid but risky with 1.4 TSI/DSG. 1.6 MPI/TDI with proof is better."},
+      {"years":[2013,2016],"mileage":[100000,180000],"market_low":6500,"market_mid":8500,"market_high":10500,"flip_buy_max":5600,"watch_max":6800,"over_retail":9200,"notes":"Golf 7 is buyer-service stock, not cheap flip, unless very underpriced and clean."}
+    ]},
+    {"brand":"Opel","model":"Corsa","aliases":["corsa c","corsa d","corsa e"],"bands":[
+      {"years":[2004,2009],"mileage":[100000,180000],"market_low":1500,"market_mid":2100,"market_high":2900,"flip_buy_max":1200,"watch_max":1700,"over_retail":2500,"notes":"Corsa C/D cheap first-car demand. Rust, chain and TUV decide."},
+      {"years":[2010,2014],"mileage":[100000,180000],"market_low":2300,"market_mid":3300,"market_high":4300,"flip_buy_max":1900,"watch_max":2700,"over_retail":3800,"notes":"Corsa D/E can be good if simple petrol, TUV, clean interior. Weak profit above 3k."}
+    ]},
+    {"brand":"Opel","model":"Astra","aliases":["astra h","astra j","astra caravan","astra kombi"],"bands":[
+      {"years":[2004,2009],"mileage":[150000,230000],"market_low":1600,"market_mid":2300,"market_high":3300,"flip_buy_max":1300,"watch_max":1900,"over_retail":2900,"notes":"Astra H Kombi can be a good cheap workhorse. Timing belt, rust, TUV."},
+      {"years":[2010,2013],"mileage":[150000,220000],"market_low":2600,"market_mid":3600,"market_high":4800,"flip_buy_max":2200,"watch_max":3000,"over_retail":4200,"notes":"Astra J at 1300 can be interesting, but 200k petrol needs TUV/service proof and cold-start check."}
+    ]},
+    {"brand":"Ford","model":"Fiesta","aliases":["ford fiesta"],"bands":[
+      {"years":[2004,2008],"mileage":[130000,220000],"market_low":1200,"market_mid":1800,"market_high":2600,"flip_buy_max":1000,"watch_max":1500,"over_retail":2300,"notes":"Cheap and liquid, but old. 1.25/1.3/1.4 simple petrol preferred."},
+      {"years":[2009,2014],"mileage":[100000,200000],"market_low":2200,"market_mid":3200,"market_high":4300,"flip_buy_max":1800,"watch_max":2600,"over_retail":3700,"notes":"Fiesta 1.25 is good; avoid EcoBoost without wet-belt proof."}
+    ]},
+    {"brand":"Ford","model":"Focus","aliases":["ford focus","focus kombi","focus turnier"],"bands":[
+      {"years":[2004,2010],"mileage":[150000,230000],"market_low":1500,"market_mid":2300,"market_high":3300,"flip_buy_max":1200,"watch_max":1900,"over_retail":3000,"notes":"Focus Mk2 Kombi/1.6-2.0 petrol can be good buyer value. Profit only cheap."},
+      {"years":[2011,2014],"mileage":[120000,220000],"market_low":3300,"market_mid":4500,"market_high":6200,"flip_buy_max":2700,"watch_max":3600,"over_retail":5200,"notes":"Modern enough and comfortable. Watch PowerShift/EcoBoost; clean manual petrol/diesel with TUV is better."}
+    ]},
+    {"brand":"Toyota","model":"Yaris","aliases":["toyota yaris","yaris p9"],"bands":[
+      {"years":[2005,2011],"mileage":[100000,220000],"market_low":2200,"market_mid":3200,"market_high":4300,"flip_buy_max":1700,"watch_max":2600,"over_retail":3800,"notes":"Very safe first-car stock. 200k is not automatic death if Toyota history/TUV is good."},
+      {"years":[2012,2015],"mileage":[80000,180000],"market_low":4200,"market_mid":5500,"market_high":7000,"flip_buy_max":3400,"watch_max":4500,"over_retail":6000,"notes":"Strong but often expensive. Better for paid search than quick cheap flip."}
+    ]},
+    {"brand":"Toyota","model":"Aygo","aliases":["toyota aygo","citroen c1","peugeot 107"],"bands":[
+      {"years":[2005,2014],"mileage":[90000,220000],"market_low":1600,"market_mid":2400,"market_high":3300,"flip_buy_max":1400,"watch_max":2100,"over_retail":2900,"notes":"Safe first-car material. Long TUV at 1500-2100 is attractive, profit depends on buy price."}
+    ]},
+    {"brand":"Hyundai","model":"i10","aliases":["hyundai i10"],"bands":[
+      {"years":[2008,2015],"mileage":[70000,170000],"market_low":1900,"market_mid":2900,"market_high":3900,"flip_buy_max":1500,"watch_max":2300,"over_retail":3400,"notes":"Underrated fast-sale beginner car. Low km and TUV are strong."}
+    ]},
+    {"brand":"Hyundai","model":"i20","aliases":["hyundai i20"],"bands":[
+      {"years":[2009,2016],"mileage":[80000,190000],"market_low":2800,"market_mid":4000,"market_high":5400,"flip_buy_max":2300,"watch_max":3300,"over_retail":4700,"notes":"Good buyer-service stock; less emotional than Polo but safer reputation."}
+    ]},
+    {"brand":"Honda","model":"Jazz","aliases":["honda jazz"],"bands":[
+      {"years":[2004,2011],"mileage":[100000,230000],"market_low":2000,"market_mid":3000,"market_high":4200,"flip_buy_max":1600,"watch_max":2500,"over_retail":3700,"notes":"Reliable but narrower audience. Great if TUV/service and clean interior."}
+    ]},
+    {"brand":"Skoda","model":"Fabia","aliases":["skoda fabia","fabia"],"bands":[
+      {"years":[2004,2010],"mileage":[130000,230000],"market_low":1400,"market_mid":2200,"market_high":3200,"flip_buy_max":1100,"watch_max":1800,"over_retail":2800,"notes":"Practical, cheap, not emotional. Body condition matters."},
+      {"years":[2011,2015],"mileage":[100000,200000],"market_low":2800,"market_mid":3900,"market_high":5200,"flip_buy_max":2300,"watch_max":3300,"over_retail":4600,"notes":"Useful first-car/family small car. Avoid overpriced dealer stock."}
+    ]},
+    {"brand":"Suzuki","model":"Swift","aliases":["suzuki swift"],"bands":[
+      {"years":[2005,2010],"mileage":[100000,220000],"market_low":1300,"market_mid":2100,"market_high":3100,"flip_buy_max":1100,"watch_max":1800,"over_retail":2700,"notes":"Cheap Swift can move fast. Rust/clutch/warning lights are key."},
+      {"years":[2011,2015],"mileage":[90000,200000],"market_low":2500,"market_mid":3600,"market_high":4800,"flip_buy_max":2000,"watch_max":3000,"over_retail":4300,"notes":"Simple Japanese demand. Good if TUV and clean."}
+    ]},
+    {"brand":"Kia","model":"Picanto","aliases":["kia picanto"],"bands":[
+      {"years":[2006,2015],"mileage":[80000,180000],"market_low":1500,"market_mid":2400,"market_high":3500,"flip_buy_max":1200,"watch_max":2000,"over_retail":3100,"notes":"Low-risk city car. Long TUV creates fast buyer demand."}
+    ]},
+    {"brand":"Mazda","model":"2","aliases":["mazda 2","mazda2"],"bands":[
+      {"years":[2007,2015],"mileage":[80000,190000],"market_low":2200,"market_mid":3300,"market_high":4600,"flip_buy_max":1700,"watch_max":2600,"over_retail":4000,"notes":"Reliable but slower than VW/Toyota. Strong when 1.Hand/TUV/low km."}
+    ]},
+    {"brand":"Audi","model":"A3","aliases":["audi a3","a3 8p"],"bands":[
+      {"years":[2004,2012],"mileage":[130000,230000],"market_low":2600,"market_mid":3900,"market_high":5600,"flip_buy_max":2200,"watch_max":3200,"over_retail":4800,"notes":"A3 is liquid but risky. Need TUV and avoid TFSI/DSG/S-tronic traps without proof."}
+    ]},
+    {"brand":"Audi","model":"A4","aliases":["audi a4","a4 b6","a4 b7"],"bands":[
+      {"years":[2001,2008],"mileage":[150000,250000],"market_low":2200,"market_mid":3500,"market_high":5200,"flip_buy_max":1900,"watch_max":3000,"over_retail":4600,"notes":"A4 has class appeal but higher repair risk. Only with TUV, clean drivetrain and no Multitronic/TFSI trap."}
+    ]},
+    {"brand":"BMW","model":"3er","aliases":["bmw 3er","e46","e90","318i","320i","320d"],"bands":[
+      {"years":[2000,2005],"mileage":[140000,240000],"market_low":1800,"market_mid":3000,"market_high":4800,"flip_buy_max":1500,"watch_max":2400,"over_retail":4000,"notes":"E46 can be liquid for young buyers, but rust/cooling/vanos/chain/diff/subframe checks matter."},
+      {"years":[2006,2011],"mileage":[150000,240000],"market_low":3200,"market_mid":5000,"market_high":7000,"flip_buy_max":2600,"watch_max":3900,"over_retail":6000,"notes":"E90 has demand but N47/chain and premium repair risk. No HOT without proof."}
+    ]},
+    {"brand":"Peugeot","model":"207","aliases":["peugeot 207"],"bands":[
+      {"years":[2006,2012],"mileage":[100000,210000],"market_low":1300,"market_mid":2200,"market_high":3200,"flip_buy_max":1000,"watch_max":1700,"over_retail":2800,"notes":"Cheap first-car option, but slower resale than Polo/Yaris. Avoid THP/PureTech-style risk."}
+    ]},
+    {"brand":"Renault","model":"Clio","aliases":["renault clio"],"bands":[
+      {"years":[2006,2014],"mileage":[100000,220000],"market_low":1400,"market_mid":2300,"market_high":3400,"flip_buy_max":1100,"watch_max":1800,"over_retail":3000,"notes":"Cheap and common, but buyer trust weaker than Toyota/VW. TUV and clean electronics important."}
+    ]},
+    {"brand":"Nissan","model":"Micra","aliases":["nissan micra"],"bands":[
+      {"years":[2005,2014],"mileage":[80000,190000],"market_low":1500,"market_mid":2400,"market_high":3500,"flip_buy_max":1200,"watch_max":2000,"over_retail":3100,"notes":"Good low-cost city car. Watch model mismatch/template listings."}
+    ]},
+    {"brand":"Seat","model":"Ibiza","aliases":["seat ibiza"],"bands":[
+      {"years":[2006,2015],"mileage":[100000,210000],"market_low":1900,"market_mid":3000,"market_high":4300,"flip_buy_max":1500,"watch_max":2500,"over_retail":3800,"notes":"VW-platform appeal but less liquid than Polo. Avoid TSI/DSG and rust."}
+    ]}
+  ]
+}

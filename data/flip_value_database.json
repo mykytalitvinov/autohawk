@@ -1,0 +1,2452 @@
+{
+  "version": "2026-05-25-v8-high-mileage-workhorse",
+  "purpose": "AUTOHAWK resale-value database for Germany. Built from user feedback, local scan logs, sold/reserved examples and conservative flipper logic. It is a decision aid, not a mechanical guarantee.",
+  "strategy": {
+    "main_customer": "young buyer / first car / quick clean resale, with separate scoring for flip-profit vs buyer-value",
+    "core_rule": "Do not search for normal market cars. A candidate must be clearly below the lower observed market band, or have a motivated seller signal that creates negotiation room, while staying technically safe.",
+    "best_available_rule": "If no HOT exists, show only the best 5-10 CHECK candidates, not every surviving listing.",
+    "hard_lesson": "Retail/normal price is not opportunity. Good listings must either be under the lower market band, have urgent/motivated seller wording, or be unusually clean with long HU/TUV and low risk.",
+    "price_truth_rules": [
+      "Use lower market band/q1/30th percentile for old liquid flip cars, not median asking price.",
+      "Market +/-7 percent is not enough edge for flipping.",
+      "7-12 percent below market is only interesting with urgent seller, strong proof, or exceptional condition.",
+      "12-20 percent below lower market band is the normal minimum for interesting flip candidates.",
+      "20-30 percent below lower market band is strong but requires a cheap reason, not engine/gearbox/rust/document risk.",
+      "Umzug, muss weg, dringend, neues Auto gekauft, Platzmangel, keine Zeit and VB are motivated-seller signals; they boost priority but do not remove the need for discount/proof."
+    ],
+    "segment_rule": "Never mix personal buyer value with flip profit. A Focus can be a strong buyer-value lead while still only CHECK for flip unless price is below lower market band.",
+    "model_trust_rule": "Fresh TUV, low km and petrol are strong positives, but model mismatch (for example Micra/Qashqai conflict) makes market price and risk analysis unreliable. Such listings stay CHECK until exact model is confirmed by seller/Fahrzeugschein/FIN.",
+    "high_mileage_workhorse_rule": "High mileage is not an automatic reject when the car is a cheap practical workhorse: simple NA petrol, timing belt done, Kombi/body practicality, tow hitch, private seller, and low entry price. Keep CHECK, not HOT, if Euro4, age 18+ or TUV under 12 months."
+  },
+  "global_signals": {
+    "strong_boosts": [
+      "5-door",
+      "HU/TUV 18+ months",
+      "simple naturally aspirated petrol",
+      "1.Hand",
+      "Scheckheft",
+      "8-fach bereift",
+      "Sitzheizung",
+      "Bluetooth",
+      "CarPlay",
+      "Klima",
+      "Klimaautomatik",
+      "private seller",
+      "family description",
+      "new timing belt",
+      "new clutch",
+      "regular oil service",
+      "Umzug",
+      "muss weg",
+      "dringend",
+      "sofort abzugeben",
+      "neues Auto gekauft",
+      "Platzmangel",
+      "keine Zeit",
+      "VB / Verhandlungsbasis",
+      "simple 1.6 NA petrol",
+      "timing belt replaced",
+      "Kombi/practical body",
+      "tow hitch / AHK",
+      "cheap entry price from private seller"
+    ],
+    "strong_penalties": [
+      "Autohaus at retail price",
+      "3-door/coupe without strong discount",
+      "kein TUV",
+      "short/no description",
+      "TSI/TFSI without proof",
+      "EcoBoost without wet-belt proof",
+      "DSG DQ200",
+      "Multitronic",
+      "Powershift",
+      "turbo above 180k km",
+      "warning lights",
+      "accident history",
+      "structural rust",
+      "Bastler",
+      "Export",
+      "engine/gearbox symptom",
+      "vehicle model mismatch",
+      "conflicting model words in title/description",
+      "template/dealer-like description",
+      "3-door small car liquidity penalty",
+      "TUV under 12 months on old car",
+      "Euro4 resale limitation",
+      "18+ year old body/rust risk",
+      "high mileage without service proof"
+    ],
+    "best_colors": [
+      "white",
+      "silver",
+      "grey",
+      "black"
+    ],
+    "weaker_colors": [
+      "red",
+      "bright tuning colors",
+      "wraps"
+    ]
+  },
+  "observed_feedback_examples": [
+    {
+      "model": "VW Polo 1.2L",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/vw-polo-1-2l-top-gepflegt-klima-tuev-neu-05-28/3411847326-216-2008",
+      "lesson": "Sold/reserved quickly. Simple Polo with long TUV, Klima and normal condition is a real demand signal."
+    },
+    {
+      "model": "VW Polo 6R",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/volkswagen-vw-polo-6r-abchya/3411950938-216-8500",
+      "lesson": "Repeated Polo demand. Clean cheap Polo should be prioritized, but no TUV/rust/DSG/TSI must be punished."
+    },
+    {
+      "model": "Toyota Yaris P9 1.0 VVT-i",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/toyota-yaris-p9-1-0-vvt-i/3412413781-216-341",
+      "lesson": "Reserved quickly. Yaris is low-risk and liquid if TUV/service/rust are okay."
+    },
+    {
+      "model": "Ford Focus",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/ford-focus/3412878383-216-1227",
+      "lesson": "Reserved quickly despite small issues. Cheap Focus can work, but engine cold start, rust and TUV decide."
+    },
+    {
+      "model": "Suzuki Swift 1.3 Comfort",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/suzuki-swift-1-3-comfort-keyless-go/3414650623-216-4928",
+      "lesson": "Deleted/sold very quickly after scan. Cheap simple Swift around 1500-1900 EUR has stronger real demand than the raw score suggested. Buyers prefer simple Japanese petrol, low running costs and less fear than old Golf/Polo with rust/TSI/DSG/overpriced ads."
+    },
+    {
+      "model": "Ford Focus Mk2 petrol/manual",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/ford-focus/3414763327-216-1953",
+      "lesson": "User feedback: Focus can be more attractive than microcars for a young driver because it feels like a real car and has enough power/stability for Autobahn. If condition is clean, TUV is valid and engine is simple, Focus deserves higher personal-buyer priority even when pure flip margin is not huge."
+    },
+    {
+      "model": "Micra/Qashqai mismatch lesson",
+      "lesson": "Fresh TUV + 120k km + petrol + Japanese small car + service done is attractive, but Micra/Qashqai inconsistency, 3 doors and template description reduce trust. App must not treat this as HOT; require exact model confirmation and documents before using market price."
+    },
+    {
+      "model": "High-mileage 1.6 petrol Kombi lesson",
+      "lesson": "A 214k km car can still be useful if it is a cheap practical Kombi with 1.6 naturally aspirated petrol, timing belt replaced, tow hitch and private seller. But Euro4, 18+ years old and TUV under 12 months keep it as CHECK only; profit depends on rust, cold start, clutch, suspension and invoices."
+    }
+  ],
+  "cards": [
+    {
+      "brand": "volkswagen",
+      "model": "up",
+      "aliases": [
+        "vw up",
+        "volkswagen up",
+        "up!"
+      ],
+      "tier": "S",
+      "liquidity": 96,
+      "target_years": [
+        2012,
+        2017
+      ],
+      "ideal_mileage_max": 130000,
+      "max_mileage": 170000,
+      "buy_zone": {
+        "ideal_max": 3600,
+        "max_good": 3700,
+        "max_ok": 4100,
+        "avoid_over": 4600
+      },
+      "fast_sell_zone": [
+        4300,
+        5200
+      ],
+      "clean_retail_zone": [
+        5000,
+        6000
+      ],
+      "must_have": [
+        "HU/TUV",
+        "simple petrol",
+        "no warning lights"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "5-tuer",
+        "5-trg",
+        "klima",
+        "sitzheizung",
+        "bluetooth",
+        "carplay",
+        "8-fach",
+        "scheckheft",
+        "1. hand"
+      ],
+      "risk_terms": [
+        "unfall",
+        "motorschaden",
+        "kein tuv",
+        "ohne tuv",
+        "bastler",
+        "getriebe"
+      ],
+      "good_engines": [
+        "1.0 MPI",
+        "1.0 60PS",
+        "1.0 75PS"
+      ],
+      "bad_engines": [
+        "TSI",
+        "turbo"
+      ],
+      "notes": "One of the best youth/first-car flip models. Not necessarily cheap, but very easy to explain and resell if clean."
+    },
+    {
+      "brand": "volkswagen",
+      "model": "polo",
+      "aliases": [
+        "vw polo",
+        "polo 9n",
+        "polo 6r"
+      ],
+      "tier": "S",
+      "liquidity": 95,
+      "target_years": [
+        2004,
+        2014
+      ],
+      "ideal_mileage_max": 160000,
+      "max_mileage": 210000,
+      "buy_zone": {
+        "ideal_max": 1700,
+        "max_good": 2800,
+        "max_ok": 3400,
+        "avoid_over": 3900
+      },
+      "fast_sell_zone": [
+        2200,
+        5500
+      ],
+      "clean_retail_zone": [
+        2800,
+        5800
+      ],
+      "must_have": [
+        "HU/TUV",
+        "normal interior",
+        "no rust problem",
+        "simple petrol preferred"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "5-tuer",
+        "5-trg",
+        "klima",
+        "service neu",
+        "tuv neu",
+        "tuev neu",
+        "1. hand",
+        "8-fach",
+        "united",
+        "steuerkette neu",
+        "kette neu",
+        "tuv 11/26",
+        "tuev 11/26",
+        "serviceheft",
+        "2 schluessel"
+      ],
+      "risk_terms": [
+        "tsi",
+        "dsg",
+        "dq200",
+        "rost",
+        "kontrollleuchte",
+        "motorlampe",
+        "kein tuv",
+        "ohne tuv",
+        "steuerkette rasselt",
+        "kette rasselt",
+        "abs",
+        "airbag",
+        "motorkontrollleuchte",
+        "rost schweller",
+        "rost radlauf"
+      ],
+      "good_engines": [
+        "1.2 MPI",
+        "1.4 MPI",
+        "1.0 MPI"
+      ],
+      "bad_engines": [
+        "1.2 TSI",
+        "1.4 TSI",
+        "DSG DQ200"
+      ],
+      "notes": "Repeated real feedback: Polo sells fast. Old 9N/9N3 with HU/TUV under 1700 EUR can be a priority lead. 2500-3000 EUR is only good with proof such as chain/service/TUV/clean body; otherwise margin is tight."
+    },
+    {
+      "brand": "volkswagen",
+      "model": "golf",
+      "aliases": [
+        "vw golf",
+        "golf 4",
+        "golf 5",
+        "golf 6",
+        "golf vi",
+        "golf v"
+      ],
+      "tier": "A",
+      "liquidity": 94,
+      "target_years": [
+        2004,
+        2012
+      ],
+      "ideal_mileage_max": 180000,
+      "max_mileage": 230000,
+      "buy_zone": {
+        "ideal_max": 1600,
+        "max_good": 2600,
+        "max_ok": 3200,
+        "avoid_over": 3600
+      },
+      "fast_sell_zone": [
+        2300,
+        4300
+      ],
+      "clean_retail_zone": [
+        2800,
+        5200
+      ],
+      "must_have": [
+        "HU/TUV",
+        "rust check",
+        "OBD",
+        "engine proof"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "variant",
+        "tuv neu",
+        "tuev neu",
+        "sitzheizung",
+        "klima",
+        "1. hand",
+        "service"
+      ],
+      "risk_terms": [
+        "tsi",
+        "tfsi",
+        "fsi",
+        "dsg",
+        "dq200",
+        "rost",
+        "schweller",
+        "radlauf",
+        "motorlampe",
+        "rost schweller",
+        "rost radlauf",
+        "motorkontrollleuchte"
+      ],
+      "good_engines": [
+        "1.6 MPI",
+        "1.9 TDI with proof",
+        "2.0 TDI with belt proof"
+      ],
+      "bad_engines": [
+        "1.4 TSI",
+        "1.2 TSI",
+        "FSI without proof",
+        "DSG DQ200"
+      ],
+      "notes": "Golf demand is huge, but price discipline matters. Golf 5 above 3000 EUR is usually retail unless it has long TUV, clean body, simple engine, 5 doors and strong service proof. FSI/TSI/DSG should not become HOT without proof."
+    },
+    {
+      "brand": "hyundai",
+      "model": "i10",
+      "aliases": [
+        "hyundai i10",
+        "i10"
+      ],
+      "tier": "S",
+      "liquidity": 90,
+      "target_years": [
+        2008,
+        2015
+      ],
+      "ideal_mileage_max": 130000,
+      "max_mileage": 180000,
+      "buy_zone": {
+        "ideal_max": 1700,
+        "max_good": 2200,
+        "max_ok": 2600,
+        "avoid_over": 3200
+      },
+      "fast_sell_zone": [
+        2600,
+        3300
+      ],
+      "clean_retail_zone": [
+        3000,
+        3800
+      ],
+      "must_have": [
+        "HU/TUV",
+        "clutch okay",
+        "simple petrol"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "zahnriemen neu",
+        "kupplung neu",
+        "scheckheft",
+        "1. hand",
+        "96000 km",
+        "96.000 km",
+        "unter 100000",
+        "tuv 2027",
+        "tuev 2027"
+      ],
+      "risk_terms": [
+        "rost",
+        "kupplung rutscht",
+        "kein tuv",
+        "unfall",
+        "motorlampe"
+      ],
+      "good_engines": [
+        "1.1",
+        "1.2"
+      ],
+      "bad_engines": [],
+      "notes": "Segmented logic: i10 is strong safe-first-car/low-cost stock, especially low km with TUV. It can sell well to practical buyers, but it is less emotional and less Autobahn-capable than Focus. Flip only if bought below lower market band.",
+      "segments": [
+        "safe_first_car",
+        "low_cost",
+        "conditional_flip"
+      ]
+    },
+    {
+      "brand": "opel",
+      "model": "corsa",
+      "aliases": [
+        "opel corsa",
+        "corsa c",
+        "corsa d",
+        "corsa e"
+      ],
+      "tier": "A",
+      "liquidity": 88,
+      "target_years": [
+        2004,
+        2015
+      ],
+      "ideal_mileage_max": 150000,
+      "max_mileage": 210000,
+      "buy_zone": {
+        "ideal_max": 1700,
+        "max_good": 3200,
+        "max_ok": 3800,
+        "avoid_over": 4300
+      },
+      "fast_sell_zone": [
+        2300,
+        4300
+      ],
+      "clean_retail_zone": [
+        2800,
+        5200
+      ],
+      "must_have": [
+        "HU/TUV",
+        "simple petrol",
+        "no cooling issue"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "tuv neu",
+        "tuev neu",
+        "service",
+        "8-fach",
+        "sitzheizung"
+      ],
+      "risk_terms": [
+        "easytronic",
+        "steuerkette",
+        "kuehlwasser",
+        "uberhitzt",
+        "rost",
+        "kein tuv"
+      ],
+      "good_engines": [
+        "1.2",
+        "1.4 naturally aspirated"
+      ],
+      "bad_engines": [
+        "Easytronic",
+        "1.3 CDTI neglected"
+      ],
+      "notes": "Very useful budget car. Good price/quality, but do not overpay just because it is clean."
+    },
+    {
+      "brand": "ford",
+      "model": "fiesta",
+      "aliases": [
+        "ford fiesta",
+        "fiesta"
+      ],
+      "tier": "A",
+      "liquidity": 87,
+      "target_years": [
+        2004,
+        2015
+      ],
+      "ideal_mileage_max": 150000,
+      "max_mileage": 210000,
+      "buy_zone": {
+        "ideal_max": 1800,
+        "max_good": 2500,
+        "max_ok": 3200,
+        "avoid_over": 3800
+      },
+      "fast_sell_zone": [
+        2300,
+        4300
+      ],
+      "clean_retail_zone": [
+        2800,
+        5200
+      ],
+      "must_have": [
+        "HU/TUV",
+        "simple petrol",
+        "no rust/engine issue"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "4/5 tuer",
+        "klima",
+        "tuv neu",
+        "tuev neu",
+        "1. hand",
+        "zahnriemen neu",
+        "sitzheizung",
+        "1.25",
+        "1.3",
+        "1.4",
+        "tuv",
+        "tuev"
+      ],
+      "risk_terms": [
+        "ecoboost",
+        "powershift",
+        "rost",
+        "kein tuv",
+        "motor problem",
+        "rost schweller",
+        "rost radlauf",
+        "kupplung",
+        "kuehlmittel",
+        "motorkontrollleuchte"
+      ],
+      "good_engines": [
+        "1.25",
+        "1.3",
+        "1.4 naturally aspirated"
+      ],
+      "bad_engines": [
+        "1.0 EcoBoost without wet belt proof",
+        "Powershift"
+      ],
+      "notes": "Fiesta is good beginner liquidity with simple 1.25/1.3/1.4 petrol and HU/TUV. At 1200-1800 EUR it is best-available; above 3000 EUR it needs exceptional proof and is usually not quick flip."
+    },
+    {
+      "brand": "ford",
+      "model": "focus",
+      "aliases": [
+        "ford focus",
+        "focus mk2",
+        "focus kombi",
+        "focus turnier"
+      ],
+      "tier": "A",
+      "liquidity": 86,
+      "target_years": [
+        2004,
+        2013
+      ],
+      "ideal_mileage_max": 180000,
+      "max_mileage": 230000,
+      "buy_zone": {
+        "ideal_max": 1500,
+        "max_good": 2300,
+        "max_ok": 3000,
+        "avoid_over": 3600
+      },
+      "fast_sell_zone": [
+        2500,
+        3300
+      ],
+      "clean_retail_zone": [
+        3000,
+        4200
+      ],
+      "must_have": [
+        "HU/TUV",
+        "no cold-start issue",
+        "rust check"
+      ],
+      "boost_terms": [
+        "kombi",
+        "turnier",
+        "1.8",
+        "2.0",
+        "tuv neu",
+        "tuev neu",
+        "klima",
+        "zahnriemen neu",
+        "1.6 benzin",
+        "1.8 benzin",
+        "2.0 benzin",
+        "100 ps",
+        "109 ps",
+        "116 ps",
+        "125 ps",
+        "guter zustand",
+        "autobahn"
+      ],
+      "risk_terms": [
+        "ecoboost",
+        "powershift",
+        "motor kalt schlecht",
+        "rost",
+        "kein tuv",
+        "rost schweller",
+        "rost radlauf",
+        "unterboden rost",
+        "kaltstart schlecht",
+        "tdci dpf",
+        "tdci egr"
+      ],
+      "good_engines": [
+        "1.6",
+        "1.8",
+        "2.0 naturally aspirated",
+        "1.6 petrol manual",
+        "1.6 benzin manual",
+        "1.8 petrol manual",
+        "2.0 petrol manual"
+      ],
+      "bad_engines": [
+        "1.0 EcoBoost without proof",
+        "Powershift"
+      ],
+      "notes": "Segmented logic: Focus Mk2 can be a strong buyer-value lead for young drivers because it feels like a real car and is Autobahn-capable. It is NOT automatically a flip-profit lead. Promote it only when price is clearly below the lower observed market band, condition is clean, HU/TUV is valid, and drivetrain is simple petrol/manual. Otherwise keep as CHECK.",
+      "segments": [
+        "buyer_value",
+        "budget_family",
+        "conditional_flip"
+      ]
+    },
+    {
+      "brand": "toyota",
+      "model": "yaris",
+      "aliases": [
+        "toyota yaris",
+        "yaris p9",
+        "yaris xp9"
+      ],
+      "tier": "S",
+      "liquidity": 92,
+      "target_years": [
+        2005,
+        2015
+      ],
+      "ideal_mileage_max": 160000,
+      "max_mileage": 240000,
+      "buy_zone": {
+        "ideal_max": 1800,
+        "max_good": 3000,
+        "max_ok": 3800,
+        "avoid_over": 4500
+      },
+      "fast_sell_zone": [
+        2800,
+        4300
+      ],
+      "clean_retail_zone": [
+        3300,
+        5200
+      ],
+      "must_have": [
+        "HU/TUV",
+        "rust check",
+        "no MMT issue"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "tuv neu",
+        "tuev neu",
+        "1. hand",
+        "scheckheft",
+        "zahnriemen",
+        "service"
+      ],
+      "risk_terms": [
+        "mmt",
+        "automatik problem",
+        "rost",
+        "kein tuv",
+        "unfall"
+      ],
+      "good_engines": [
+        "1.0 VVT-i",
+        "1.3 VVT-i"
+      ],
+      "bad_engines": [
+        "MMT gearbox issue"
+      ],
+      "notes": "Low-risk and trusted. Strong for normal buyers; margin depends on buying below the usual Toyota premium."
+    },
+    {
+      "brand": "toyota",
+      "model": "aygo",
+      "aliases": [
+        "toyota aygo",
+        "aygo"
+      ],
+      "tier": "A",
+      "liquidity": 86,
+      "target_years": [
+        2005,
+        2014
+      ],
+      "ideal_mileage_max": 150000,
+      "max_mileage": 220000,
+      "buy_zone": {
+        "ideal_max": 1600,
+        "max_good": 2100,
+        "max_ok": 2500,
+        "avoid_over": 3000
+      },
+      "fast_sell_zone": [
+        1800,
+        2600
+      ],
+      "clean_retail_zone": [
+        2300,
+        3200
+      ],
+      "must_have": [
+        "HU/TUV",
+        "clutch okay",
+        "no oil leak"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "tuv",
+        "1. hand",
+        "scheckheft",
+        "tuv 2028",
+        "tuev 2028",
+        "tuv neu",
+        "tuev neu",
+        "neue kupplung"
+      ],
+      "risk_terms": [
+        "kupplung",
+        "rost",
+        "kein tuv",
+        "unfall",
+        "wasserpumpe",
+        "kuehlmittel",
+        "rost unten"
+      ],
+      "good_engines": [
+        "1.0"
+      ],
+      "bad_engines": [],
+      "notes": "Aygo is safe first-car material. Long TUV at 1500-2000 EUR is attractive for buyer service; HOT only if clearly below observed market or very clean."
+    },
+    {
+      "brand": "skoda",
+      "model": "fabia",
+      "aliases": [
+        "skoda fabia",
+        "fabia"
+      ],
+      "tier": "A",
+      "liquidity": 84,
+      "target_years": [
+        2004,
+        2015
+      ],
+      "ideal_mileage_max": 160000,
+      "max_mileage": 230000,
+      "buy_zone": {
+        "ideal_max": 1700,
+        "max_good": 3000,
+        "max_ok": 3600,
+        "avoid_over": 4300
+      },
+      "fast_sell_zone": [
+        2300,
+        4000
+      ],
+      "clean_retail_zone": [
+        2800,
+        4800
+      ],
+      "must_have": [
+        "HU/TUV",
+        "rust check",
+        "simple engine"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "combi",
+        "klima",
+        "tuv",
+        "1. hand",
+        "scheckheft"
+      ],
+      "risk_terms": [
+        "tsi",
+        "dsg",
+        "1.2 htp",
+        "rost",
+        "kein tuv",
+        "stossstange beschaedigt",
+        "bumper damage",
+        "delle",
+        "beule",
+        "kratzer",
+        "zerkratzt",
+        "unfall",
+        "rost schweller",
+        "rost radlauf"
+      ],
+      "good_engines": [
+        "1.4 MPI",
+        "1.2 12V with service",
+        "1.0 MPI"
+      ],
+      "bad_engines": [
+        "1.2 HTP neglected",
+        "TSI/DSG without proof"
+      ],
+      "notes": "Segmented logic: Fabia is practical and liquid when clean. Dented bumper, heavy scratches or tired body reduce buyer emotion and resale speed unless the price is clearly below lower market band. Do not let cheap practicality outrank clean buyer-value cars automatically.",
+      "segments": [
+        "safe_first_car",
+        "practical",
+        "conditional_flip"
+      ]
+    },
+    {
+      "brand": "opel",
+      "model": "astra",
+      "aliases": [
+        "opel astra",
+        "astra h",
+        "astra j",
+        "astra caravan",
+        "sports tourer"
+      ],
+      "tier": "B",
+      "liquidity": 82,
+      "target_years": [
+        2004,
+        2013
+      ],
+      "ideal_mileage_max": 170000,
+      "max_mileage": 230000,
+      "buy_zone": {
+        "ideal_max": 1800,
+        "max_good": 2800,
+        "max_ok": 3500,
+        "avoid_over": 4200
+      },
+      "fast_sell_zone": [
+        2500,
+        4000
+      ],
+      "clean_retail_zone": [
+        3000,
+        4800
+      ],
+      "must_have": [
+        "HU/TUV",
+        "no rust/engine issue"
+      ],
+      "boost_terms": [
+        "caravan",
+        "sports tourer",
+        "klima",
+        "tuv neu",
+        "service",
+        "1. hand"
+      ],
+      "risk_terms": [
+        "twintop",
+        "cdti dpf",
+        "easytronic",
+        "rost",
+        "kein tuv"
+      ],
+      "good_engines": [
+        "1.6 petrol",
+        "1.8 petrol",
+        "1.4 petrol"
+      ],
+      "bad_engines": [
+        "Easytronic",
+        "neglected diesel emissions"
+      ],
+      "notes": "Good practical value, but old Astra can be overestimated. Must be priced right."
+    },
+    {
+      "brand": "seat",
+      "model": "ibiza",
+      "aliases": [
+        "seat ibiza",
+        "ibiza"
+      ],
+      "tier": "B",
+      "liquidity": 80,
+      "target_years": [
+        2006,
+        2015
+      ],
+      "ideal_mileage_max": 150000,
+      "max_mileage": 210000,
+      "buy_zone": {
+        "ideal_max": 1600,
+        "max_good": 2800,
+        "max_ok": 3500,
+        "avoid_over": 4200
+      },
+      "fast_sell_zone": [
+        2300,
+        3900
+      ],
+      "clean_retail_zone": [
+        2800,
+        4700
+      ],
+      "must_have": [
+        "HU/TUV",
+        "simple petrol"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "tuv",
+        "scheckheft"
+      ],
+      "risk_terms": [
+        "tsi",
+        "dsg",
+        "rost",
+        "kein tuv",
+        "cupra abused"
+      ],
+      "good_engines": [
+        "1.2",
+        "1.4 MPI"
+      ],
+      "bad_engines": [
+        "TSI/DSG without proof"
+      ],
+      "notes": "Good if cheap and clean, weaker than Polo/Fabia but still sellable."
+    },
+    {
+      "brand": "honda",
+      "model": "jazz",
+      "aliases": [
+        "honda jazz",
+        "jazz"
+      ],
+      "tier": "A",
+      "liquidity": 84,
+      "target_years": [
+        2004,
+        2015
+      ],
+      "ideal_mileage_max": 170000,
+      "max_mileage": 260000,
+      "buy_zone": {
+        "ideal_max": 1800,
+        "max_good": 2800,
+        "max_ok": 3600,
+        "avoid_over": 4300
+      },
+      "fast_sell_zone": [
+        2600,
+        4300
+      ],
+      "clean_retail_zone": [
+        3200,
+        5200
+      ],
+      "must_have": [
+        "HU/TUV",
+        "rust check"
+      ],
+      "boost_terms": [
+        "klima",
+        "tuv",
+        "1. hand",
+        "scheckheft",
+        "automatik"
+      ],
+      "risk_terms": [
+        "rost",
+        "kein tuv",
+        "cvt problem"
+      ],
+      "good_engines": [
+        "1.2",
+        "1.4"
+      ],
+      "bad_engines": [
+        "CVT symptoms"
+      ],
+      "notes": "Trusted, practical, low-risk. Buyers like it, but it is less emotional than VW."
+    },
+    {
+      "brand": "mazda",
+      "model": "2",
+      "aliases": [
+        "mazda 2",
+        "mazda2"
+      ],
+      "tier": "B",
+      "liquidity": 78,
+      "target_years": [
+        2007,
+        2015
+      ],
+      "ideal_mileage_max": 150000,
+      "max_mileage": 220000,
+      "buy_zone": {
+        "ideal_max": 1800,
+        "max_good": 2300,
+        "max_ok": 3000,
+        "avoid_over": 3600
+      },
+      "fast_sell_zone": [
+        2500,
+        3900
+      ],
+      "clean_retail_zone": [
+        3000,
+        4700
+      ],
+      "must_have": [
+        "HU/TUV",
+        "rust check"
+      ],
+      "boost_terms": [
+        "klima",
+        "tuv",
+        "scheckheft",
+        "1. hand",
+        "erste hand",
+        "tuv neu",
+        "tuev neu",
+        "serviceheft"
+      ],
+      "risk_terms": [
+        "rost",
+        "schweller",
+        "kein tuv",
+        "rost radlauf",
+        "rost schweller",
+        "unterboden rost",
+        "kupplung",
+        "bremsen",
+        "motorkontrollleuchte"
+      ],
+      "good_engines": [
+        "1.3",
+        "1.5"
+      ],
+      "bad_engines": [],
+      "notes": "Mazda 2 is reliable and good for safe buyer service, but resale is slower than Polo/Yaris/Corsa. Fresh TUV + 1.Hand around 1800-2300 EUR is good; quick flip needs either low buy price or unusually clean body."
+    },
+    {
+      "brand": "suzuki",
+      "model": "swift",
+      "aliases": [
+        "suzuki swift",
+        "swift"
+      ],
+      "tier": "A_watch",
+      "liquidity": 86,
+      "target_years": [
+        2005,
+        2015
+      ],
+      "ideal_mileage_max": 170000,
+      "max_mileage": 230000,
+      "buy_zone": {
+        "ideal_max": 1900,
+        "max_good": 2500,
+        "max_ok": 3200,
+        "avoid_over": 3800
+      },
+      "fast_sell_zone": [
+        2500,
+        3800
+      ],
+      "clean_retail_zone": [
+        3000,
+        4500
+      ],
+      "must_have": [
+        "HU/TUV",
+        "rust check"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "tuv",
+        "scheckheft",
+        "1.3",
+        "comfort",
+        "keyless",
+        "5-tuer",
+        "tuv neu",
+        "tuev neu",
+        "allwetter",
+        "1. hand"
+      ],
+      "risk_terms": [
+        "rost",
+        "kein tuv",
+        "sport abused",
+        "rost schweller",
+        "rost radlauf",
+        "unterboden rost",
+        "kupplung",
+        "motorkontrollleuchte",
+        "unfall",
+        "sport",
+        "tiefergelegt",
+        "tuning"
+      ],
+      "good_engines": [
+        "1.3",
+        "1.5",
+        "1.3 petrol",
+        "1.3 benziner",
+        "1.5 petrol",
+        "1.5 benziner"
+      ],
+      "bad_engines": [],
+      "notes": "Field update 2026-05-21: cheap Swift 1.3 Comfort around 1700 EUR was deleted/sold quickly. Treat simple petrol Swift as stronger fast-sale stock than before. It attracts first-car buyers who want reliable, cheap, small Japanese cars and are tired of overpriced/rusty Golf/Polo. Best pocket: 1300-1900 EUR with HU/TUV; check rust, clutch, warning lights and accident/tuning signs."
+    },
+    {
+      "brand": "kia",
+      "model": "picanto",
+      "aliases": [
+        "kia picanto",
+        "picanto"
+      ],
+      "tier": "B",
+      "liquidity": 78,
+      "target_years": [
+        2006,
+        2015
+      ],
+      "ideal_mileage_max": 140000,
+      "max_mileage": 200000,
+      "buy_zone": {
+        "ideal_max": 1500,
+        "max_good": 2400,
+        "max_ok": 3000,
+        "avoid_over": 3600
+      },
+      "fast_sell_zone": [
+        2200,
+        3400
+      ],
+      "clean_retail_zone": [
+        2700,
+        4200
+      ],
+      "must_have": [
+        "HU/TUV",
+        "simple petrol"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "tuv",
+        "scheckheft"
+      ],
+      "risk_terms": [
+        "rost",
+        "kein tuv",
+        "unfall"
+      ],
+      "good_engines": [
+        "1.0",
+        "1.1",
+        "1.2"
+      ],
+      "bad_engines": [],
+      "notes": "Budget city car. Works when cheap and clean."
+    },
+    {
+      "brand": "audi",
+      "model": "a3",
+      "aliases": [
+        "audi a3",
+        "a3 8p"
+      ],
+      "tier": "B_strict",
+      "liquidity": 84,
+      "target_years": [
+        2004,
+        2012
+      ],
+      "ideal_mileage_max": 170000,
+      "max_mileage": 220000,
+      "buy_zone": {
+        "ideal_max": 2500,
+        "max_good": 3000,
+        "max_ok": 3800,
+        "avoid_over": 4500
+      },
+      "fast_sell_zone": [
+        3500,
+        5500
+      ],
+      "clean_retail_zone": [
+        4200,
+        6500
+      ],
+      "must_have": [
+        "HU/TUV",
+        "detailed description",
+        "OBD",
+        "normal gearbox"
+      ],
+      "boost_terms": [
+        "sportback",
+        "tuv",
+        "scheckheft",
+        "1. hand",
+        "klima",
+        "sitzheizung",
+        "8-fach",
+        "alufelgen",
+        "1.6",
+        "1.6 mpi",
+        "manual",
+        "schaltgetriebe"
+      ],
+      "risk_terms": [
+        "tfsi",
+        "fsi",
+        "dsg",
+        "s-tronic",
+        "multitronic",
+        "kein tuv",
+        "rost",
+        "airbag",
+        "abs",
+        "motorkontrollleuchte",
+        "kontrollleuchte",
+        "oelverlust",
+        "kuehlmittel",
+        "frontschaden",
+        "unfall",
+        "rost schweller",
+        "rost kotfluegel"
+      ],
+      "good_engines": [
+        "1.6 MPI",
+        "1.9 TDI with proof",
+        "1.6 102PS",
+        "1.6 Benzin manual"
+      ],
+      "bad_engines": [
+        "TFSI",
+        "FSI without proof",
+        "S-tronic/DSG without proof",
+        "1.6 FSI without proof",
+        "2.0 FSI without proof",
+        "PowerShift"
+      ],
+      "notes": "A3 8P is attractive for young buyers and can sell fast if cheap, simple and clean. Best pocket: 1.6 MPI/manual with HU/TUV, Klima and 8-fach around 2000-2500 EUR. Check rust on arches/sills/door bottoms/front fenders, OBD, warning lights, oil/coolant leaks and clutch. FSI/TFSI/DSG/no-TUV must stay strict."
+    },
+    {
+      "brand": "audi",
+      "model": "a4",
+      "aliases": [
+        "audi a4",
+        "a4 b6",
+        "a4 b7",
+        "a4 b8"
+      ],
+      "tier": "B_strict",
+      "liquidity": 78,
+      "target_years": [
+        2001,
+        2010
+      ],
+      "ideal_mileage_max": 180000,
+      "max_mileage": 230000,
+      "buy_zone": {
+        "ideal_max": 2500,
+        "max_good": 3800,
+        "max_ok": 5000,
+        "avoid_over": 5500
+      },
+      "fast_sell_zone": [
+        3500,
+        6000
+      ],
+      "clean_retail_zone": [
+        4500,
+        7000
+      ],
+      "must_have": [
+        "HU/TUV",
+        "detailed description",
+        "no Multitronic",
+        "OBD"
+      ],
+      "boost_terms": [
+        "avant",
+        "tuv",
+        "scheckheft",
+        "1. hand",
+        "quattro with proof"
+      ],
+      "risk_terms": [
+        "multitronic",
+        "tfsi",
+        "fsi",
+        "3.0 tdi",
+        "2.7 tdi",
+        "kein tuv",
+        "rost"
+      ],
+      "good_engines": [
+        "1.9 TDI with proof",
+        "2.0 TDI with proof",
+        "1.8T with proof"
+      ],
+      "bad_engines": [
+        "Multitronic",
+        "TFSI/FSI oil issues",
+        "big V6 diesel risk"
+      ],
+      "notes": "Can be attractive for youth, but no TUV or weak description is immediate reject."
+    },
+    {
+      "brand": "bmw",
+      "model": "3er",
+      "aliases": [
+        "bmw 3er",
+        "e46",
+        "e90",
+        "318i",
+        "320i",
+        "318d",
+        "320d"
+      ],
+      "tier": "B_strict",
+      "liquidity": 80,
+      "target_years": [
+        2000,
+        2011
+      ],
+      "ideal_mileage_max": 180000,
+      "max_mileage": 220000,
+      "buy_zone": {
+        "ideal_max": 2500,
+        "max_good": 3800,
+        "max_ok": 5000,
+        "avoid_over": 5500
+      },
+      "fast_sell_zone": [
+        3500,
+        6000
+      ],
+      "clean_retail_zone": [
+        4500,
+        7000
+      ],
+      "must_have": [
+        "HU/TUV",
+        "no rust",
+        "no overheating",
+        "OBD"
+      ],
+      "boost_terms": [
+        "tuv",
+        "scheckheft",
+        "1. hand",
+        "unfallfrei",
+        "schalter"
+      ],
+      "risk_terms": [
+        "n47",
+        "steuerkette",
+        "automatik problem",
+        "rost",
+        "drift",
+        "tuning",
+        "kein tuv",
+        "kuehlwasser"
+      ],
+      "good_engines": [
+        "318i/320i with proof",
+        "M47 diesel with proof"
+      ],
+      "bad_engines": [
+        "N47 without chain proof",
+        "overheating",
+        "bad automatic"
+      ],
+      "notes": "Emotional demand exists, but strict: no TUV/rust/engine issue means reject."
+    },
+    {
+      "brand": "hyundai",
+      "model": "i20",
+      "aliases": [
+        "hyundai i20",
+        "i20"
+      ],
+      "tier": "A",
+      "liquidity": 84,
+      "target_years": [
+        2009,
+        2016
+      ],
+      "ideal_mileage_max": 150000,
+      "max_mileage": 220000,
+      "buy_zone": {
+        "ideal_max": 2200,
+        "max_good": 3300,
+        "max_ok": 4200,
+        "avoid_over": 5000
+      },
+      "fast_sell_zone": [
+        3000,
+        4700
+      ],
+      "clean_retail_zone": [
+        3600,
+        5600
+      ],
+      "must_have": [
+        "HU/TUV",
+        "simple petrol",
+        "no accident"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "tuv",
+        "scheckheft",
+        "1. hand",
+        "8-fach"
+      ],
+      "risk_terms": [
+        "diesel dpf",
+        "unfall",
+        "rost",
+        "kein tuv",
+        "motorlampe"
+      ],
+      "good_engines": [
+        "1.2",
+        "1.4 petrol"
+      ],
+      "bad_engines": [
+        "neglected diesel"
+      ],
+      "notes": "Very good first-car profile; less hype than VW, but reliable and easy to sell when clean."
+    },
+    {
+      "brand": "kia",
+      "model": "ceed",
+      "aliases": [
+        "kia ceed",
+        "kia cee'd",
+        "ceed"
+      ],
+      "tier": "B",
+      "liquidity": 82,
+      "target_years": [
+        2007,
+        2015
+      ],
+      "ideal_mileage_max": 170000,
+      "max_mileage": 230000,
+      "buy_zone": {
+        "ideal_max": 2200,
+        "max_good": 3300,
+        "max_ok": 4200,
+        "avoid_over": 5000
+      },
+      "fast_sell_zone": [
+        3000,
+        4600
+      ],
+      "clean_retail_zone": [
+        3600,
+        5600
+      ],
+      "must_have": [
+        "HU/TUV",
+        "service",
+        "no rust"
+      ],
+      "boost_terms": [
+        "kombi",
+        "sportswagon",
+        "klima",
+        "tuv",
+        "scheckheft",
+        "1. hand"
+      ],
+      "risk_terms": [
+        "crdi dpf",
+        "kupplung",
+        "rost",
+        "kein tuv",
+        "unfall"
+      ],
+      "good_engines": [
+        "1.4 petrol",
+        "1.6 petrol"
+      ],
+      "bad_engines": [
+        "neglected diesel emissions"
+      ],
+      "notes": "Practical and trusted enough. Good family/daily car, but not as fast as Polo/up/Yaris."
+    },
+    {
+      "brand": "skoda",
+      "model": "octavia",
+      "aliases": [
+        "skoda octavia",
+        "octavia"
+      ],
+      "tier": "B",
+      "liquidity": 86,
+      "target_years": [
+        2004,
+        2013
+      ],
+      "ideal_mileage_max": 190000,
+      "max_mileage": 250000,
+      "buy_zone": {
+        "ideal_max": 2200,
+        "max_good": 3300,
+        "max_ok": 4300,
+        "avoid_over": 5200
+      },
+      "fast_sell_zone": [
+        3200,
+        5200
+      ],
+      "clean_retail_zone": [
+        4000,
+        6200
+      ],
+      "must_have": [
+        "HU/TUV",
+        "rust check",
+        "engine proof"
+      ],
+      "boost_terms": [
+        "combi",
+        "tuv",
+        "scheckheft",
+        "zahnriemen",
+        "klima",
+        "ahk"
+      ],
+      "risk_terms": [
+        "tsi",
+        "dsg",
+        "dpf",
+        "rost",
+        "kein tuv",
+        "turbo"
+      ],
+      "good_engines": [
+        "1.6 MPI",
+        "1.9 TDI with proof",
+        "2.0 TDI with proof"
+      ],
+      "bad_engines": [
+        "TSI/DSG without proof"
+      ],
+      "notes": "Strong practical demand, especially Combi. Mileage can be higher if history is real."
+    },
+    {
+      "brand": "seat",
+      "model": "leon",
+      "aliases": [
+        "seat leon",
+        "leon"
+      ],
+      "tier": "B",
+      "liquidity": 82,
+      "target_years": [
+        2006,
+        2014
+      ],
+      "ideal_mileage_max": 170000,
+      "max_mileage": 230000,
+      "buy_zone": {
+        "ideal_max": 2200,
+        "max_good": 3300,
+        "max_ok": 4300,
+        "avoid_over": 5200
+      },
+      "fast_sell_zone": [
+        3200,
+        5000
+      ],
+      "clean_retail_zone": [
+        3800,
+        6000
+      ],
+      "must_have": [
+        "HU/TUV",
+        "normal engine",
+        "no tuning abuse"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "tuv",
+        "klima",
+        "scheckheft",
+        "sitzheizung"
+      ],
+      "risk_terms": [
+        "fr",
+        "cupra",
+        "tsi",
+        "tfsi",
+        "dsg",
+        "tuning",
+        "rost",
+        "kein tuv"
+      ],
+      "good_engines": [
+        "1.6 MPI",
+        "1.9 TDI proof"
+      ],
+      "bad_engines": [
+        "TSI/DSG abused"
+      ],
+      "notes": "Youth appeal is strong, but sporty trims can be abused. Clean boring Leon is safer."
+    },
+    {
+      "brand": "honda",
+      "model": "civic",
+      "aliases": [
+        "honda civic",
+        "civic"
+      ],
+      "tier": "B",
+      "liquidity": 78,
+      "target_years": [
+        2006,
+        2015
+      ],
+      "ideal_mileage_max": 180000,
+      "max_mileage": 260000,
+      "buy_zone": {
+        "ideal_max": 2500,
+        "max_good": 3600,
+        "max_ok": 4700,
+        "avoid_over": 5600
+      },
+      "fast_sell_zone": [
+        3600,
+        5600
+      ],
+      "clean_retail_zone": [
+        4300,
+        6500
+      ],
+      "must_have": [
+        "HU/TUV",
+        "rust check",
+        "service"
+      ],
+      "boost_terms": [
+        "tuv",
+        "scheckheft",
+        "1. hand",
+        "klima",
+        "benziner"
+      ],
+      "risk_terms": [
+        "rost",
+        "kein tuv",
+        "hybrid batterie",
+        "unfall",
+        "tuning"
+      ],
+      "good_engines": [
+        "1.4",
+        "1.8 VTEC"
+      ],
+      "bad_engines": [
+        "hybrid battery risk"
+      ],
+      "notes": "Reliable and respected, but audience is narrower. Good condition matters more than low price."
+    },
+    {
+      "brand": "mazda",
+      "model": "3",
+      "aliases": [
+        "mazda 3",
+        "mazda3"
+      ],
+      "tier": "B",
+      "liquidity": 76,
+      "target_years": [
+        2004,
+        2014
+      ],
+      "ideal_mileage_max": 170000,
+      "max_mileage": 240000,
+      "buy_zone": {
+        "ideal_max": 2000,
+        "max_good": 3200,
+        "max_ok": 4200,
+        "avoid_over": 5000
+      },
+      "fast_sell_zone": [
+        3000,
+        4800
+      ],
+      "clean_retail_zone": [
+        3600,
+        5800
+      ],
+      "must_have": [
+        "HU/TUV",
+        "rust check"
+      ],
+      "boost_terms": [
+        "tuv",
+        "scheckheft",
+        "klima",
+        "1. hand"
+      ],
+      "risk_terms": [
+        "rost",
+        "schweller",
+        "radlauf",
+        "kein tuv",
+        "diesel dpf"
+      ],
+      "good_engines": [
+        "1.6 petrol",
+        "2.0 petrol"
+      ],
+      "bad_engines": [
+        "rusty body",
+        "neglected diesel"
+      ],
+      "notes": "Reliable but rust is the key. Clean body can be a strong buy."
+    },
+    {
+      "brand": "renault",
+      "model": "clio",
+      "aliases": [
+        "renault clio",
+        "clio"
+      ],
+      "tier": "C",
+      "liquidity": 72,
+      "target_years": [
+        2006,
+        2016
+      ],
+      "ideal_mileage_max": 150000,
+      "max_mileage": 210000,
+      "buy_zone": {
+        "ideal_max": 1600,
+        "max_good": 2600,
+        "max_ok": 3400,
+        "avoid_over": 4200
+      },
+      "fast_sell_zone": [
+        2300,
+        3800
+      ],
+      "clean_retail_zone": [
+        2800,
+        4800
+      ],
+      "must_have": [
+        "HU/TUV",
+        "simple petrol",
+        "no electronics issue"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "tuv",
+        "scheckheft",
+        "1. hand"
+      ],
+      "risk_terms": [
+        "tce",
+        "automatik problem",
+        "elektronik",
+        "kein tuv",
+        "unfall"
+      ],
+      "good_engines": [
+        "1.2",
+        "1.4",
+        "1.6 petrol"
+      ],
+      "bad_engines": [
+        "TCe timing/oil risk without proof"
+      ],
+      "notes": "Can be cheap and okay, but weaker trust than Toyota/VW. Needs clean TUV and simple engine."
+    },
+    {
+      "brand": "nissan",
+      "model": "micra",
+      "aliases": [
+        "nissan micra",
+        "micra"
+      ],
+      "tier": "B",
+      "liquidity": 76,
+      "target_years": [
+        2004,
+        2016
+      ],
+      "ideal_mileage_max": 150000,
+      "max_mileage": 220000,
+      "buy_zone": {
+        "ideal_max": 1500,
+        "max_good": 2400,
+        "max_ok": 3200,
+        "avoid_over": 3900
+      },
+      "fast_sell_zone": [
+        2200,
+        3600
+      ],
+      "clean_retail_zone": [
+        2700,
+        4400
+      ],
+      "must_have": [
+        "HU/TUV",
+        "simple petrol"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "tuv",
+        "1. hand"
+      ],
+      "risk_terms": [
+        "cvt",
+        "rost",
+        "kein tuv",
+        "unfall"
+      ],
+      "good_engines": [
+        "1.2",
+        "1.4"
+      ],
+      "bad_engines": [
+        "CVT symptoms"
+      ],
+      "notes": "Good budget beginner car. Less emotional, but cheap clean examples sell."
+    },
+    {
+      "brand": "nissan",
+      "model": "note",
+      "aliases": [
+        "nissan note",
+        "note"
+      ],
+      "tier": "B",
+      "liquidity": 74,
+      "target_years": [
+        2006,
+        2014
+      ],
+      "ideal_mileage_max": 160000,
+      "max_mileage": 230000,
+      "buy_zone": {
+        "ideal_max": 1700,
+        "max_good": 2700,
+        "max_ok": 3500,
+        "avoid_over": 4300
+      },
+      "fast_sell_zone": [
+        2400,
+        3900
+      ],
+      "clean_retail_zone": [
+        3000,
+        4700
+      ],
+      "must_have": [
+        "HU/TUV",
+        "simple petrol"
+      ],
+      "boost_terms": [
+        "klima",
+        "tuv",
+        "1. hand",
+        "scheckheft"
+      ],
+      "risk_terms": [
+        "rost",
+        "kein tuv",
+        "cvt",
+        "unfall"
+      ],
+      "good_engines": [
+        "1.4",
+        "1.6"
+      ],
+      "bad_engines": [
+        "CVT symptoms"
+      ],
+      "notes": "Practical but not stylish. Works for families/budget buyers if cheap and clean."
+    },
+    {
+      "brand": "mitsubishi",
+      "model": "colt",
+      "aliases": [
+        "mitsubishi colt",
+        "colt"
+      ],
+      "tier": "B",
+      "liquidity": 74,
+      "target_years": [
+        2004,
+        2012
+      ],
+      "ideal_mileage_max": 150000,
+      "max_mileage": 220000,
+      "buy_zone": {
+        "ideal_max": 1300,
+        "max_good": 2200,
+        "max_ok": 3000,
+        "avoid_over": 3600
+      },
+      "fast_sell_zone": [
+        2000,
+        3300
+      ],
+      "clean_retail_zone": [
+        2500,
+        4000
+      ],
+      "must_have": [
+        "HU/TUV",
+        "simple petrol"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "tuv",
+        "1. hand"
+      ],
+      "risk_terms": [
+        "rost",
+        "kein tuv",
+        "automatik problem",
+        "unfall"
+      ],
+      "good_engines": [
+        "1.1",
+        "1.3",
+        "1.5"
+      ],
+      "bad_engines": [],
+      "notes": "Underrated cheap reliable car. Good for low budget, but buyer pool smaller than VW."
+    },
+    {
+      "brand": "mitsubishi",
+      "model": "space star",
+      "aliases": [
+        "mitsubishi space star",
+        "space star"
+      ],
+      "tier": "B",
+      "liquidity": 74,
+      "target_years": [
+        2013,
+        2018
+      ],
+      "ideal_mileage_max": 130000,
+      "max_mileage": 190000,
+      "buy_zone": {
+        "ideal_max": 3000,
+        "max_good": 3800,
+        "max_ok": 4700,
+        "avoid_over": 5500
+      },
+      "fast_sell_zone": [
+        4000,
+        5600
+      ],
+      "clean_retail_zone": [
+        4800,
+        6500
+      ],
+      "must_have": [
+        "HU/TUV",
+        "simple petrol"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "tuv",
+        "scheckheft"
+      ],
+      "risk_terms": [
+        "unfall",
+        "kein tuv",
+        "rost"
+      ],
+      "good_engines": [
+        "1.0",
+        "1.2"
+      ],
+      "bad_engines": [],
+      "notes": "Simple, low-cost city car. Not exciting, but sensible buyers like it."
+    },
+    {
+      "brand": "dacia",
+      "model": "sandero",
+      "aliases": [
+        "dacia sandero",
+        "sandero"
+      ],
+      "tier": "B",
+      "liquidity": 76,
+      "target_years": [
+        2009,
+        2018
+      ],
+      "ideal_mileage_max": 140000,
+      "max_mileage": 220000,
+      "buy_zone": {
+        "ideal_max": 2200,
+        "max_good": 3300,
+        "max_ok": 4300,
+        "avoid_over": 5200
+      },
+      "fast_sell_zone": [
+        3000,
+        4800
+      ],
+      "clean_retail_zone": [
+        3600,
+        5600
+      ],
+      "must_have": [
+        "HU/TUV",
+        "no rust",
+        "simple engine"
+      ],
+      "boost_terms": [
+        "tuv",
+        "klima",
+        "1. hand",
+        "scheckheft"
+      ],
+      "risk_terms": [
+        "tce",
+        "lpg problem",
+        "rost",
+        "kein tuv",
+        "unfall"
+      ],
+      "good_engines": [
+        "1.2",
+        "1.4",
+        "1.6"
+      ],
+      "bad_engines": [
+        "TCe without proof"
+      ],
+      "notes": "Cheap rational buy. Good for budget clients, less image but easy to justify."
+    },
+    {
+      "brand": "peugeot",
+      "model": "107",
+      "aliases": [
+        "peugeot 107",
+        "107"
+      ],
+      "tier": "B",
+      "liquidity": 78,
+      "target_years": [
+        2005,
+        2014
+      ],
+      "ideal_mileage_max": 150000,
+      "max_mileage": 220000,
+      "buy_zone": {
+        "ideal_max": 1200,
+        "max_good": 1800,
+        "max_ok": 2400,
+        "avoid_over": 3000
+      },
+      "fast_sell_zone": [
+        1800,
+        2800
+      ],
+      "clean_retail_zone": [
+        2300,
+        3400
+      ],
+      "must_have": [
+        "HU/TUV",
+        "clutch okay"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "tuv",
+        "1. hand"
+      ],
+      "risk_terms": [
+        "kupplung",
+        "rost",
+        "kein tuv",
+        "unfall"
+      ],
+      "good_engines": [
+        "1.0"
+      ],
+      "bad_engines": [],
+      "notes": "Same logic as Aygo/C1: cheap, simple, small margins."
+    },
+    {
+      "brand": "citroen",
+      "model": "c1",
+      "aliases": [
+        "citroen c1",
+        "c1"
+      ],
+      "tier": "B",
+      "liquidity": 82,
+      "target_years": [
+        2005,
+        2014
+      ],
+      "ideal_mileage_max": 150000,
+      "max_mileage": 220000,
+      "buy_zone": {
+        "ideal_max": 1400,
+        "max_good": 1800,
+        "max_ok": 2200,
+        "avoid_over": 2600
+      },
+      "fast_sell_zone": [
+        1800,
+        2800
+      ],
+      "clean_retail_zone": [
+        2300,
+        3400
+      ],
+      "must_have": [
+        "HU/TUV",
+        "clutch okay"
+      ],
+      "boost_terms": [
+        "5 tuer",
+        "klima",
+        "tuv",
+        "1. hand",
+        "tuv neu",
+        "tuev neu",
+        "hu neu",
+        "allwetterreifen",
+        "2 schluessel",
+        "neue kupplung",
+        "neue bremsen"
+      ],
+      "risk_terms": [
+        "kupplung",
+        "rost",
+        "kein tuv",
+        "unfall",
+        "kupplung rutscht",
+        "kupplung defekt",
+        "airbag",
+        "abs",
+        "motorkontrollleuchte",
+        "rost unten"
+      ],
+      "good_engines": [
+        "1.0"
+      ],
+      "bad_engines": [],
+      "notes": "C1/Aygo/107 is strong low-budget beginner stock. At 1000-1400 EUR with HU/TUV it deserves priority manual check even with ugly photos. Margins are small; clutch, rust, exhaust, brakes and crash signs decide."
+    },
+    {
+      "brand": "fiat",
+      "model": "500",
+      "aliases": [
+        "fiat 500",
+        "500"
+      ],
+      "tier": "B",
+      "liquidity": 78,
+      "target_years": [
+        2008,
+        2016
+      ],
+      "ideal_mileage_max": 130000,
+      "max_mileage": 190000,
+      "buy_zone": {
+        "ideal_max": 2500,
+        "max_good": 3500,
+        "max_ok": 4300,
+        "avoid_over": 5200
+      },
+      "fast_sell_zone": [
+        3500,
+        5200
+      ],
+      "clean_retail_zone": [
+        4200,
+        6500
+      ],
+      "must_have": [
+        "HU/TUV",
+        "clean body",
+        "no electrical issues"
+      ],
+      "boost_terms": [
+        "klima",
+        "panorama",
+        "tuv",
+        "1. hand",
+        "scheckheft"
+      ],
+      "risk_terms": [
+        "dualogic",
+        "elektrik",
+        "kein tuv",
+        "unfall",
+        "rost"
+      ],
+      "good_engines": [
+        "1.2 petrol"
+      ],
+      "bad_engines": [
+        "Dualogic gearbox"
+      ],
+      "notes": "Strong style demand, especially young buyers, but condition/electrics matter and 3-door limits practicality."
+    },
+    {
+      "brand": "ford",
+      "model": "c-max",
+      "aliases": [
+        "ford c-max",
+        "ford cmax",
+        "c-max",
+        "cmax"
+      ],
+      "tier": "C_strict",
+      "liquidity": 55,
+      "target_years": [
+        2004,
+        2016
+      ],
+      "ideal_mileage_max": 160000,
+      "max_mileage": 220000,
+      "buy_zone": {
+        "ideal_max": 1800,
+        "max_good": 2500,
+        "max_ok": 3200,
+        "avoid_over": 3800
+      },
+      "fast_sell_zone": [
+        2500,
+        3800
+      ],
+      "clean_retail_zone": [
+        3200,
+        4800
+      ],
+      "must_have": [
+        "HU/TUV",
+        "manual preferred",
+        "no PowerShift",
+        "no DPF/EGR/turbo symptoms"
+      ],
+      "boost_terms": [
+        "tuv neu",
+        "tuev neu",
+        "scheckheft",
+        "1. hand",
+        "manual",
+        "schaltgetriebe"
+      ],
+      "risk_terms": [
+        "powershift",
+        "power shift",
+        "tdci",
+        "dpf",
+        "egr",
+        "turbo",
+        "adblue",
+        "getriebe",
+        "automatik",
+        "kein tuv",
+        "ohne tuv"
+      ],
+      "good_engines": [
+        "simple petrol manual"
+      ],
+      "bad_engines": [
+        "PowerShift",
+        "2.0 TDCI PowerShift",
+        "diesel with DPF/EGR symptoms"
+      ],
+      "notes": "Not a target youth-flip model. Practical but slower and riskier than Fiesta/Focus. Diesel + PowerShift should be rejected unless extremely cheap with proof; it can destroy all margin."
+    }
+  ],
+  "manual_review_2026_05_20": {
+    "source": "User + AUTOHAWK log review after 20 scans. These are field-learning examples, not guaranteed condition reports.",
+    "core_lesson": "Best candidates are not the cleanest ads. They are liquid cars in the correct buy-zone with HU/TUV and no expensive drivetrain/body/document red flags.",
+    "ranking_logic": [
+      "First decide who buys the car after us.",
+      "Then check whether the buy price leaves room after preparation, repair reserve and resale negotiation.",
+      "Then punish expensive hidden risks: gearbox, engine, structural rust, no TUV, accident, warning lights.",
+      "Ugly photos, dirty interior or weak ad text can be opportunity only when the model is liquid and the technical risk is controllable."
+    ],
+    "reviewed_candidates": [
+      {
+        "url": "https://www.kleinanzeigen.de/s-anzeige/audi-a3-1-6-klima-8-fach-alufelgen-tuev/3403706232-216-17426",
+        "model": "Audi A3 8P 1.6 manual",
+        "price": 2150,
+        "manual_verdict": "interesting_manual_check",
+        "why": "A3 badge is liquid for young buyers, 1.6 manual is the safer simple drivetrain, Klima + 8-fach + TUV are resale signals. Around 2100 EUR can be a real buy-zone if the body and dashboard are clean.",
+        "must_check": "Rust on arches/sills/door bottoms/front fenders, accident panel gaps, OBD, ABS/airbag/check-engine lights, clutch, oil leaks, cooling temperature/thermostat, windows/locks.",
+        "database_lesson": "Do not treat all old Audis as bad. A3 1.6 manual with TUV under 2500 EUR is a priority CHECK; FSI/TFSI/DSG/no-TUV remains strict reject or low CHECK."
+      },
+      {
+        "url": "https://www.kleinanzeigen.de/s-anzeige/citroeen-c1-mit-tuev/3414150058-216-8308",
+        "model": "Citroen C1 1.0 manual",
+        "price": 1000,
+        "manual_verdict": "strong_budget_check",
+        "why": "C1/Aygo/107 platform is cheap, simple and good first-car material. 1000 EUR with TUV is interesting even at higher mileage because the buyer pool exists.",
+        "must_check": "Clutch bite/slip, rust underneath, exhaust, brakes, crash history, warning lights, interior wear vs mileage.",
+        "database_lesson": "C1 around 1000-1400 EUR with TUV should be elevated to best-available even if photos are ugly. Margins are small but risk is usually controllable."
+      },
+      {
+        "url": "https://www.kleinanzeigen.de/s-anzeige/mazda-2-tuev-neu-1-hand/3414067088-216-9405",
+        "model": "Mazda 2 1.3/1.4 manual",
+        "price": 2000,
+        "manual_verdict": "clean_buyer_car",
+        "why": "TUV neu + 1.Hand is a strong trust signal. Mazda 2 is reliable and easy to recommend, but resale speed is weaker than Polo/Yaris/Corsa.",
+        "must_check": "Rear arches, sills, underbody rust, clutch, brakes, service history, dashboard warnings.",
+        "database_lesson": "Mazda 2 at 1800-2300 EUR with fresh TUV and 1.Hand is good for safe buyer service; for quick flip it needs either low buy price or unusually clean condition."
+      },
+      {
+        "url": "https://www.kleinanzeigen.de/s-anzeige/polo-united-tuev-11-26/3414046451-216-5681",
+        "model": "VW Polo 9N/9N3 United",
+        "price": 1350,
+        "manual_verdict": "priority_manual_check",
+        "why": "Polo with TUV under 1500 EUR is exactly the market pocket that can move fast. Even average condition can sell if technical state is honest.",
+        "must_check": "Rust, chain noise on cold start for 1.2, clutch, oil leaks, ABS/airbag/check-engine, exact TUV report.",
+        "database_lesson": "Old Polo 9N/9N3 under 1700 EUR with TUV should outrank many cleaner but retail-priced cars."
+      },
+      {
+        "url": "https://www.kleinanzeigen.de/s-anzeige/ford-fiesta-1-3/3414072956-216-2085",
+        "model": "Ford Fiesta 1.3 petrol",
+        "price": 1500,
+        "manual_verdict": "good_if_tuv_body_ok",
+        "why": "Simple petrol Fiesta is a normal beginner car. Good liquidity, cheap repair, but at high mileage it needs TUV and no serious rust.",
+        "must_check": "Rust around sills/rear arches, clutch, coolant, brakes, TUV, dashboard warnings.",
+        "database_lesson": "Fiesta 1.25/1.3/1.4 petrol at 1200-1800 EUR with TUV can be a good best-available lead, but not HOT at market price."
+      },
+      {
+        "url": "https://www.kleinanzeigen.de/s-anzeige/vw-polo-1-2-9n3-united-tuev-steuerkette-neu/3414143280-216-2035",
+        "model": "VW Polo 9N3 1.2 United",
+        "price": 2600,
+        "manual_verdict": "good_but_margin_tight",
+        "why": "TUV + Steuerkette neu is strong proof. Price is already closer to retail, so it is better for safe buyer service than quick flip.",
+        "must_check": "Invoice for chain, TUV report, rust, clutch, OBD, private vs dealer.",
+        "database_lesson": "Polo at 2500-3000 EUR needs strong proof and condition to remain interesting; margin must be capped."
+      },
+      {
+        "url": "https://www.kleinanzeigen.de/s-anzeige/toyota-aygo-1-0-bj10-2006-tuev-01-2028/3401818949-216-1887",
+        "model": "Toyota Aygo 1.0",
+        "price": 1790,
+        "manual_verdict": "safe_first_car_check",
+        "why": "Aygo with long TUV is low-risk first-car stock. It is not always huge profit, but it is easy to explain and resell.",
+        "must_check": "Clutch, water pump/coolant, rust underneath, exhaust, accident signs.",
+        "database_lesson": "Aygo/C1/107 with long TUV in 1500-2000 EUR range is safe buyer-service material; HOT only if clearly under market."
+      },
+      {
+        "url": "https://www.kleinanzeigen.de/s-anzeige/ford-c-max-2-0-tdci-powershift-top-gepflegt-fahrbereit/3414136013-216-2593",
+        "model": "Ford C-Max 2.0 TDCI PowerShift",
+        "price": 3500,
+        "manual_verdict": "reject_for_strategy",
+        "why": "Diesel + PowerShift is not good youth-flip risk. Gearbox/DPF/EGR/turbo risk can destroy all margin.",
+        "must_check": "Only consider with massive discount and gearbox proof, otherwise skip.",
+        "database_lesson": "PowerShift should be a hard market-fear penalty and should not appear as a strong CHECK."
+      },
+      {
+        "url": "https://www.kleinanzeigen.de/s-anzeige/vw-golf-5-united/3414073165-216-1457",
+        "model": "VW Golf 5 United",
+        "price": 3450,
+        "manual_verdict": "retail_unless_exceptional",
+        "why": "Golf is liquid, but this price is not a flip price unless it is very clean, long TUV, 5-door, service proof and no rust.",
+        "must_check": "Rust, engine variant, TUV, dashboard lights, clutch/gearbox, accident.",
+        "database_lesson": "Golf 5 above 3000 EUR must be capped unless proof and market discount are unusually strong."
+      },
+      {
+        "url": "https://www.kleinanzeigen.de/s-anzeige/opel-corsa/3414108193-216-3358",
+        "model": "Opel Corsa C/D",
+        "price": 1500,
+        "manual_verdict": "budget_check",
+        "why": "Cheap Corsa can work if TUV and body are okay. It is less exciting than Polo/Yaris but still liquid.",
+        "must_check": "Rust, chain noise for small petrol, oil leaks, coolant, TUV, clutch.",
+        "database_lesson": "Corsa around 1200-1800 EUR with TUV is a valid best-available car; over 3000 EUR needs strong proof."
+      },
+      {
+        "url": "https://www.kleinanzeigen.de/s-anzeige/opel-astra-j-1-6-benzin-limousine-mit-tuev-2-28/3414129601-216-8112",
+        "model": "Opel Astra J 1.6 petrol",
+        "price": 3500,
+        "manual_verdict": "normal_buyer_car",
+        "why": "Astra J with long TUV can be a decent normal purchase, but 3500 EUR is not automatically a flip.",
+        "must_check": "Rust/brakes, clutch, oil leaks, coolant, service, seller type.",
+        "database_lesson": "Astra J at 3000-3800 EUR should be buyer-service CHECK, not HOT, unless market evidence shows real discount."
+      },
+      {
+        "url": "https://www.kleinanzeigen.de/s-anzeige/citro-n-c3-picasso-1-4-benziner-tuev-bis-05-2027/3414107840-216-2827",
+        "model": "Citroen C3 Picasso 1.4 petrol",
+        "price": 1700,
+        "manual_verdict": "practical_but_slower",
+        "why": "Practical and cheap with TUV, but less liquid than Polo/Corsa/Yaris. Good only if condition is honest.",
+        "must_check": "Clutch, electronics, rust, brakes, TUV report, warning lights.",
+        "database_lesson": "Cheap practical French cars can be best-available but should not outrank stronger German/Japanese city cars unless price is very low."
+      }
+    ]
+  }
+}

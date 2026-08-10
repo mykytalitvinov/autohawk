@@ -1,0 +1,313 @@
+﻿{
+  "version": "2026-06-02-v1",
+  "purpose": "German used-car listing wording intelligence for flipper/buyer-service decisions.",
+  "rules": [
+    "Do not treat all defects equally.",
+    "Cheap cosmetic/comfort defects can be negotiation opportunity.",
+    "Engine, gearbox, documents, severe rust, overheating, heavy oil use and non-roadworthy wording destroy profit unless extremely cheap and verified.",
+    "Short or ugly descriptions are not automatic rejects, but they require direct seller questions.",
+    "Positive seller proof beats generic beauty words."
+  ],
+  "terms": [
+    {
+      "id": "engine_damage",
+      "severity": "kill",
+      "score_delta": -45,
+      "repair_cost": 2500,
+      "patterns": ["motorschaden", "motor schaden", "motor defekt", "motor klopft", "motor macht geraeusche", "kolben", "lagerschaden"],
+      "meaning": "engine damage/noise wording",
+      "risk": "Engine work can destroy all margin.",
+      "ask": "Motorproblem genau erklaeren lassen, Video vom Kaltstart verlangen, normalerweise nicht kaufen."
+    },
+    {
+      "id": "bad_cold_start",
+      "severity": "danger",
+      "score_delta": -24,
+      "repair_cost": 900,
+      "patterns": ["kaltstart schlecht", "springt kalt schlecht an", "motor kalt unruhig", "kalt ruckelt", "startet kalt schlecht", "laeuft kalt schlecht"],
+      "meaning": "cold-start/running issue",
+      "risk": "Can be cheap sensor/battery, but can also be chain, injectors, compression or fuel system.",
+      "ask": "Video vom echten Kaltstart, OBD Fehlercodes, wann tritt es auf?"
+    },
+    {
+      "id": "oil_consumption",
+      "severity": "kill",
+      "score_delta": -42,
+      "repair_cost": 2200,
+      "patterns": ["oelverbrauch", "oil consumption", "verbraucht oel", "nimmt oel", "frisst oel", "1 liter oel", "1l oel", "1.2 liter oel", "1000 km oel"],
+      "meaning": "oil consumption wording",
+      "risk": "High oil use is a profit killer and hurts resale trust.",
+      "ask": "Wie viel Ã–l auf 1000 km? Bei mehr als minimalem Verbrauch nur mit extremer Preisreduktion."
+    },
+    {
+      "id": "gearbox_damage",
+      "severity": "kill",
+      "score_delta": -45,
+      "repair_cost": 2500,
+      "patterns": ["getriebeschaden", "getriebe defekt", "getriebe problem", "automatik problem", "schaltet nicht", "getriebe rutscht", "gang springt raus"],
+      "meaning": "gearbox problem",
+      "risk": "Gearbox repair often costs more than the flip margin.",
+      "ask": "Probefahrt mit allen Gaengen, OBD, bei Automatik/DSG meist skippen."
+    },
+    {
+      "id": "non_roadworthy",
+      "severity": "kill",
+      "score_delta": -40,
+      "repair_cost": 1500,
+      "patterns": ["nicht fahrbereit", "faehrt nicht", "startet nicht", "springt nicht an", "muss abgeschleppt werden", "nur abholung mit trailer"],
+      "meaning": "not roadworthy / does not start",
+      "risk": "Transport, unknown damage and no test drive create bad risk.",
+      "ask": "Warum nicht fahrbereit? Ohne klare billige Ursache normalerweise ablehnen."
+    },
+    {
+      "id": "documents_missing",
+      "severity": "kill",
+      "score_delta": -50,
+      "repair_cost": 3000,
+      "patterns": ["ohne papiere", "keine papiere", "ohne brief", "brief fehlt", "fahrzeugbrief fehlt", "zulassungsbescheinigung fehlt"],
+      "meaning": "missing documents",
+      "risk": "Legal/document risk; resale can be impossible.",
+      "ask": "Nur mit klaren Papieren/Fahrzeugschein/Fahrzeugbrief."
+    },
+    {
+      "id": "export_bastler",
+      "severity": "kill",
+      "score_delta": -38,
+      "repair_cost": 1200,
+      "patterns": ["bastler", "bastlerfahrzeug", "projektfahrzeug", "nur export", "export only", "exportfahrzeug", "ersatzteiltraeger", "schlachtfest"],
+      "meaning": "Bastler/export/parts-car wording",
+      "risk": "Seller is basically warning that normal buyers should not buy it.",
+      "ask": "For this product strategy usually skip."
+    },
+    {
+      "id": "accident_serious",
+      "severity": "danger",
+      "score_delta": -28,
+      "repair_cost": 1600,
+      "patterns": ["unfallschaden", "unfallwagen", "nach unfall", "frontschaden", "heckschaden", "seitenschaden", "rahmenschaden", "totalschaden"],
+      "meaning": "accident/body damage wording",
+      "risk": "Can be cheap bodywork or structural/airbag risk. Profit depends on exact damage.",
+      "ask": "Fotos vor Reparatur, Rechnungen, Spaltmasse, Lackdicke, Airbag/ABS Fehler pruefen."
+    },
+    {
+      "id": "accident_downplayed",
+      "severity": "warning",
+      "score_delta": -12,
+      "repair_cost": 700,
+      "patterns": ["kleiner unfall", "leichter unfall", "nur blech", "unfall repariert", "parkrempler", "rempler"],
+      "meaning": "minor/downplayed accident wording",
+      "risk": "Seller may downplay damage; can still be okay if cosmetic and cheap.",
+      "ask": "Was genau wurde lackiert/getauscht? Fotos und Rechnung verlangen."
+    },
+    {
+      "id": "structural_rust",
+      "severity": "danger",
+      "score_delta": -30,
+      "repair_cost": 1200,
+      "patterns": ["durchrostung", "schweller rost", "unterboden rost", "rostloch", "tragende teile", "loch im schweller", "rahmen rost"],
+      "meaning": "structural rust wording",
+      "risk": "Structural rust kills TUV and resale.",
+      "ask": "Unterboden/Schweller Fotos und HU-Bericht; nur mit grosser Preisreduktion."
+    },
+    {
+      "id": "cosmetic_rust",
+      "severity": "warning",
+      "score_delta": -10,
+      "repair_cost": 450,
+      "patterns": ["rost", "roststelle", "radlauf rost", "tuer rost", "tuerkante rost", "kotfluegel rost", "heckklappe rost"],
+      "meaning": "visible cosmetic rust wording",
+      "risk": "Can be acceptable on cheap liquid cars, but not if sills/underbody.",
+      "ask": "Rosttiefe, Schweller/Unterboden, Kotfluegel/Tuerkante separat pruefen."
+    },
+    {
+      "id": "warning_lights",
+      "severity": "danger",
+      "score_delta": -22,
+      "repair_cost": 900,
+      "patterns": ["kontrollleuchte", "motorlampe", "check engine", "motorkontrollleuchte", "abs leuchtet", "airbag leuchtet", "esp leuchtet", "fehler leuchtet"],
+      "meaning": "dashboard warning light",
+      "risk": "Can be 50 EUR sensor or expensive emissions/safety fault. Needs OBD.",
+      "ask": "OBD Fehlercode vor Besuch schicken lassen. Airbag/ABS/DPF deutlich ernster als einfache Sensorlampe."
+    },
+    {
+      "id": "diesel_emissions",
+      "severity": "danger",
+      "score_delta": -20,
+      "repair_cost": 1200,
+      "patterns": ["dpf", "partikelfilter", "agr", "egr", "adblue", "russfilter", "regeneration"],
+      "meaning": "diesel emissions system wording",
+      "risk": "DPF/EGR/AdBlue can become expensive and hurts resale.",
+      "ask": "Fehlercodes, Langstrecke/Kurzstrecke, DPF/AGR Rechnungen."
+    },
+    {
+      "id": "turbo_injector",
+      "severity": "danger",
+      "score_delta": -22,
+      "repair_cost": 1300,
+      "patterns": ["turbo defekt", "turbolader", "injektor", "injektoren", "duese", "duesen", "einspritzduese"],
+      "meaning": "turbo/injector risk wording",
+      "risk": "Expensive diesel/petrol forced-induction repairs.",
+      "ask": "Leistung, Rauch, Fehlercodes, Rechnungen pruefen."
+    },
+    {
+      "id": "timing_chain_belt",
+      "severity": "danger",
+      "score_delta": -18,
+      "repair_cost": 1100,
+      "patterns": ["steuerkette rasselt", "steuerkette", "kette rasselt", "zahnriemen faellig", "zahnriemen ueberfaellig"],
+      "meaning": "timing chain/belt risk wording",
+      "risk": "Can destroy engine if ignored.",
+      "ask": "Rechnung fuer Kette/Zahnriemen, Kaltstartgeraeusch, Intervall."
+    },
+    {
+      "id": "clutch_flywheel",
+      "severity": "warning",
+      "score_delta": -12,
+      "repair_cost": 750,
+      "patterns": ["kupplung rutscht", "kupplung faellig", "kupplung kommt hoch", "zweimassenschwungrad", "zms"],
+      "meaning": "clutch/flywheel issue",
+      "risk": "Acceptable only if price gap covers it.",
+      "ask": "Kupplungstest, Rechnung, Pedalpunkt, Geraeusche."
+    },
+    {
+      "id": "cooling_head_gasket",
+      "severity": "kill",
+      "score_delta": -40,
+      "repair_cost": 2000,
+      "patterns": ["kopfdichtung", "zylinderkopfdichtung", "ueberhitzt", "kuehlwasserverlust", "wasserverlust", "temperatur steigt", "wasser im oel"],
+      "meaning": "cooling/head-gasket risk",
+      "risk": "Can make cheap car worthless.",
+      "ask": "Usually skip unless confirmed cheap external leak."
+    },
+    {
+      "id": "no_tuv",
+      "severity": "warning",
+      "score_delta": -16,
+      "repair_cost": 700,
+      "patterns": ["ohne tuev", "ohne tuv", "ohne hu", "kein tuev", "kein tuv", "keine hu", "tuev abgelaufen", "hu abgelaufen", "tuev faellig", "hu faellig"],
+      "meaning": "no/short HU-TUV",
+      "risk": "Not automatic reject if very cheap, but TUV can reveal hidden repairs.",
+      "ask": "Warum kein HU? Alter HU-Bericht? Was muss fuer HU gemacht werden?"
+    },
+    {
+      "id": "fresh_tuv",
+      "severity": "positive",
+      "score_delta": 14,
+      "repair_cost": 0,
+      "patterns": ["tuev neu", "tuv neu", "hu neu", "frischer tuev", "frischer tuv", "tuev bis 2028", "tuv bis 2028", "hu bis 2028", "05/28", "03/28", "04/28"],
+      "meaning": "fresh/long HU-TUV",
+      "risk": "Strong resale confidence.",
+      "ask": "HU-Bericht zeigen lassen; Maengel im Bericht pruefen."
+    },
+    {
+      "id": "service_proof",
+      "severity": "positive",
+      "score_delta": 10,
+      "repair_cost": 0,
+      "patterns": ["scheckheft", "scheckheftgepflegt", "serviceheft", "rechnungen vorhanden", "belege vorhanden", "regelmaessig oel", "regelmaessiger oelwechsel", "inspektion neu", "service neu"],
+      "meaning": "service/history proof",
+      "risk": "Improves trust and resale story.",
+      "ask": "Fotos von Rechnungen/Serviceheft."
+    },
+    {
+      "id": "wear_parts_done",
+      "severity": "positive",
+      "score_delta": 7,
+      "repair_cost": 0,
+      "patterns": ["bremsen neu", "reifen neu", "zahnriemen neu", "zahnriemen gewechselt", "kupplung neu", "batterie neu", "auspuff neu"],
+      "meaning": "wear parts recently done",
+      "risk": "Good if invoices exist; otherwise only seller claim.",
+      "ask": "Rechnungen/Fotos der Teile pruefen."
+    },
+    {
+      "id": "one_owner",
+      "severity": "positive",
+      "score_delta": 9,
+      "repair_cost": 0,
+      "patterns": ["1. hand", "erste hand", "ein besitzer", "ein vorbesitzer", "1 vorbesitzer"],
+      "meaning": "one-owner/low-owner trust signal",
+      "risk": "Strong for normal buyers and resale.",
+      "ask": "Fahrzeugbrief/Fahrzeugschein Besitzerhistorie pruefen."
+    },
+    {
+      "id": "private_motivated_seller",
+      "severity": "opportunity",
+      "score_delta": 10,
+      "repair_cost": 0,
+      "patterns": ["umzug", "auswanderung", "platzmangel", "wegen neuanschaffung", "neues auto gekauft", "muss weg", "dringend", "schnell abzugeben", "sofort abzugeben", "bis wochenende"],
+      "meaning": "motivated seller / possible negotiation",
+      "risk": "Can be real opportunity, but also check if urgency hides technical issue.",
+      "ask": "Warum Verkauf? Wie schnell muss er weg? Preis vor Ort verhandelbar?"
+    },
+    {
+      "id": "negotiation_signal",
+      "severity": "opportunity",
+      "score_delta": 5,
+      "repair_cost": 0,
+      "patterns": ["vb", "vhb", "verhandlungsbasis", "preis verhandelbar", "vor ort verhandelbar", "letzte preis nicht"],
+      "meaning": "negotiation signal",
+      "risk": "Useful only if starting price is not already retail.",
+      "ask": "Mit konkreten Maengeln/Marktvergleich verhandeln."
+    },
+    {
+      "id": "ugly_listing_opportunity",
+      "severity": "opportunity",
+      "score_delta": 7,
+      "repair_cost": 100,
+      "patterns": ["schlechte fotos", "wenig fotos", "dreckig", "schmutzig", "verschmutzt", "muss gereinigt werden", "aufbereitung"],
+      "meaning": "weak presentation / dirty car",
+      "risk": "Can scare normal buyers while being cheap to fix. Still inspect condition.",
+      "ask": "More photos, interior, arches, sills, dashboard."
+    },
+    {
+      "id": "minor_cosmetic",
+      "severity": "opportunity",
+      "score_delta": 4,
+      "repair_cost": 250,
+      "patterns": ["kratzer", "delle", "beule", "lackschaden", "steinschlag", "frontscheibe steinschlag", "kleine maengel", "gebrauchsspuren"],
+      "meaning": "minor cosmetic defect",
+      "risk": "Good negotiation point if technical condition is clean.",
+      "ask": "Photos of defects, windshield crack size, TUV relevance."
+    },
+    {
+      "id": "comfort_defects",
+      "severity": "warning",
+      "score_delta": -6,
+      "repair_cost": 350,
+      "patterns": ["klima defekt", "klimaanlage funktioniert nicht", "klima geht nicht", "fensterheber defekt", "zentralverriegelung defekt", "fernbedienung funktioniert nicht", "schluessel defekt", "kofferraum geht nicht auf", "kofferraum laesst sich nicht oeffnen"],
+      "meaning": "comfort/electrical minor defect",
+      "risk": "Often acceptable on cheap liquid cars, but reduces resale and must be priced.",
+      "ask": "Exact defect, repair quote, use for negotiation."
+    },
+    {
+      "id": "deregistered",
+      "severity": "warning",
+      "score_delta": -5,
+      "repair_cost": 150,
+      "patterns": ["abgemeldet", "stillgelegt", "ohne kennzeichen"],
+      "meaning": "deregistered car",
+      "risk": "Not a defect alone, but complicates test drive and transport.",
+      "ask": "Kurzzeitkennzeichen/Probefahrt/Transport klaeren."
+    },
+    {
+      "id": "dealer_template",
+      "severity": "warning",
+      "score_delta": -6,
+      "repair_cost": 0,
+      "patterns": ["im auftrag", "finanzierung moeglich", "inzahlungnahme", "export moeglich", "haendler", "autohaus", "gebrauchtwagen garantie"],
+      "meaning": "dealer/template wording",
+      "risk": "Often retail price; less hidden margin.",
+      "ask": "Private/dealer status, real owner, warranty, price basis."
+    },
+    {
+      "id": "no_warranty_private",
+      "severity": "neutral",
+      "score_delta": -1,
+      "repair_cost": 0,
+      "patterns": ["privatverkauf", "keine garantie", "keine gewaehrleistung", "gekauft wie gesehen"],
+      "meaning": "normal private no-warranty wording",
+      "risk": "Normal in Germany; not a defect by itself.",
+      "ask": "Still verify facts, because private claims are not warranty."
+    }
+  ]
+}

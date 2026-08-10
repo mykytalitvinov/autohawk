@@ -1,0 +1,3253 @@
+{
+  "version": "2026-06-09-hyundai-i10-i20-deep-v1",
+  "purpose": "Deep per-model/per-generation flipper dossiers. This is AUTOHAWK's structured car knowledge base, not a generic score list.",
+  "rules": [
+    "A model is not enough: generation, engine and gearbox decide the deal.",
+    "Cheap cosmetic problems can be opportunity; engine/gearbox/documents/structural rust can kill profit.",
+    "Market price is only useful inside the same generation, engine family and mileage band.",
+    "If exact engine is unknown, reduce confidence and ask before visiting."
+  ],
+  "dossiers": [
+    {
+      "brand": "Volkswagen",
+      "model": "Golf",
+      "aliases": [
+        "vw golf",
+        "volkswagen golf",
+        "golf",
+        "golf variant",
+        "golf kombi"
+      ],
+      "segments": [
+        {
+          "name": "Golf 4",
+          "years": [
+            1997,
+            2004
+          ],
+          "why_it_sells": "Still known and liquid at the very bottom of the market, especially with long TUV and simple engines. But buyers expect cheap price.",
+          "buyer_exit": "Budget daily, first cheap car, diesel commuter, old VW fans.",
+          "buy_zone": {
+            "low_km": 1000,
+            "normal": 750,
+            "high_km": 500,
+            "retail_ceiling": 1800
+          },
+          "mileage_policy": "Age/rust matters more than mileage. Petrol over 200k only very cheap. 1.9 TDI can run high mileage but rust/turbo/clutch decide.",
+          "body_risks": [
+            "rust on sills, arches, floor and door bottoms",
+            "old cheap accident repairs",
+            "tired suspension",
+            "worn interior"
+          ],
+          "must_check": [
+            "HU/TUV report",
+            "sills and underbody rust",
+            "rear arches and door bottoms",
+            "cold start",
+            "clutch/DMF on diesel",
+            "turbo smoke on TDI",
+            "cooling system",
+            "OBD"
+          ],
+          "good_signals": [
+            "TUV neu",
+            "TUV bis 2027/2028",
+            "1.6 SR",
+            "1.9 TDI",
+            "rustfrei",
+            "1.Hand",
+            "service invoices",
+            "8-fach bereift"
+          ],
+          "red_flags": [
+            "kein TUV above 1200 EUR",
+            "rostloch",
+            "schweller rost",
+            "unterboden rost",
+            "automatic problem",
+            "engine warning light",
+            "tuning"
+          ],
+          "engines": [
+            {
+              "name": "1.6 SR/MPI petrol",
+              "patterns": [
+                "1.6 sr",
+                "1,6 sr",
+                "1.6 mpi",
+                "1,6 mpi",
+                "1.6 benzin",
+                "1,6 benzin"
+              ],
+              "risk": "low_medium",
+              "score_delta": 12,
+              "reserve": 400,
+              "notes": "Best simple petrol story for Golf 4."
+            },
+            {
+              "name": "1.4 petrol",
+              "patterns": [
+                "1.4",
+                "1,4"
+              ],
+              "risk": "medium",
+              "score_delta": 1,
+              "reserve": 500,
+              "score_cap": 70,
+              "notes": "Weak; buy only cheap with TUV."
+            },
+            {
+              "name": "1.8T",
+              "patterns": [
+                "1.8t",
+                "1.8 t",
+                "1,8t",
+                "1,8 t"
+              ],
+              "risk": "medium_high",
+              "score_delta": -8,
+              "reserve": 1000,
+              "score_cap": 66,
+              "notes": "Enthusiast/tuning risk. Not normal first-car stock."
+            },
+            {
+              "name": "1.9 TDI",
+              "patterns": [
+                "1.9 tdi",
+                "1,9 tdi"
+              ],
+              "risk": "medium",
+              "score_delta": 8,
+              "reserve": 750,
+              "notes": "Excellent reputation but only if rust/TUV/turbo/clutch are good."
+            },
+            {
+              "name": "old automatic",
+              "patterns": [
+                "automatik",
+                "automatic"
+              ],
+              "risk": "medium_high",
+              "score_delta": -10,
+              "reserve": 900,
+              "score_cap": 65,
+              "notes": "Old automatic must be tested hot/cold."
+            }
+          ]
+        },
+        {
+          "name": "Golf 5",
+          "years": [
+            2004,
+            2008
+          ],
+          "why_it_sells": "Huge buyer pool, familiar VW badge, still cheap but looks modern enough. Variant/Kombi adds practical demand.",
+          "buyer_exit": "Young buyers, first car, cheap daily, small family, budget commuters.",
+          "buy_zone": {
+            "low_km": 1900,
+            "normal": 1200,
+            "high_km": 700,
+            "retail_ceiling": 3000
+          },
+          "mileage_policy": "Petrol above 190k only cheap with TUV and service. Diesel can be higher but DPF/turbo/clutch/rust matter.",
+          "body_risks": [
+            "rust on arches/sills/door bottoms",
+            "tired interior",
+            "accident repairs from cheap ownership",
+            "neglected suspension"
+          ],
+          "must_check": [
+            "TUV report",
+            "rust on sills and arches",
+            "cold start",
+            "clutch",
+            "cooling system",
+            "OBD scan",
+            "service invoices",
+            "exact engine"
+          ],
+          "good_signals": [
+            "1.Hand",
+            "TUV neu",
+            "1.6 MPI",
+            "1.9 TDI",
+            "Scheckheft/Rechnungen",
+            "8-fach bereift",
+            "Klima"
+          ],
+          "red_flags": [
+            "1.4 TSI without chain proof",
+            "DSG without proof",
+            "FSI/NOx issues",
+            "structural rust",
+            "warning lights",
+            "over 3000 EUR without exceptional condition"
+          ],
+          "engines": [
+            {
+              "name": "1.6 MPI",
+              "patterns": [
+                "1.6 mpi",
+                "1,6 mpi",
+                "1.6 benzin",
+                "1,6 benzin"
+              ],
+              "risk": "low_medium",
+              "score_delta": 12,
+              "reserve": 450,
+              "notes": "Best Golf 5 petrol flip profile. Simple enough, easy buyer story."
+            },
+            {
+              "name": "1.4 petrol",
+              "patterns": [
+                "1.4",
+                "1,4"
+              ],
+              "risk": "medium",
+              "score_delta": 2,
+              "reserve": 550,
+              "score_cap": 72,
+              "notes": "Weak but acceptable if cheap and TUV is long."
+            },
+            {
+              "name": "1.6 FSI",
+              "patterns": [
+                "1.6 fsi",
+                "1,6 fsi",
+                "fsi"
+              ],
+              "risk": "medium_high",
+              "score_delta": -12,
+              "reserve": 1000,
+              "score_cap": 68,
+              "notes": "NOx/injector/carbon reputation. Keep CHECK."
+            },
+            {
+              "name": "1.4 TSI",
+              "patterns": [
+                "1.4 tsi",
+                "1,4 tsi",
+                "tsi"
+              ],
+              "risk": "high",
+              "score_delta": -28,
+              "reserve": 1700,
+              "score_cap": 55,
+              "notes": "Chain/oil/turbo fear. Not a strong flip without invoice proof."
+            },
+            {
+              "name": "1.9 TDI",
+              "patterns": [
+                "1.9 tdi",
+                "1,9 tdi"
+              ],
+              "risk": "medium",
+              "score_delta": 6,
+              "reserve": 800,
+              "notes": "Durable reputation, but age, turbo, clutch/DMF and rust decide."
+            },
+            {
+              "name": "DSG/DQ200",
+              "patterns": [
+                "dsg",
+                "dq200",
+                "s-tronic",
+                "s tronic"
+              ],
+              "risk": "high",
+              "score_delta": -24,
+              "reserve": 1800,
+              "score_cap": 58,
+              "notes": "Mechatronic/clutch fear; no HOT without proof."
+            }
+          ]
+        },
+        {
+          "name": "Golf 6",
+          "years": [
+            2008,
+            2012
+          ],
+          "why_it_sells": "Modern enough for young buyers, strong VW demand, but wrong engine/gearbox can ruin the deal.",
+          "buyer_exit": "First car with modern look, daily driver, small family.",
+          "buy_zone": {
+            "low_km": 3200,
+            "normal": 2200,
+            "high_km": 1500,
+            "retail_ceiling": 5000
+          },
+          "mileage_policy": "Petrol turbo above 160-180k becomes risky. Simple petrol/diesel with proof only.",
+          "body_risks": [
+            "accident repairs/common neglect",
+            "interior wear vs mileage",
+            "front-end repairs",
+            "tuning abuse on GTI/GTD"
+          ],
+          "must_check": [
+            "exact engine",
+            "chain proof for TSI",
+            "DSG behavior",
+            "TUV",
+            "service invoices",
+            "OBD",
+            "cold start",
+            "turbo/DPF on diesel"
+          ],
+          "good_signals": [
+            "1.6 MPI",
+            "TUV 18+ months",
+            "1.Hand",
+            "clean stock condition",
+            "5-door",
+            "Klima/Sitzheizung",
+            "timing belt done on TDI"
+          ],
+          "red_flags": [
+            "1.2/1.4 TSI EA111 no chain proof",
+            "DSG/DQ200",
+            "engine light",
+            "dealer retail price",
+            "airride/tuning",
+            "GTD/GTI abused"
+          ],
+          "engines": [
+            {
+              "name": "1.6 MPI",
+              "patterns": [
+                "1.6 mpi",
+                "1,6 mpi",
+                "1.6 benzin"
+              ],
+              "risk": "low_medium",
+              "score_delta": 12,
+              "reserve": 550,
+              "notes": "Safer Golf 6 petrol profile if real MPI/manual."
+            },
+            {
+              "name": "1.2 TSI EA111",
+              "patterns": [
+                "1.2 tsi",
+                "1,2 tsi"
+              ],
+              "risk": "high",
+              "score_delta": -24,
+              "reserve": 1500,
+              "score_cap": 58,
+              "notes": "Chain/tensioner reputation. Needs proof."
+            },
+            {
+              "name": "1.4 TSI EA111",
+              "patterns": [
+                "1.4 tsi",
+                "1,4 tsi"
+              ],
+              "risk": "high",
+              "score_delta": -32,
+              "reserve": 1900,
+              "score_cap": 55,
+              "notes": "High chain/oil/turbo market fear."
+            },
+            {
+              "name": "1.6 TDI",
+              "patterns": [
+                "1.6 tdi",
+                "1,6 tdi"
+              ],
+              "risk": "medium_high",
+              "score_delta": -5,
+              "reserve": 1000,
+              "score_cap": 70,
+              "notes": "DPF/EGR/injector risk. Works only with proof and long TUV."
+            },
+            {
+              "name": "2.0 TDI",
+              "patterns": [
+                "2.0 tdi",
+                "2,0 tdi"
+              ],
+              "risk": "medium",
+              "score_delta": 1,
+              "reserve": 1200,
+              "notes": "Liquid diesel, but repair reserve required."
+            },
+            {
+              "name": "DSG/DQ200",
+              "patterns": [
+                "dsg",
+                "dq200",
+                "s-tronic",
+                "s tronic"
+              ],
+              "risk": "high",
+              "score_delta": -24,
+              "reserve": 1800,
+              "score_cap": 58,
+              "notes": "No strong lead without gearbox proof."
+            }
+          ]
+        },
+        {
+          "name": "Golf 7",
+          "years": [
+            2012,
+            2019
+          ],
+          "why_it_sells": "Very liquid modern VW. Good for buyer-service, but for flipping the buy price must be clearly below market.",
+          "buyer_exit": "Young buyer with bigger budget, daily commuter, small family, parents buying safer modern first car.",
+          "buy_zone": {
+            "low_km": 6000,
+            "normal": 4200,
+            "high_km": 3000,
+            "retail_ceiling": 8200
+          },
+          "mileage_policy": "Under 150k preferred. 150-220k only with service/TUV and strong discount. DSG and diesel emissions need proof.",
+          "body_risks": [
+            "accident repairs",
+            "front-end paint mismatch",
+            "interior wear vs mileage",
+            "tuning on GTI/GTD",
+            "expensive electronics/options"
+          ],
+          "must_check": [
+            "exact engine",
+            "DSG behavior if automatic",
+            "service history",
+            "TUV",
+            "OBD",
+            "DPF/EGR/adblue if diesel",
+            "timing belt interval on TDI",
+            "paint/gaps"
+          ],
+          "good_signals": [
+            "5-door",
+            "Variant",
+            "1.Hand",
+            "Scheckheft",
+            "TUV 18+ months",
+            "timing belt done",
+            "Klimaautomatik",
+            "Sitzheizung",
+            "stock condition"
+          ],
+          "red_flags": [
+            "DSG without proof",
+            "GTD/GTI tuned",
+            "airride",
+            "accident history",
+            "dealer retail",
+            "high mileage diesel with no service"
+          ],
+          "engines": [
+            {
+              "name": "1.2/1.4 TSI EA211",
+              "patterns": [
+                "1.2 tsi",
+                "1,2 tsi",
+                "1.4 tsi",
+                "1,4 tsi"
+              ],
+              "risk": "medium",
+              "score_delta": 1,
+              "reserve": 900,
+              "notes": "Better than EA111, but service/turbo/oil proof still matters."
+            },
+            {
+              "name": "1.6 TDI",
+              "patterns": [
+                "1.6 tdi",
+                "1,6 tdi"
+              ],
+              "risk": "medium",
+              "score_delta": 1,
+              "reserve": 1000,
+              "notes": "Good demand; check DPF/EGR/injectors and service."
+            },
+            {
+              "name": "2.0 TDI / GTD",
+              "patterns": [
+                "2.0 tdi",
+                "2,0 tdi",
+                "gtd"
+              ],
+              "risk": "medium",
+              "score_delta": 1,
+              "reserve": 1300,
+              "notes": "Very saleable, but expensive repairs and tuning risk."
+            },
+            {
+              "name": "DSG/DQ200/DQ250",
+              "patterns": [
+                "dsg",
+                "dq200",
+                "dq250",
+                "s-tronic",
+                "s tronic"
+              ],
+              "risk": "medium_high",
+              "score_delta": -14,
+              "reserve": 1600,
+              "score_cap": 68,
+              "notes": "Can sell, but not HOT without proof/test drive."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "Polo",
+      "aliases": [
+        "vw polo",
+        "volkswagen polo",
+        "polo"
+      ],
+      "segments": [
+        {
+          "name": "Polo 9N",
+          "years": [
+            2001,
+            2005
+          ],
+          "why_it_sells": "Cheap VW badge, low insurance, simple first-car image. Sells only if cheap and TUV is clear.",
+          "buyer_exit": "Budget beginner car, student daily, city car.",
+          "buy_zone": {
+            "low_km": 1000,
+            "normal": 700,
+            "high_km": 500,
+            "retail_ceiling": 1800
+          },
+          "mileage_policy": "Above 180-200k weak unless very cheap with TUV. Rust, chain and cold start matter more than number alone.",
+          "body_risks": [
+            "rust on sills/arches/doors",
+            "old cheap repairs",
+            "worn suspension",
+            "tired interior"
+          ],
+          "must_check": [
+            "TUV report",
+            "cold start chain noise",
+            "rough idle",
+            "clutch",
+            "brakes",
+            "rust underbody/sills",
+            "oil leaks",
+            "OBD"
+          ],
+          "good_signals": [
+            "TUV neu",
+            "TUV 2027/2028",
+            "1.4 petrol",
+            "5-door",
+            "Klima",
+            "1.Hand",
+            "service invoices"
+          ],
+          "red_flags": [
+            "kein TUV above 1200 EUR",
+            "engine noise",
+            "chain noise",
+            "automatic problem",
+            "structural rust",
+            "warning light"
+          ],
+          "engines": [
+            {
+              "name": "1.2 3-cylinder",
+              "patterns": [
+                "1.2",
+                "1,2",
+                "12v"
+              ],
+              "risk": "medium",
+              "score_delta": 5,
+              "reserve": 550,
+              "notes": "Liquid but chain/cold-start check is mandatory."
+            },
+            {
+              "name": "1.4 MPI",
+              "patterns": [
+                "1.4",
+                "1,4"
+              ],
+              "risk": "low_medium",
+              "score_delta": 10,
+              "reserve": 450,
+              "notes": "Preferred old Polo petrol engine for resale."
+            },
+            {
+              "name": "1.4 TDI",
+              "patterns": [
+                "1.4 tdi",
+                "1,4 tdi"
+              ],
+              "risk": "medium",
+              "score_delta": 4,
+              "reserve": 800,
+              "notes": "Economical, but turbo/clutch/age/rust matter."
+            },
+            {
+              "name": "old automatic",
+              "patterns": [
+                "automatik",
+                "automatic"
+              ],
+              "risk": "medium_high",
+              "score_delta": -12,
+              "reserve": 900,
+              "score_cap": 65,
+              "notes": "Old automatic reduces safe flip quality."
+            }
+          ]
+        },
+        {
+          "name": "Polo 9N3",
+          "years": [
+            2005,
+            2009
+          ],
+          "why_it_sells": "Cheap, familiar, easy to sell as first car. Better looking than 9N but still old.",
+          "buyer_exit": "Beginner car, city daily, cheap commuter.",
+          "buy_zone": {
+            "low_km": 1300,
+            "normal": 850,
+            "high_km": 550,
+            "retail_ceiling": 2200
+          },
+          "mileage_policy": "Good under 160k. Above 190k only cheap with TUV/service.",
+          "body_risks": [
+            "rust",
+            "suspension wear",
+            "chain/cold-start issues",
+            "cheap-owner neglect"
+          ],
+          "must_check": [
+            "TUV",
+            "chain noise",
+            "clutch",
+            "brakes",
+            "rust",
+            "service",
+            "OBD"
+          ],
+          "good_signals": [
+            "TUV neu",
+            "1.4 petrol",
+            "5-door",
+            "Klima",
+            "low km",
+            "service invoices"
+          ],
+          "red_flags": [
+            "kein TUV",
+            "engine runs rough",
+            "warning lights",
+            "automatic problem",
+            "too expensive because VW badge"
+          ],
+          "engines": [
+            {
+              "name": "1.2 petrol",
+              "patterns": [
+                "1.2",
+                "1,2",
+                "12v"
+              ],
+              "risk": "medium",
+              "score_delta": 6,
+              "reserve": 550,
+              "notes": "Good only if quiet and TUV/service are clear."
+            },
+            {
+              "name": "1.4 petrol",
+              "patterns": [
+                "1.4",
+                "1,4"
+              ],
+              "risk": "low_medium",
+              "score_delta": 11,
+              "reserve": 450,
+              "notes": "Best 9N3 petrol profile."
+            },
+            {
+              "name": "1.4/1.9 TDI",
+              "patterns": [
+                "1.4 tdi",
+                "1,4 tdi",
+                "1.9 tdi",
+                "1,9 tdi"
+              ],
+              "risk": "medium",
+              "score_delta": 5,
+              "reserve": 850,
+              "notes": "Good economy story but check turbo/clutch/diesel system."
+            }
+          ]
+        },
+        {
+          "name": "Polo 6R",
+          "years": [
+            2009,
+            2014
+          ],
+          "why_it_sells": "One of the strongest first-car/youth cars in Germany. 5-door, TUV, Klima and clean stock condition sell quickly.",
+          "buyer_exit": "Young buyers, first car, parents buying reliable-looking small VW.",
+          "buy_zone": {
+            "low_km": 2800,
+            "normal": 1900,
+            "high_km": 1300,
+            "retail_ceiling": 4300
+          },
+          "mileage_policy": "Under 150k preferred. 150-200k can work with TUV/service. Petrol above 200k only very cheap.",
+          "body_risks": [
+            "front accident repair",
+            "paint mismatch",
+            "interior wear",
+            "neglected service"
+          ],
+          "must_check": [
+            "exact engine",
+            "TUV",
+            "service invoices",
+            "cold start",
+            "chain/turbo if TSI",
+            "DSG if automatic",
+            "OBD",
+            "paint/gaps"
+          ],
+          "good_signals": [
+            "5-door",
+            "TUV 18+ months",
+            "Klima",
+            "1.Hand",
+            "1.2/1.4 MPI",
+            "service invoices",
+            "8-fach bereift"
+          ],
+          "red_flags": [
+            "TSI without proof",
+            "DSG",
+            "3-door overpriced",
+            "dealer retail price",
+            "warning lights",
+            "accident unclear"
+          ],
+          "engines": [
+            {
+              "name": "1.2 MPI",
+              "patterns": [
+                "1.2 mpi",
+                "1,2 mpi",
+                "1.2 benzin",
+                "1,2 benzin"
+              ],
+              "risk": "low_medium",
+              "score_delta": 13,
+              "reserve": 450,
+              "notes": "Strong safe Polo 6R first-car profile."
+            },
+            {
+              "name": "1.4 MPI",
+              "patterns": [
+                "1.4 mpi",
+                "1,4 mpi",
+                "1.4 benzin",
+                "1,4 benzin"
+              ],
+              "risk": "low_medium",
+              "score_delta": 12,
+              "reserve": 450,
+              "notes": "More pleasant than 1.2, good resale."
+            },
+            {
+              "name": "1.2 TSI EA111",
+              "patterns": [
+                "1.2 tsi",
+                "1,2 tsi"
+              ],
+              "risk": "high",
+              "score_delta": -22,
+              "reserve": 1500,
+              "score_cap": 58,
+              "notes": "Chain/turbo proof required."
+            },
+            {
+              "name": "1.6 TDI",
+              "patterns": [
+                "1.6 tdi",
+                "1,6 tdi"
+              ],
+              "risk": "medium_high",
+              "score_delta": -5,
+              "reserve": 1000,
+              "score_cap": 70,
+              "notes": "DPF/EGR/injector risk. Buy only with proof."
+            },
+            {
+              "name": "DSG/DQ200",
+              "patterns": [
+                "dsg",
+                "dq200",
+                "s-tronic",
+                "s tronic"
+              ],
+              "risk": "high",
+              "score_delta": -24,
+              "reserve": 1700,
+              "score_cap": 58,
+              "notes": "No strong lead without DSG proof."
+            }
+          ]
+        },
+        {
+          "name": "Polo 6C",
+          "years": [
+            2014,
+            2017
+          ],
+          "why_it_sells": "Modern small VW with strong youth demand. Great for buyer-service if price is clearly below market.",
+          "buyer_exit": "Young buyer with bigger budget, first car, city commuter.",
+          "buy_zone": {
+            "low_km": 4100,
+            "normal": 3000,
+            "high_km": 2200,
+            "retail_ceiling": 6200
+          },
+          "mileage_policy": "Under 140k preferred. 140-200k only with service/TUV and discount. DSG/TSI needs proof.",
+          "body_risks": [
+            "accident repairs",
+            "front bumper/headlight mismatch",
+            "interior wear",
+            "expensive options/electronics"
+          ],
+          "must_check": [
+            "exact engine",
+            "TUV",
+            "service",
+            "OBD",
+            "DSG if automatic",
+            "turbo/oil if TSI",
+            "paint/gaps"
+          ],
+          "good_signals": [
+            "5-door",
+            "TUV long",
+            "1.Hand",
+            "Scheckheft",
+            "Klima",
+            "Sitzheizung",
+            "Bluetooth/CarPlay",
+            "simple 1.0 MPI"
+          ],
+          "red_flags": [
+            "DSG without proof",
+            "TSI no service proof",
+            "dealer retail",
+            "accident history",
+            "high mileage without invoices"
+          ],
+          "engines": [
+            {
+              "name": "1.0 MPI",
+              "patterns": [
+                "1.0 mpi",
+                "1,0 mpi",
+                "1.0 benzin",
+                "1,0 benzin"
+              ],
+              "risk": "low_medium",
+              "score_delta": 12,
+              "reserve": 450,
+              "notes": "Simple, good beginner-car story."
+            },
+            {
+              "name": "1.2/1.4 TSI EA211",
+              "patterns": [
+                "1.2 tsi",
+                "1,2 tsi",
+                "1.4 tsi",
+                "1,4 tsi"
+              ],
+              "risk": "medium",
+              "score_delta": 0,
+              "reserve": 950,
+              "score_cap": 74,
+              "notes": "Not automatic reject, but needs service/turbo/oil proof."
+            },
+            {
+              "name": "1.4 TDI",
+              "patterns": [
+                "1.4 tdi",
+                "1,4 tdi"
+              ],
+              "risk": "medium",
+              "score_delta": 0,
+              "reserve": 950,
+              "score_cap": 74,
+              "notes": "Economical but diesel emissions/turbo checks matter."
+            },
+            {
+              "name": "DSG/DQ200",
+              "patterns": [
+                "dsg",
+                "dq200",
+                "s-tronic",
+                "s tronic"
+              ],
+              "risk": "high",
+              "score_delta": -20,
+              "reserve": 1600,
+              "score_cap": 60,
+              "notes": "No strong lead without proof/test drive."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "Opel",
+      "model": "Corsa",
+      "segments": [
+        {
+          "name": "Corsa C",
+          "years": [
+            2000,
+            2006
+          ],
+          "why_it_sells": "Cheap insurance, cheap parts, known beginner car. But it is old, so buyers mainly pay for TUV and visible condition.",
+          "buyer_exit": "Low-budget first car buyer or someone needing cheap transport with TUV.",
+          "buy_zone": {
+            "low_km": 900,
+            "normal": 600,
+            "high_km": 350,
+            "retail_ceiling": 1800
+          },
+          "mileage_policy": "Under 140k is good only with proof. 140-210k acceptable if TUV and clean body. Above 210k only very cheap.",
+          "body_risks": [
+            "rear arches",
+            "sills",
+            "door bottoms",
+            "subframe area",
+            "exhaust rust",
+            "cheap accident repairs"
+          ],
+          "must_check": [
+            "TUV length",
+            "cold start chain noise",
+            "rust under sills",
+            "oil leaks",
+            "clutch",
+            "warning lights",
+            "heater/AC if equipped"
+          ],
+          "good_signals": [
+            "TUV 18+ months",
+            "5-door",
+            "1.2/1.4 petrol",
+            "private seller",
+            "service invoices",
+            "new tires/brakes/exhaust"
+          ],
+          "red_flags": [
+            "kein TUV",
+            "Easytronic",
+            "starts badly",
+            "engine warning",
+            "rust through",
+            "many unknown defects",
+            "seller says Bastler"
+          ],
+          "engines": [
+            {
+              "name": "1.0 petrol",
+              "patterns": [
+                "1.0",
+                "1,0"
+              ],
+              "risk": "medium",
+              "score_delta": -4,
+              "reserve": 550,
+              "score_cap": 68,
+              "notes": "Weak and less desirable. Needs cheap price and clean test."
+            },
+            {
+              "name": "1.2 petrol",
+              "patterns": [
+                "1.2",
+                "1,2"
+              ],
+              "risk": "low_medium",
+              "score_delta": 8,
+              "reserve": 500,
+              "notes": "Good if chain is quiet and TUV is long."
+            },
+            {
+              "name": "1.4 petrol",
+              "patterns": [
+                "1.4",
+                "1,4"
+              ],
+              "risk": "low_medium",
+              "score_delta": 10,
+              "reserve": 450,
+              "notes": "Best old Corsa flip profile."
+            },
+            {
+              "name": "1.3 CDTI",
+              "patterns": [
+                "1.3 cdti",
+                "1,3 cdti"
+              ],
+              "risk": "medium_high",
+              "score_delta": -10,
+              "reserve": 950,
+              "score_cap": 62,
+              "notes": "Diesel repair risk is too high unless proof/discount are strong."
+            },
+            {
+              "name": "Easytronic",
+              "patterns": [
+                "easytronic",
+                "automatisiert",
+                "halbautomatik"
+              ],
+              "risk": "high",
+              "score_delta": -25,
+              "reserve": 1300,
+              "score_cap": 50,
+              "notes": "Avoid for normal output."
+            }
+          ]
+        },
+        {
+          "name": "Corsa D",
+          "years": [
+            2006,
+            2014
+          ],
+          "why_it_sells": "One of the main cheap first-car cars in Germany. Looks modern enough, parts are cheap, buyer pool is large.",
+          "buyer_exit": "Young first-car buyer, city commuter, budget family second car.",
+          "buy_zone": {
+            "low_km": 2100,
+            "normal": 1300,
+            "high_km": 750,
+            "retail_ceiling": 3600
+          },
+          "mileage_policy": "Under 140k preferred. 140-190k okay with TUV/service. Over 200k only cheap and simple petrol. Diesel over 180k needs strong proof.",
+          "body_risks": [
+            "front bumper/headlight mismatch",
+            "rear quarter dents",
+            "door bottoms",
+            "sills",
+            "cheap repaint",
+            "interior abuse"
+          ],
+          "must_check": [
+            "TUV",
+            "exact engine",
+            "Easytronic/gearbox",
+            "cold start",
+            "chain noise",
+            "oil leaks",
+            "OBD",
+            "AC",
+            "clutch",
+            "rust"
+          ],
+          "good_signals": [
+            "5-door",
+            "TUV 18+ months",
+            "Klima",
+            "1.Hand",
+            "1.2/1.4 petrol",
+            "service invoices",
+            "brakes/tires new"
+          ],
+          "red_flags": [
+            "bad cold start",
+            "unknown engine problem",
+            "Easytronic",
+            "kein TUV",
+            "OPC/GSI abuse",
+            "diesel DPF/EGR symptoms",
+            "dealer retail price"
+          ],
+          "engines": [
+            {
+              "name": "1.0 petrol",
+              "patterns": [
+                "1.0",
+                "1,0"
+              ],
+              "risk": "medium",
+              "score_delta": -5,
+              "reserve": 550,
+              "score_cap": 70,
+              "notes": "Only attractive when very cheap with TUV."
+            },
+            {
+              "name": "1.2 petrol",
+              "patterns": [
+                "1.2",
+                "1,2"
+              ],
+              "risk": "low_medium",
+              "score_delta": 12,
+              "reserve": 500,
+              "notes": "Core safe Corsa D target."
+            },
+            {
+              "name": "1.4 petrol",
+              "patterns": [
+                "1.4",
+                "1,4"
+              ],
+              "risk": "low_medium",
+              "score_delta": 14,
+              "reserve": 500,
+              "notes": "Best Corsa D resale profile if price is under market."
+            },
+            {
+              "name": "1.3 CDTI",
+              "patterns": [
+                "1.3 cdti",
+                "1,3 cdti"
+              ],
+              "risk": "medium_high",
+              "score_delta": -10,
+              "reserve": 1000,
+              "score_cap": 64,
+              "notes": "Needs DPF/EGR/turbo/injector proof."
+            },
+            {
+              "name": "1.6 Turbo / OPC",
+              "patterns": [
+                "1.6 turbo",
+                "1,6 turbo",
+                "opc",
+                "gsi"
+              ],
+              "risk": "high",
+              "score_delta": -20,
+              "reserve": 1800,
+              "score_cap": 55,
+              "notes": "Not normal beginner flip; abuse and insurance risk."
+            },
+            {
+              "name": "Easytronic",
+              "patterns": [
+                "easytronic",
+                "automatisiert",
+                "halbautomatik"
+              ],
+              "risk": "high",
+              "score_delta": -26,
+              "reserve": 1400,
+              "score_cap": 50,
+              "notes": "Reject unless huge discount and proof."
+            }
+          ]
+        },
+        {
+          "name": "Corsa E",
+          "years": [
+            2014,
+            2019
+          ],
+          "why_it_sells": "Newer shape, safer first-car story, easier to sell to young buyers if price is not retail.",
+          "buyer_exit": "Young buyer with bigger budget, small commuter, parents buying first car for child.",
+          "buy_zone": {
+            "low_km": 3900,
+            "normal": 2800,
+            "high_km": 1800,
+            "retail_ceiling": 6500
+          },
+          "mileage_policy": "Under 130k strong. 130-180k okay with service. Over 180k needs cheap price and clean simple petrol.",
+          "body_risks": [
+            "front accident repairs",
+            "bumper/headlight gaps",
+            "interior wear",
+            "parking dents",
+            "expensive infotainment/options"
+          ],
+          "must_check": [
+            "TUV",
+            "service history",
+            "exact engine",
+            "turbo if turbo",
+            "Easytronic",
+            "OBD",
+            "AC",
+            "paint/gaps"
+          ],
+          "good_signals": [
+            "5-door",
+            "TUV long",
+            "Scheckheft",
+            "1.Hand",
+            "Klimaautomatik",
+            "Sitzheizung",
+            "Bluetooth",
+            "simple 1.2/1.4 petrol"
+          ],
+          "red_flags": [
+            "retail dealer price",
+            "Easytronic",
+            "turbo without service",
+            "warning lights",
+            "accident unclear",
+            "diesel emissions issues"
+          ],
+          "engines": [
+            {
+              "name": "1.2 petrol",
+              "patterns": [
+                "1.2",
+                "1,2"
+              ],
+              "risk": "low_medium",
+              "score_delta": 11,
+              "reserve": 500,
+              "notes": "Safe simple first-car story."
+            },
+            {
+              "name": "1.4 naturally aspirated petrol",
+              "patterns": [
+                "1.4",
+                "1,4"
+              ],
+              "risk": "low_medium",
+              "score_delta": 12,
+              "reserve": 550,
+              "notes": "Preferred Corsa E if not turbo and priced well."
+            },
+            {
+              "name": "1.0 Turbo",
+              "patterns": [
+                "1.0 turbo",
+                "1,0 turbo"
+              ],
+              "risk": "medium_high",
+              "score_delta": -7,
+              "reserve": 1100,
+              "score_cap": 68,
+              "notes": "Needs service proof and clean turbo behavior."
+            },
+            {
+              "name": "1.4 Turbo",
+              "patterns": [
+                "1.4 turbo",
+                "1,4 turbo"
+              ],
+              "risk": "medium",
+              "score_delta": -3,
+              "reserve": 950,
+              "score_cap": 72,
+              "notes": "Can sell, but not a blind cheap flip."
+            },
+            {
+              "name": "1.3 CDTI",
+              "patterns": [
+                "1.3 cdti",
+                "1,3 cdti"
+              ],
+              "risk": "medium_high",
+              "score_delta": -9,
+              "reserve": 1050,
+              "score_cap": 65,
+              "notes": "Emissions/diesel repair risk."
+            },
+            {
+              "name": "Easytronic",
+              "patterns": [
+                "easytronic",
+                "automatisiert",
+                "halbautomatik"
+              ],
+              "risk": "high",
+              "score_delta": -25,
+              "reserve": 1500,
+              "score_cap": 52,
+              "notes": "Avoid for normal strong leads."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "Ford",
+      "model": "Fiesta",
+      "segments": [
+        {
+          "name": "Fiesta Mk5",
+          "years": [
+            2002,
+            2008
+          ],
+          "why_it_sells": "Cheap, easy to insure, simple first-car image. The buyer pays for TUV and clean condition, not prestige.",
+          "buyer_exit": "Low-budget beginner, student, cheap city transport.",
+          "buy_zone": {
+            "low_km": 1000,
+            "normal": 650,
+            "high_km": 350,
+            "retail_ceiling": 1900
+          },
+          "mileage_policy": "Under 150k good if TUV. 150-210k okay cheap. Over 210k only very cheap with long TUV.",
+          "body_risks": [
+            "sills",
+            "rear arches",
+            "door bottoms",
+            "exhaust rust",
+            "front accident repairs",
+            "worn interior"
+          ],
+          "must_check": [
+            "TUV",
+            "rust under sills",
+            "cold start",
+            "clutch",
+            "oil leaks",
+            "warning lights",
+            "AC if equipped"
+          ],
+          "good_signals": [
+            "1.25 petrol",
+            "TUV 18+ months",
+            "5-door",
+            "Klima",
+            "private seller",
+            "new brakes/tires/exhaust"
+          ],
+          "red_flags": [
+            "kein TUV",
+            "diesel with no proof",
+            "automatic issues",
+            "engine problem",
+            "rust through",
+            "Bastler"
+          ],
+          "engines": [
+            {
+              "name": "1.25 petrol",
+              "patterns": [
+                "1.25",
+                "1,25"
+              ],
+              "risk": "low_medium",
+              "score_delta": 12,
+              "reserve": 450,
+              "notes": "Best old Fiesta engine for resale."
+            },
+            {
+              "name": "1.3 petrol",
+              "patterns": [
+                "1.3",
+                "1,3"
+              ],
+              "risk": "medium",
+              "score_delta": 2,
+              "reserve": 500,
+              "score_cap": 70,
+              "notes": "Simple but less attractive."
+            },
+            {
+              "name": "1.4 petrol",
+              "patterns": [
+                "1.4",
+                "1,4"
+              ],
+              "risk": "low_medium",
+              "score_delta": 9,
+              "reserve": 500,
+              "notes": "Good if body/TUV are right."
+            },
+            {
+              "name": "TDCi diesel",
+              "patterns": [
+                "tdci"
+              ],
+              "risk": "medium_high",
+              "score_delta": -10,
+              "reserve": 950,
+              "score_cap": 62,
+              "notes": "Turbo/injector/EGR risk can eat margin."
+            }
+          ]
+        },
+        {
+          "name": "Fiesta Mk6",
+          "years": [
+            2008,
+            2017
+          ],
+          "why_it_sells": "Strong cheap first-car competitor to Polo/Corsa. 1.25 petrol, TUV and Klima can move quickly.",
+          "buyer_exit": "Young first-car buyer, commuter, budget buyer wanting a newer-looking small car.",
+          "buy_zone": {
+            "low_km": 2400,
+            "normal": 1500,
+            "high_km": 850,
+            "retail_ceiling": 4300
+          },
+          "mileage_policy": "Under 140k preferred. 140-190k okay with TUV/service. Over 200k only cheap simple petrol. EcoBoost over 120k without proof is dangerous.",
+          "body_risks": [
+            "front bumper/headlight mismatch",
+            "parking dents",
+            "rear arch rust beginning",
+            "sills",
+            "interior abuse",
+            "cheap repaint"
+          ],
+          "must_check": [
+            "exact engine",
+            "EcoBoost proof if present",
+            "TUV",
+            "cold start",
+            "OBD",
+            "clutch",
+            "AC",
+            "rust/sills",
+            "PowerShift if automatic"
+          ],
+          "good_signals": [
+            "1.25 petrol",
+            "5-door",
+            "TUV long",
+            "Klima",
+            "Scheckheft",
+            "1.Hand",
+            "8-fach bereift",
+            "recent clutch/timing/service"
+          ],
+          "red_flags": [
+            "EcoBoost no wet belt proof",
+            "PowerShift",
+            "bad cold start",
+            "engine/gearbox problem",
+            "kein TUV",
+            "dealer retail price"
+          ],
+          "engines": [
+            {
+              "name": "1.25 petrol",
+              "patterns": [
+                "1.25",
+                "1,25"
+              ],
+              "risk": "low_medium",
+              "score_delta": 16,
+              "reserve": 450,
+              "notes": "Prime Fiesta target for first-car flip."
+            },
+            {
+              "name": "1.4 petrol",
+              "patterns": [
+                "1.4",
+                "1,4"
+              ],
+              "risk": "low_medium",
+              "score_delta": 11,
+              "reserve": 500,
+              "notes": "Good safe profile."
+            },
+            {
+              "name": "1.6 Ti-VCT petrol",
+              "patterns": [
+                "1.6 ti-vct",
+                "1,6 ti-vct",
+                "1.6 benzin",
+                "1,6 benzin"
+              ],
+              "risk": "medium",
+              "score_delta": 5,
+              "reserve": 650,
+              "score_cap": 76,
+              "notes": "Better power but smaller buyer pool than 1.25."
+            },
+            {
+              "name": "1.0 EcoBoost",
+              "patterns": [
+                "1.0 ecoboost",
+                "1,0 ecoboost",
+                "ecoboost"
+              ],
+              "risk": "high",
+              "score_delta": -26,
+              "reserve": 2200,
+              "score_cap": 55,
+              "notes": "Wet belt/cooling risk. No HOT without proof."
+            },
+            {
+              "name": "TDCi diesel",
+              "patterns": [
+                "tdci"
+              ],
+              "risk": "medium_high",
+              "score_delta": -10,
+              "reserve": 1100,
+              "score_cap": 64,
+              "notes": "Diesel system risk."
+            },
+            {
+              "name": "PowerShift",
+              "patterns": [
+                "powershift",
+                "automatik",
+                "automatic"
+              ],
+              "risk": "high",
+              "score_delta": -28,
+              "reserve": 1800,
+              "score_cap": 50,
+              "notes": "Avoid for normal output."
+            }
+          ]
+        },
+        {
+          "name": "Fiesta Mk7",
+          "years": [
+            2017,
+            2023
+          ],
+          "why_it_sells": "Modern, attractive to young buyers, but mostly expensive. Needs real discount to be a flip.",
+          "buyer_exit": "Higher-budget first-car buyer, young commuter, parents buying safer modern car.",
+          "buy_zone": {
+            "low_km": 5300,
+            "normal": 3700,
+            "high_km": 2500,
+            "retail_ceiling": 8500
+          },
+          "mileage_policy": "Under 120k preferred. EcoBoost needs documented wet belt/service. Over 150k only with large discount.",
+          "body_risks": [
+            "front accident repair",
+            "parking damage",
+            "expensive trim/electronics",
+            "interior wear",
+            "bumper gaps"
+          ],
+          "must_check": [
+            "TUV",
+            "service history",
+            "wet belt proof if EcoBoost",
+            "OBD",
+            "turbo/cooling",
+            "clutch",
+            "paint/gaps"
+          ],
+          "good_signals": [
+            "1.1 petrol",
+            "TUV long",
+            "5-door",
+            "Scheckheft",
+            "Sitzheizung",
+            "Bluetooth/CarPlay",
+            "1.Hand"
+          ],
+          "red_flags": [
+            "EcoBoost without proof",
+            "PowerShift",
+            "retail price",
+            "warning lights",
+            "accident unclear",
+            "diesel emissions symptoms"
+          ],
+          "engines": [
+            {
+              "name": "1.1 petrol",
+              "patterns": [
+                "1.1",
+                "1,1"
+              ],
+              "risk": "low_medium",
+              "score_delta": 12,
+              "reserve": 550,
+              "notes": "Safer simple modern Fiesta target."
+            },
+            {
+              "name": "1.0 EcoBoost",
+              "patterns": [
+                "1.0 ecoboost",
+                "1,0 ecoboost",
+                "ecoboost"
+              ],
+              "risk": "high",
+              "score_delta": -22,
+              "reserve": 2300,
+              "score_cap": 58,
+              "notes": "Needs wet belt proof, otherwise margin is fake."
+            },
+            {
+              "name": "TDCi diesel",
+              "patterns": [
+                "tdci"
+              ],
+              "risk": "medium_high",
+              "score_delta": -8,
+              "reserve": 1200,
+              "score_cap": 68,
+              "notes": "Less ideal for beginner resale."
+            },
+            {
+              "name": "PowerShift",
+              "patterns": [
+                "powershift",
+                "automatik",
+                "automatic"
+              ],
+              "risk": "high",
+              "score_delta": -25,
+              "reserve": 1800,
+              "score_cap": 55,
+              "notes": "Avoid without proof."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "Ford",
+      "model": "Focus",
+      "segments": [
+        {
+          "name": "Focus Mk1",
+          "years": [
+            1998,
+            2004
+          ],
+          "why_it_sells": "Cheap transport with good driving feel, but age limits buyer confidence.",
+          "buyer_exit": "Low-budget buyer needing TUV, student, cheap work car.",
+          "buy_zone": {
+            "low_km": 750,
+            "normal": 450,
+            "high_km": 250,
+            "retail_ceiling": 1600
+          },
+          "mileage_policy": "Under 150k good only with proof. 150-220k cheap with TUV. Over 220k usually not worth attention.",
+          "body_risks": [
+            "sills",
+            "rear arches",
+            "door bottoms",
+            "subframe area",
+            "exhaust rust",
+            "front accident repairs"
+          ],
+          "must_check": [
+            "TUV",
+            "rust under sills",
+            "cold start",
+            "clutch",
+            "timing belt",
+            "oil leaks",
+            "warning lights"
+          ],
+          "good_signals": [
+            "1.6 petrol",
+            "TUV long",
+            "Kombi/5-door",
+            "private seller",
+            "new brakes/tires/exhaust"
+          ],
+          "red_flags": [
+            "kein TUV",
+            "rust through",
+            "engine warning",
+            "automatic problem",
+            "diesel no proof",
+            "Bastler"
+          ],
+          "engines": [
+            {
+              "name": "1.6 petrol",
+              "patterns": [
+                "1.6",
+                "1,6"
+              ],
+              "risk": "low_medium",
+              "score_delta": 10,
+              "reserve": 500,
+              "notes": "Best old Focus target."
+            },
+            {
+              "name": "1.8/2.0 petrol",
+              "patterns": [
+                "1.8",
+                "1,8",
+                "2.0",
+                "2,0"
+              ],
+              "risk": "medium",
+              "score_delta": 3,
+              "reserve": 650,
+              "score_cap": 72,
+              "notes": "More power, smaller buyer pool."
+            },
+            {
+              "name": "TDDi/TDCi diesel",
+              "patterns": [
+                "tdci",
+                "tddi"
+              ],
+              "risk": "medium_high",
+              "score_delta": -10,
+              "reserve": 950,
+              "score_cap": 62,
+              "notes": "Old diesel repairs can eat margin."
+            }
+          ]
+        },
+        {
+          "name": "Focus Mk2",
+          "years": [
+            2004,
+            2011
+          ],
+          "why_it_sells": "Cheap, practical, comfortable enough and parts are affordable. Turnier/Kombi has strong utility demand.",
+          "buyer_exit": "Budget family, commuter, someone needing cheap Kombi with TUV.",
+          "buy_zone": {
+            "low_km": 1400,
+            "normal": 850,
+            "high_km": 500,
+            "retail_ceiling": 2800
+          },
+          "mileage_policy": "Under 160k preferred. 160-220k okay if TUV/service. Over 220k only very cheap, especially petrol. Diesel needs proof.",
+          "body_risks": [
+            "sills",
+            "rear arches",
+            "tailgate rust",
+            "parking damage",
+            "front bumper/headlight mismatch",
+            "interior wear"
+          ],
+          "must_check": [
+            "TUV",
+            "exact engine",
+            "timing belt/service",
+            "cold start",
+            "clutch",
+            "AC",
+            "OBD",
+            "rust/sills"
+          ],
+          "good_signals": [
+            "1.6 petrol",
+            "Turnier/Kombi",
+            "TUV 18+ months",
+            "manual",
+            "Klima",
+            "Scheckheft",
+            "private seller",
+            "zahnriemen done"
+          ],
+          "red_flags": [
+            "kein TUV",
+            "engine warning",
+            "diesel DPF/EGR/turbo symptoms",
+            "automatic problem",
+            "dealer retail",
+            "rust through"
+          ],
+          "engines": [
+            {
+              "name": "1.6 petrol",
+              "patterns": [
+                "1.6 benzin",
+                "1,6 benzin",
+                "1.6",
+                "1,6"
+              ],
+              "risk": "low_medium",
+              "score_delta": 16,
+              "reserve": 500,
+              "notes": "Prime Mk2 Focus target."
+            },
+            {
+              "name": "1.8/2.0 petrol",
+              "patterns": [
+                "1.8",
+                "1,8",
+                "2.0",
+                "2,0"
+              ],
+              "risk": "medium",
+              "score_delta": 6,
+              "reserve": 700,
+              "score_cap": 76,
+              "notes": "Good if cheap, especially Kombi."
+            },
+            {
+              "name": "TDCi diesel",
+              "patterns": [
+                "tdci"
+              ],
+              "risk": "medium_high",
+              "score_delta": -10,
+              "reserve": 1200,
+              "score_cap": 64,
+              "notes": "Needs proof and discount."
+            },
+            {
+              "name": "automatic",
+              "patterns": [
+                "automatik",
+                "automatic"
+              ],
+              "risk": "medium_high",
+              "score_delta": -12,
+              "reserve": 1000,
+              "score_cap": 64,
+              "notes": "Manual preferred."
+            }
+          ]
+        },
+        {
+          "name": "Focus Mk3",
+          "years": [
+            2011,
+            2018
+          ],
+          "why_it_sells": "Modern enough, practical, good as family/commuter car. Turnier sells better than hatch when priced right.",
+          "buyer_exit": "Budget family, commuter, first family car, practical buyer.",
+          "buy_zone": {
+            "low_km": 3300,
+            "normal": 2200,
+            "high_km": 1500,
+            "retail_ceiling": 5900
+          },
+          "mileage_policy": "Under 150k strong. 150-220k okay with TUV/service. EcoBoost needs proof even at lower mileage. Diesel over 180k must be cheap.",
+          "body_risks": [
+            "front accident repairs",
+            "bumper/headlight gaps",
+            "parking dents",
+            "tailgate/estate wear",
+            "interior family wear"
+          ],
+          "must_check": [
+            "exact engine",
+            "EcoBoost belt/service proof",
+            "PowerShift",
+            "TUV",
+            "OBD",
+            "clutch",
+            "AC",
+            "paint/gaps"
+          ],
+          "good_signals": [
+            "1.6 Ti-VCT petrol",
+            "manual",
+            "Turnier/Kombi",
+            "TUV long",
+            "Scheckheft",
+            "1.Hand",
+            "Klima",
+            "recent service"
+          ],
+          "red_flags": [
+            "EcoBoost no wet belt proof",
+            "PowerShift",
+            "engine warning",
+            "cooling issue",
+            "diesel emissions symptoms",
+            "retail dealer price"
+          ],
+          "engines": [
+            {
+              "name": "1.6 Ti-VCT petrol",
+              "patterns": [
+                "1.6 ti-vct",
+                "1,6 ti-vct",
+                "1.6 benzin",
+                "1,6 benzin"
+              ],
+              "risk": "low_medium",
+              "score_delta": 17,
+              "reserve": 600,
+              "notes": "Best Mk3 Focus safe target."
+            },
+            {
+              "name": "1.0 EcoBoost",
+              "patterns": [
+                "1.0 ecoboost",
+                "1,0 ecoboost",
+                "ecoboost"
+              ],
+              "risk": "high",
+              "score_delta": -28,
+              "reserve": 2300,
+              "score_cap": 55,
+              "notes": "Wet belt/cooling risk. No HOT without proof."
+            },
+            {
+              "name": "1.5/1.6 EcoBoost",
+              "patterns": [
+                "1.5 ecoboost",
+                "1,5 ecoboost",
+                "1.6 ecoboost",
+                "1,6 ecoboost"
+              ],
+              "risk": "medium_high",
+              "score_delta": -14,
+              "reserve": 1700,
+              "score_cap": 64,
+              "notes": "Turbo/cooling risk and smaller buyer pool."
+            },
+            {
+              "name": "TDCi diesel",
+              "patterns": [
+                "tdci"
+              ],
+              "risk": "medium_high",
+              "score_delta": -10,
+              "reserve": 1200,
+              "score_cap": 66,
+              "notes": "Diesel system proof required."
+            },
+            {
+              "name": "PowerShift",
+              "patterns": [
+                "powershift",
+                "automatik",
+                "automatic"
+              ],
+              "risk": "high",
+              "score_delta": -30,
+              "reserve": 2000,
+              "score_cap": 50,
+              "notes": "Avoid for normal output."
+            }
+          ]
+        },
+        {
+          "name": "Focus Mk4",
+          "years": [
+            2018,
+            2025
+          ],
+          "why_it_sells": "Modern and desirable, but capital requirement is higher and discount must be real.",
+          "buyer_exit": "Family/commuter with higher budget, young buyer wanting newer car.",
+          "buy_zone": {
+            "low_km": 7600,
+            "normal": 5200,
+            "high_km": 3500,
+            "retail_ceiling": 11000
+          },
+          "mileage_policy": "Under 120k preferred. Over 150k only with large discount and proof. Not ideal for cheap first cash flip.",
+          "body_risks": [
+            "front accident repair",
+            "expensive electronics",
+            "parking damage",
+            "estate cargo wear",
+            "interior family wear"
+          ],
+          "must_check": [
+            "service history",
+            "engine proof",
+            "wet belt/service logic if EcoBoost",
+            "TUV",
+            "OBD",
+            "automatic test",
+            "paint/gaps"
+          ],
+          "good_signals": [
+            "manual",
+            "Turnier/Kombi",
+            "TUV long",
+            "Scheckheft",
+            "1.Hand",
+            "good equipment",
+            "private seller below market"
+          ],
+          "red_flags": [
+            "retail price",
+            "EcoBoost without proof",
+            "automatic issue",
+            "warning lights",
+            "accident unclear",
+            "diesel emissions issue"
+          ],
+          "engines": [
+            {
+              "name": "EcoBoost",
+              "patterns": [
+                "ecoboost"
+              ],
+              "risk": "medium_high",
+              "score_delta": -14,
+              "reserve": 1900,
+              "score_cap": 68,
+              "notes": "Needs proof and discount."
+            },
+            {
+              "name": "EcoBlue diesel",
+              "patterns": [
+                "ecoblue",
+                "tdci"
+              ],
+              "risk": "medium_high",
+              "score_delta": -8,
+              "reserve": 1400,
+              "score_cap": 70,
+              "notes": "Diesel emissions risk."
+            },
+            {
+              "name": "automatic",
+              "patterns": [
+                "automatik",
+                "automatic",
+                "powershift"
+              ],
+              "risk": "medium_high",
+              "score_delta": -12,
+              "reserve": 1500,
+              "score_cap": 70,
+              "notes": "Manual easier to flip."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "Skoda",
+      "model": "Fabia",
+      "segments": [
+        {
+          "name": "Fabia I",
+          "years": [
+            1999,
+            2007
+          ],
+          "why_it_sells": "Cheap VAG-based transport, practical and trusted enough when it has TUV.",
+          "buyer_exit": "Low-budget beginner, student, cheap commuter, small family if Combi.",
+          "buy_zone": {
+            "low_km": 900,
+            "normal": 550,
+            "high_km": 300,
+            "retail_ceiling": 1800
+          },
+          "mileage_policy": "Under 150k is good only with TUV. 150-220k okay if cheap. Above 220k needs long TUV and very low price.",
+          "body_risks": [
+            "sills",
+            "rear arches",
+            "door bottoms",
+            "tailgate rust",
+            "front accident repairs",
+            "interior wear"
+          ],
+          "must_check": [
+            "TUV",
+            "rust/sills",
+            "cold start",
+            "chain if 1.2 HTP",
+            "timing belt if 1.4/1.9",
+            "clutch",
+            "OBD"
+          ],
+          "good_signals": [
+            "1.4 petrol",
+            "Combi",
+            "TUV long",
+            "Klima",
+            "private seller",
+            "service invoices",
+            "zahnriemen done"
+          ],
+          "red_flags": [
+            "kein TUV",
+            "1.2 HTP rough idle/chain noise",
+            "automatic",
+            "engine warning",
+            "rust through",
+            "Bastler"
+          ],
+          "engines": [
+            {
+              "name": "1.2 HTP",
+              "patterns": [
+                "1.2",
+                "1,2",
+                "htp"
+              ],
+              "risk": "medium",
+              "score_delta": 1,
+              "reserve": 650,
+              "score_cap": 68,
+              "notes": "Accept only cheap with clean cold start."
+            },
+            {
+              "name": "1.4 petrol",
+              "patterns": [
+                "1.4",
+                "1,4"
+              ],
+              "risk": "low_medium",
+              "score_delta": 11,
+              "reserve": 500,
+              "notes": "Best Fabia I petrol."
+            },
+            {
+              "name": "1.9 SDI/TDI",
+              "patterns": [
+                "1.9 sdi",
+                "1,9 sdi",
+                "1.9 tdi",
+                "1,9 tdi"
+              ],
+              "risk": "medium",
+              "score_delta": 5,
+              "reserve": 850,
+              "score_cap": 74,
+              "notes": "Durable, but age/rust/clutch/turbo checks matter."
+            }
+          ]
+        },
+        {
+          "name": "Fabia II",
+          "years": [
+            2007,
+            2014
+          ],
+          "why_it_sells": "Practical, cheap to run, especially good as Combi. Buyers like it when it is clean and has TUV.",
+          "buyer_exit": "First-car buyer, commuter, small family, practical budget buyer.",
+          "buy_zone": {
+            "low_km": 2000,
+            "normal": 1250,
+            "high_km": 750,
+            "retail_ceiling": 3700
+          },
+          "mileage_policy": "Under 150k preferred. 150-220k okay with TUV/service. TSI/DSG requires proof or no strong lead.",
+          "body_risks": [
+            "rear arches",
+            "sills",
+            "tailgate rust",
+            "parking dents",
+            "front bumper/headlight mismatch",
+            "interior family wear"
+          ],
+          "must_check": [
+            "exact engine",
+            "TUV",
+            "DSG",
+            "chain if TSI",
+            "cold start",
+            "OBD",
+            "clutch",
+            "AC"
+          ],
+          "good_signals": [
+            "1.4/1.6 MPI",
+            "Combi",
+            "TUV 18+ months",
+            "Klima",
+            "Scheckheft",
+            "1.Hand",
+            "8-fach bereift"
+          ],
+          "red_flags": [
+            "1.2 TSI no proof",
+            "DSG",
+            "RS",
+            "engine warning",
+            "kein TUV",
+            "dealer retail price",
+            "rust through"
+          ],
+          "engines": [
+            {
+              "name": "1.2 HTP",
+              "patterns": [
+                "1.2 htp",
+                "1,2 htp",
+                "1.2 benzin",
+                "1,2 benzin"
+              ],
+              "risk": "medium",
+              "score_delta": 2,
+              "reserve": 650,
+              "score_cap": 70,
+              "notes": "Not bad when cheap, but not top target."
+            },
+            {
+              "name": "1.4 MPI",
+              "patterns": [
+                "1.4 mpi",
+                "1,4 mpi",
+                "1.4 benzin",
+                "1,4 benzin"
+              ],
+              "risk": "low_medium",
+              "score_delta": 14,
+              "reserve": 500,
+              "notes": "Best simple profile."
+            },
+            {
+              "name": "1.6 MPI",
+              "patterns": [
+                "1.6 mpi",
+                "1,6 mpi",
+                "1.6 benzin",
+                "1,6 benzin"
+              ],
+              "risk": "low_medium",
+              "score_delta": 15,
+              "reserve": 550,
+              "notes": "Very good if price is right."
+            },
+            {
+              "name": "1.2 TSI EA111",
+              "patterns": [
+                "1.2 tsi",
+                "1,2 tsi"
+              ],
+              "risk": "high",
+              "score_delta": -24,
+              "reserve": 1500,
+              "score_cap": 56,
+              "notes": "Chain/turbo proof required."
+            },
+            {
+              "name": "1.4 TSI/RS",
+              "patterns": [
+                "1.4 tsi",
+                "1,4 tsi",
+                "rs"
+              ],
+              "risk": "high",
+              "score_delta": -28,
+              "reserve": 2200,
+              "score_cap": 50,
+              "notes": "Avoid for normal flip."
+            },
+            {
+              "name": "1.6 TDI",
+              "patterns": [
+                "1.6 tdi",
+                "1,6 tdi"
+              ],
+              "risk": "medium_high",
+              "score_delta": -8,
+              "reserve": 1100,
+              "score_cap": 66,
+              "notes": "Needs diesel proof."
+            },
+            {
+              "name": "DSG/DQ200",
+              "patterns": [
+                "dsg",
+                "dq200",
+                "automatik",
+                "automatic"
+              ],
+              "risk": "high",
+              "score_delta": -25,
+              "reserve": 1700,
+              "score_cap": 52,
+              "notes": "Avoid without proof."
+            }
+          ]
+        },
+        {
+          "name": "Fabia III",
+          "years": [
+            2014,
+            2021
+          ],
+          "why_it_sells": "Modern enough, cheap to run, good trust image. Combi is useful and saleable.",
+          "buyer_exit": "Young first-car buyer, commuter, small family, parents buying safe budget car.",
+          "buy_zone": {
+            "low_km": 4100,
+            "normal": 2900,
+            "high_km": 1900,
+            "retail_ceiling": 7000
+          },
+          "mileage_policy": "Under 140k strong. 140-200k okay with service/TUV. DSG/diesel needs proof and discount.",
+          "body_risks": [
+            "front accident repairs",
+            "parking dents",
+            "tailgate/cargo wear",
+            "interior family wear",
+            "bumper gaps"
+          ],
+          "must_check": [
+            "TUV",
+            "service history",
+            "exact engine",
+            "DSG",
+            "turbo/oil if TSI",
+            "OBD",
+            "AC",
+            "paint/gaps"
+          ],
+          "good_signals": [
+            "1.0 MPI",
+            "Combi",
+            "5-door",
+            "TUV long",
+            "Scheckheft",
+            "1.Hand",
+            "Klima",
+            "Sitzheizung"
+          ],
+          "red_flags": [
+            "DSG without proof",
+            "retail dealer price",
+            "engine warning",
+            "diesel emissions symptoms",
+            "accident unclear"
+          ],
+          "engines": [
+            {
+              "name": "1.0 MPI",
+              "patterns": [
+                "1.0 mpi",
+                "1,0 mpi",
+                "1.0 benzin",
+                "1,0 benzin"
+              ],
+              "risk": "low_medium",
+              "score_delta": 15,
+              "reserve": 500,
+              "notes": "Best safe Fabia III beginner profile."
+            },
+            {
+              "name": "1.2 TSI EA211",
+              "patterns": [
+                "1.2 tsi",
+                "1,2 tsi"
+              ],
+              "risk": "medium",
+              "score_delta": 5,
+              "reserve": 900,
+              "score_cap": 76,
+              "notes": "Okay with service proof."
+            },
+            {
+              "name": "1.4 TDI",
+              "patterns": [
+                "1.4 tdi",
+                "1,4 tdi"
+              ],
+              "risk": "medium_high",
+              "score_delta": -6,
+              "reserve": 1000,
+              "score_cap": 68,
+              "notes": "Diesel proof required."
+            },
+            {
+              "name": "DSG/DQ200",
+              "patterns": [
+                "dsg",
+                "dq200",
+                "automatik",
+                "automatic"
+              ],
+              "risk": "high",
+              "score_delta": -22,
+              "reserve": 1600,
+              "score_cap": 58,
+              "notes": "No HOT without proof."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "Hyundai",
+      "model": "i10",
+      "segments": [
+        {
+          "name": "Atos / Atos Prime",
+          "years": [
+            1998,
+            2008
+          ],
+          "why_it_sells": "Very cheap transport with low running costs. Buyers care about TUV and whether it simply works.",
+          "buyer_exit": "Low-budget first car, city runabout, cheap second car.",
+          "buy_zone": {
+            "low_km": 700,
+            "normal": 450,
+            "high_km": 250,
+            "retail_ceiling": 1500
+          },
+          "mileage_policy": "Under 130k good with TUV. 130-180k okay cheap. Over 180k only very cheap with long TUV.",
+          "body_risks": [
+            "rust on sills",
+            "rear arches",
+            "door bottoms",
+            "exhaust rust",
+            "worn interior",
+            "parking dents"
+          ],
+          "must_check": [
+            "TUV",
+            "rust",
+            "clutch",
+            "cold start",
+            "oil leaks",
+            "warning lights",
+            "brakes/tires"
+          ],
+          "good_signals": [
+            "TUV 18+ months",
+            "Klima",
+            "low mileage",
+            "private seller",
+            "cheap price",
+            "recent brakes/tires"
+          ],
+          "red_flags": [
+            "kein TUV",
+            "engine warning",
+            "rust through",
+            "automatic slipping",
+            "Bastler",
+            "too expensive"
+          ],
+          "engines": [
+            {
+              "name": "1.0/1.1 petrol",
+              "patterns": [
+                "1.0",
+                "1,0",
+                "1.1",
+                "1,1"
+              ],
+              "risk": "low_medium",
+              "score_delta": 11,
+              "reserve": 450,
+              "notes": "Simple cheap city-car engine."
+            },
+            {
+              "name": "automatic",
+              "patterns": [
+                "automatik",
+                "automatic"
+              ],
+              "risk": "medium",
+              "score_delta": -6,
+              "reserve": 700,
+              "score_cap": 72,
+              "notes": "Test carefully."
+            }
+          ]
+        },
+        {
+          "name": "i10 PA",
+          "years": [
+            2008,
+            2013
+          ],
+          "why_it_sells": "Cheap insurance, reliable image, easy city car. Good for first-car buyer who wants low risk.",
+          "buyer_exit": "Student, beginner driver, city commuter, second car.",
+          "buy_zone": {
+            "low_km": 1600,
+            "normal": 1000,
+            "high_km": 650,
+            "retail_ceiling": 3100
+          },
+          "mileage_policy": "Under 120k preferred. 120-180k okay with TUV/service. Over 180k only if cheap and clean.",
+          "body_risks": [
+            "parking dents",
+            "sills",
+            "rear arches",
+            "bumper damage",
+            "interior wear"
+          ],
+          "must_check": [
+            "TUV",
+            "AC/Klima",
+            "clutch",
+            "cold start",
+            "OBD",
+            "rust",
+            "brakes/tires"
+          ],
+          "good_signals": [
+            "1.1/1.2 petrol",
+            "TUV long",
+            "Klima",
+            "5-door",
+            "1.Hand",
+            "service invoices",
+            "low mileage"
+          ],
+          "red_flags": [
+            "kein TUV",
+            "warning light",
+            "rust through",
+            "dealer retail",
+            "automatic issue"
+          ],
+          "engines": [
+            {
+              "name": "1.1 petrol",
+              "patterns": [
+                "1.1",
+                "1,1"
+              ],
+              "risk": "low_medium",
+              "score_delta": 13,
+              "reserve": 450,
+              "notes": "Good safe cheap target."
+            },
+            {
+              "name": "1.2 petrol",
+              "patterns": [
+                "1.2",
+                "1,2"
+              ],
+              "risk": "low_medium",
+              "score_delta": 15,
+              "reserve": 450,
+              "notes": "Preferred i10 PA engine."
+            },
+            {
+              "name": "automatic",
+              "patterns": [
+                "automatik",
+                "automatic"
+              ],
+              "risk": "medium",
+              "score_delta": -4,
+              "reserve": 750,
+              "score_cap": 74,
+              "notes": "Can sell, but test carefully."
+            }
+          ]
+        },
+        {
+          "name": "i10 IA",
+          "years": [
+            2013,
+            2019
+          ],
+          "why_it_sells": "Modern small Hyundai with strong first-car demand and low repair fear.",
+          "buyer_exit": "Young first-car buyer, parents buying first car, city commuter.",
+          "buy_zone": {
+            "low_km": 3300,
+            "normal": 2300,
+            "high_km": 1500,
+            "retail_ceiling": 5600
+          },
+          "mileage_policy": "Under 130k strong. 130-200k okay with TUV/service and price. Over 200k only cheap.",
+          "body_risks": [
+            "front bumper/headlight mismatch",
+            "parking dents",
+            "sills",
+            "interior wear",
+            "AC issues"
+          ],
+          "must_check": [
+            "TUV",
+            "service history",
+            "AC",
+            "clutch",
+            "OBD",
+            "paint/gaps",
+            "brakes/tires"
+          ],
+          "good_signals": [
+            "1.2 petrol",
+            "TUV long",
+            "Klima",
+            "Scheckheft",
+            "1.Hand",
+            "low mileage",
+            "private seller"
+          ],
+          "red_flags": [
+            "retail dealer price",
+            "engine warning",
+            "accident unclear",
+            "kein TUV",
+            "automatic issue"
+          ],
+          "engines": [
+            {
+              "name": "1.0 petrol",
+              "patterns": [
+                "1.0",
+                "1,0"
+              ],
+              "risk": "low_medium",
+              "score_delta": 13,
+              "reserve": 450,
+              "notes": "Good city profile."
+            },
+            {
+              "name": "1.2 petrol",
+              "patterns": [
+                "1.2",
+                "1,2"
+              ],
+              "risk": "low_medium",
+              "score_delta": 16,
+              "reserve": 500,
+              "notes": "Best i10 IA target."
+            },
+            {
+              "name": "automatic",
+              "patterns": [
+                "automatik",
+                "automatic"
+              ],
+              "risk": "medium",
+              "score_delta": -2,
+              "reserve": 800,
+              "score_cap": 78,
+              "notes": "Useful for city buyers but must test."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "Hyundai",
+      "model": "i20",
+      "segments": [
+        {
+          "name": "i20 PB",
+          "years": [
+            2008,
+            2014
+          ],
+          "why_it_sells": "Modern enough, practical, cheap to run, less repair fear than many old German cars.",
+          "buyer_exit": "First-car buyer, student, commuter, small family second car.",
+          "buy_zone": {
+            "low_km": 2500,
+            "normal": 1600,
+            "high_km": 1000,
+            "retail_ceiling": 4300
+          },
+          "mileage_policy": "Under 150k preferred. 150-220k okay with TUV/service. Diesel needs proof and discount.",
+          "body_risks": [
+            "parking dents",
+            "sills",
+            "rear arches",
+            "front accident repairs",
+            "interior wear"
+          ],
+          "must_check": [
+            "TUV",
+            "exact engine",
+            "service",
+            "clutch",
+            "AC",
+            "OBD",
+            "paint/gaps",
+            "brakes/tires"
+          ],
+          "good_signals": [
+            "1.2 petrol",
+            "5-door",
+            "TUV long",
+            "Klima",
+            "low mileage",
+            "1.Hand",
+            "service invoices"
+          ],
+          "red_flags": [
+            "kein TUV",
+            "engine warning",
+            "diesel no proof",
+            "accident unclear",
+            "dealer retail price"
+          ],
+          "engines": [
+            {
+              "name": "1.2 petrol",
+              "patterns": [
+                "1.2",
+                "1,2"
+              ],
+              "risk": "low_medium",
+              "score_delta": 17,
+              "reserve": 500,
+              "notes": "Prime i20 PB target."
+            },
+            {
+              "name": "1.4 petrol",
+              "patterns": [
+                "1.4",
+                "1,4"
+              ],
+              "risk": "low_medium",
+              "score_delta": 13,
+              "reserve": 550,
+              "notes": "Good if price is right."
+            },
+            {
+              "name": "CRDi diesel",
+              "patterns": [
+                "crdi",
+                "diesel"
+              ],
+              "risk": "medium_high",
+              "score_delta": -8,
+              "reserve": 1000,
+              "score_cap": 66,
+              "notes": "Diesel proof required."
+            },
+            {
+              "name": "automatic",
+              "patterns": [
+                "automatik",
+                "automatic"
+              ],
+              "risk": "medium",
+              "score_delta": -3,
+              "reserve": 850,
+              "score_cap": 76,
+              "notes": "Test gearbox."
+            }
+          ]
+        },
+        {
+          "name": "i20 GB",
+          "years": [
+            2014,
+            2020
+          ],
+          "why_it_sells": "Very solid modern first-car product. Good trust, good looks, cheap running costs.",
+          "buyer_exit": "Young buyer, parents buying first car, commuter with moderate budget.",
+          "buy_zone": {
+            "low_km": 4400,
+            "normal": 3100,
+            "high_km": 2100,
+            "retail_ceiling": 7400
+          },
+          "mileage_policy": "Under 140k strong. 140-200k okay with service/TUV. Diesel/turbo needs proof.",
+          "body_risks": [
+            "front bumper/headlight mismatch",
+            "parking dents",
+            "interior wear",
+            "AC issues",
+            "paint mismatch"
+          ],
+          "must_check": [
+            "TUV",
+            "service history",
+            "exact engine",
+            "turbo if T-GDI",
+            "OBD",
+            "clutch",
+            "AC",
+            "paint/gaps"
+          ],
+          "good_signals": [
+            "1.2 petrol",
+            "5-door",
+            "TUV long",
+            "Klima",
+            "Scheckheft",
+            "1.Hand",
+            "low mileage",
+            "Sitzheizung"
+          ],
+          "red_flags": [
+            "retail dealer price",
+            "engine warning",
+            "accident unclear",
+            "diesel emissions symptoms",
+            "turbo without service proof"
+          ],
+          "engines": [
+            {
+              "name": "1.2 petrol",
+              "patterns": [
+                "1.2",
+                "1,2"
+              ],
+              "risk": "low_medium",
+              "score_delta": 18,
+              "reserve": 500,
+              "notes": "Best i20 GB target."
+            },
+            {
+              "name": "1.4 petrol",
+              "patterns": [
+                "1.4",
+                "1,4"
+              ],
+              "risk": "low_medium",
+              "score_delta": 13,
+              "reserve": 600,
+              "notes": "Good but less common."
+            },
+            {
+              "name": "1.0 T-GDI",
+              "patterns": [
+                "1.0 t-gdi",
+                "1,0 t-gdi",
+                "tgdi",
+                "t-gdi",
+                "turbo"
+              ],
+              "risk": "medium",
+              "score_delta": -3,
+              "reserve": 900,
+              "score_cap": 76,
+              "notes": "Needs turbo/service proof."
+            },
+            {
+              "name": "CRDi diesel",
+              "patterns": [
+                "crdi",
+                "diesel"
+              ],
+              "risk": "medium_high",
+              "score_delta": -8,
+              "reserve": 1100,
+              "score_cap": 68,
+              "notes": "Diesel system proof required."
+            },
+            {
+              "name": "automatic/DCT",
+              "patterns": [
+                "automatik",
+                "automatic",
+                "dct"
+              ],
+              "risk": "medium",
+              "score_delta": -5,
+              "reserve": 900,
+              "score_cap": 74,
+              "notes": "Manual safer for flip."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "Opel",
+      "model": "Astra",
+      "aliases": [
+        "opel astra",
+        "astra"
+      ],
+      "segments": [
+        {
+          "name": "Astra H",
+          "years": [
+            2004,
+            2010
+          ],
+          "why_it_sells": "Cheap practical car. Kombi/Caravan can sell well if TÃœV and simple petrol/diesel are clean.",
+          "buyer_exit": "Budget family, commuter, practical cheap car.",
+          "buy_zone": {
+            "low_km": 1700,
+            "normal": 1100,
+            "high_km": 750,
+            "retail_ceiling": 2600
+          },
+          "mileage_policy": "Petrol 200k is already high; only cheap with proof. Diesel needs DPF/EGR/turbo caution.",
+          "body_risks": [
+            "rust",
+            "worn suspension",
+            "interior wear",
+            "cheap repairs"
+          ],
+          "must_check": [
+            "TÃœV",
+            "rust",
+            "oil leaks",
+            "chain/belt history",
+            "clutch",
+            "brakes",
+            "suspension"
+          ],
+          "good_signals": [
+            "Kombi/Caravan",
+            "TÃœV neu",
+            "Zahnriemen done",
+            "brakes done",
+            "service invoices"
+          ],
+          "red_flags": [
+            "above market price",
+            "engine cold-start issue",
+            "oil consumption",
+            "no TÃœV",
+            "automatic problem"
+          ],
+          "engines": [
+            {
+              "name": "1.6 petrol",
+              "patterns": [
+                "1.6",
+                "1,6"
+              ],
+              "risk": "low_medium",
+              "score_delta": 6,
+              "reserve": 500,
+              "notes": "Good if maintained, but not worth high price."
+            },
+            {
+              "name": "1.9 CDTI",
+              "patterns": [
+                "1.9 cdti",
+                "1,9 cdti"
+              ],
+              "risk": "medium_high",
+              "score_delta": -3,
+              "reserve": 900,
+              "notes": "Can run well but EGR/DPF/turbo/clutch risk."
+            }
+          ]
+        },
+        {
+          "name": "Astra J",
+          "years": [
+            2010,
+            2015
+          ],
+          "why_it_sells": "More modern Opel, but often heavy and not always cheap to fix. Good only with real discount.",
+          "buyer_exit": "Budget modern family/daily buyer.",
+          "buy_zone": {
+            "low_km": 3000,
+            "normal": 2200,
+            "high_km": 1500,
+            "retail_ceiling": 4800
+          },
+          "mileage_policy": "Petrol above 190k weak; turbo/diesel risks need proof.",
+          "body_risks": [
+            "heavy wear",
+            "electrical issues",
+            "suspension wear"
+          ],
+          "must_check": [
+            "engine exact type",
+            "turbo if present",
+            "service",
+            "TÃœV",
+            "OBD",
+            "gearbox"
+          ],
+          "good_signals": [
+            "TÃœV long",
+            "family ownership",
+            "regular oil changes",
+            "service invoices"
+          ],
+          "red_flags": [
+            "CDTI BiTurbo",
+            "turbo petrol without proof",
+            "automatic issue",
+            "dealer retail price"
+          ],
+          "engines": [
+            {
+              "name": "1.4/1.6 petrol",
+              "patterns": [
+                "1.4",
+                "1,4",
+                "1.6",
+                "1,6"
+              ],
+              "risk": "medium",
+              "score_delta": 2,
+              "reserve": 650,
+              "notes": "Acceptable if cheap/clean. Turbo versions need proof."
+            },
+            {
+              "name": "CDTI diesel",
+              "patterns": [
+                "cdti",
+                "diesel"
+              ],
+              "risk": "medium_high",
+              "score_delta": -6,
+              "reserve": 1000,
+              "score_cap": 68,
+              "notes": "DPF/EGR/turbo/clutch risk; no HOT without proof."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "Toyota",
+      "model": "Yaris",
+      "aliases": [
+        "toyota yaris",
+        "yaris"
+      ],
+      "segments": [
+        {
+          "name": "Yaris P9",
+          "years": [
+            2005,
+            2011
+          ],
+          "why_it_sells": "One of the safest beginner cars: reliable image, low running costs, easy buyer trust.",
+          "buyer_exit": "First car, city car, parents buying safe small car.",
+          "buy_zone": {
+            "low_km": 1800,
+            "normal": 1300,
+            "high_km": 950,
+            "retail_ceiling": 3300
+          },
+          "mileage_policy": "Higher mileage is more acceptable than German petrol cars if service/TÃœV are real.",
+          "body_risks": [
+            "rust",
+            "clutch",
+            "exhaust",
+            "small accident repairs"
+          ],
+          "must_check": [
+            "TÃœV",
+            "rust underside",
+            "clutch",
+            "service",
+            "oil leaks",
+            "OBD"
+          ],
+          "good_signals": [
+            "1.0/1.3 VVT-i",
+            "TÃœV neu",
+            "service invoices",
+            "family owned",
+            "low km"
+          ],
+          "red_flags": [
+            "no TÃœV expensive price",
+            "check engine",
+            "accident damage",
+            "mileage/salon mismatch"
+          ],
+          "engines": [
+            {
+              "name": "1.0/1.3 VVT-i",
+              "patterns": [
+                "1.0",
+                "1,0",
+                "1.3",
+                "1,3",
+                "vvt"
+              ],
+              "risk": "low",
+              "score_delta": 12,
+              "reserve": 400,
+              "notes": "Strong reliability story. Great buyer-service car."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "Toyota",
+      "model": "Aygo",
+      "aliases": [
+        "toyota aygo",
+        "aygo",
+        "citroen c1",
+        "peugeot 107"
+      ],
+      "segments": [
+        {
+          "name": "Aygo/C1/107 1st gen",
+          "years": [
+            2005,
+            2014
+          ],
+          "why_it_sells": "Tiny cheap reliable city car. Long TÃœV makes it easy to sell to beginners.",
+          "buyer_exit": "Beginner car, city car, low insurance/low fuel buyer.",
+          "buy_zone": {
+            "low_km": 1400,
+            "normal": 1000,
+            "high_km": 750,
+            "retail_ceiling": 2400
+          },
+          "mileage_policy": "Can tolerate mileage, but clutch/exhaust/TÃœV decide.",
+          "body_risks": [
+            "rust",
+            "clutch wear",
+            "exhaust",
+            "water leaks",
+            "cheap repairs"
+          ],
+          "must_check": [
+            "clutch",
+            "TÃœV",
+            "rust",
+            "exhaust",
+            "water leaks",
+            "OBD"
+          ],
+          "good_signals": [
+            "TÃœV 18+ months",
+            "Klima",
+            "1.0 petrol",
+            "service",
+            "low km"
+          ],
+          "red_flags": [
+            "no TÃœV",
+            "clutch slipping",
+            "accident damage",
+            "too expensive above market"
+          ],
+          "engines": [
+            {
+              "name": "1.0 petrol",
+              "patterns": [
+                "1.0",
+                "1,0"
+              ],
+              "risk": "low",
+              "score_delta": 12,
+              "reserve": 350,
+              "notes": "Simple reliable engine; clutch is the common cost."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "Suzuki",
+      "model": "Swift",
+      "aliases": [
+        "suzuki swift",
+        "swift"
+      ],
+      "segments": [
+        {
+          "name": "Swift FZ/NZ",
+          "years": [
+            2011,
+            2017
+          ],
+          "why_it_sells": "Cooler than i10/Aygo, still reliable and small. Can sell fast if price and condition are right.",
+          "buyer_exit": "Young buyers, first car, city daily with style.",
+          "buy_zone": {
+            "low_km": 2600,
+            "normal": 1800,
+            "high_km": 1300,
+            "retail_ceiling": 4100
+          },
+          "mileage_policy": "Above 170k only with TÃœV and proof. Rust/accident checks important.",
+          "body_risks": [
+            "rust",
+            "accident repairs",
+            "clutch",
+            "suspension"
+          ],
+          "must_check": [
+            "TÃœV",
+            "rust",
+            "clutch",
+            "service",
+            "accident history",
+            "OBD"
+          ],
+          "good_signals": [
+            "1.2 petrol",
+            "5-door",
+            "TÃœV neu",
+            "service",
+            "Klima"
+          ],
+          "red_flags": [
+            "no TÃœV",
+            "structural rust",
+            "engine light",
+            "accident damage"
+          ],
+          "engines": [
+            {
+              "name": "1.2 petrol",
+              "patterns": [
+                "1.2",
+                "1,2"
+              ],
+              "risk": "low",
+              "score_delta": 10,
+              "reserve": 400,
+              "notes": "Good small Japanese-style youth car."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "Audi",
+      "model": "A3",
+      "aliases": [
+        "audi a3",
+        "a3"
+      ],
+      "segments": [
+        {
+          "name": "A3 8P",
+          "years": [
+            2003,
+            2012
+          ],
+          "why_it_sells": "Premium look, strong youth demand, but repair risk is higher. Only good with right engine, TÃœV and discount.",
+          "buyer_exit": "Young buyers wanting premium badge, daily driver, style buyer.",
+          "buy_zone": {
+            "low_km": 2400,
+            "normal": 1700,
+            "high_km": 1200,
+            "retail_ceiling": 4200
+          },
+          "mileage_policy": "Petrol premium above 180k is risky. Diesel above 200k needs proof. Gearbox matters hugely.",
+          "body_risks": [
+            "accident repairs",
+            "rust lower areas",
+            "worn interior",
+            "expensive electronics"
+          ],
+          "must_check": [
+            "TÃœV",
+            "exact engine",
+            "gearbox test",
+            "OBD",
+            "service invoices",
+            "accident history",
+            "rust"
+          ],
+          "good_signals": [
+            "1.6 MPI manual",
+            "TÃœV long",
+            "Scheckheft",
+            "clean stock condition",
+            "no warning lights"
+          ],
+          "red_flags": [
+            "TFSI",
+            "S-tronic/DSG",
+            "Multitronic",
+            "3.0 TDI",
+            "no TÃœV",
+            "engine light"
+          ],
+          "engines": [
+            {
+              "name": "1.6 MPI",
+              "patterns": [
+                "1.6",
+                "1,6"
+              ],
+              "risk": "low_medium",
+              "score_delta": 8,
+              "reserve": 600,
+              "notes": "Safer A3 8P profile if manual and clean."
+            },
+            {
+              "name": "TFSI/DSG/S-tronic",
+              "patterns": [
+                "tfsi",
+                "dsg",
+                "s-tronic",
+                "s tronic"
+              ],
+              "risk": "high",
+              "score_delta": -28,
+              "reserve": 1800,
+              "score_cap": 55,
+              "notes": "High market fear and repair cost. No strong lead without hard proof."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
