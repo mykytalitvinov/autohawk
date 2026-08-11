@@ -7,7 +7,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from src.utils import norm as norm
+from src.utils import norm as norm, model_in_candidates, extract_listing_fields, unpack_listing_fields
 
 
 @lru_cache(maxsize=1)
@@ -17,8 +17,7 @@ def _db() -> dict:
 
 
 def _contains_model(model: str, candidates: list[str]) -> bool:
-    m = norm(model)
-    return any(norm(candidate) in m or m in norm(candidate) for candidate in candidates)
+    return model_in_candidates(model, candidates)
 
 
 def _cap_for(brand: str, model: str, year: int) -> tuple[float | None, str]:
@@ -39,15 +38,7 @@ def _cap_for(brand: str, model: str, year: int) -> tuple[float | None, str]:
 
 def evaluate_velocity(listing, observed_discount_pct: float | None, observed_comps: int, config: dict | None = None) -> dict:
     config = config or {}
-    brand = norm(getattr(listing, "brand", "") or "")
-    model = norm(getattr(listing, "model", "") or "")
-    title = getattr(listing, "title", "") or ""
-    desc = getattr(listing, "description", "") or ""
-    text = norm(f"{title} {desc}")
-    price = float(getattr(listing, "price", 0) or 0)
-    year = int(getattr(listing, "year", 0) or 0)
-    mileage = int(getattr(listing, "mileage", 0) or 0)
-    seller = norm(getattr(listing, "seller_type", "") or "")
+    brand, model, title, desc, text, price, year, mileage, seller = unpack_listing_fields(listing)
     score = 50
     good: list[str] = []
     bad: list[str] = []

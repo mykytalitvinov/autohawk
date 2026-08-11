@@ -8,7 +8,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from src.utils import norm as norm
+from src.utils import norm as norm, model_in_candidates, extract_listing_fields, unpack_listing_fields
 
 
 @lru_cache(maxsize=1)
@@ -18,12 +18,7 @@ def _db() -> dict:
 
 
 def _model_match(model: str, candidates: list[str]) -> bool:
-    m = norm(model)
-    for candidate in candidates:
-        c = norm(candidate)
-        if c and (c in m or m in c):
-            return True
-    return False
+    return model_in_candidates(model, candidates)
 
 
 def _price_zone(brand: str, model: str, year: int) -> tuple[float | None, float | None, str]:
@@ -50,15 +45,7 @@ def classify_buyer_demand(listing, observed_discount_pct: float | None, observed
     config = config or {}
     db = _db()
 
-    brand = norm(getattr(listing, "brand", "") or "")
-    model = norm(getattr(listing, "model", "") or "")
-    title = getattr(listing, "title", "") or ""
-    desc = getattr(listing, "description", "") or ""
-    text = norm(f"{title} {desc}")
-    price = float(getattr(listing, "price", 0) or 0)
-    year = int(getattr(listing, "year", 0) or 0)
-    mileage = int(getattr(listing, "mileage", 0) or 0)
-    seller = norm(getattr(listing, "seller_type", "") or "")
+    brand, model, title, desc, text, price, year, mileage, seller = unpack_listing_fields(listing)
     final_score = float(getattr(listing, "final_score", 0) or 0)
 
     score = 50

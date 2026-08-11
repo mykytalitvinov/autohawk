@@ -12,7 +12,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from src.utils import norm as norm
+from src.utils import norm as norm, load_json_db
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "data" / "flip_value_database.json"
@@ -20,12 +20,7 @@ DB_PATH = ROOT / "data" / "flip_value_database.json"
 
 @lru_cache(maxsize=1)
 def load_flip_database() -> dict[str, Any]:
-    if not DB_PATH.exists():
-        return {"cards": []}
-    try:
-        return json.loads(DB_PATH.read_text(encoding="utf-8-sig"))
-    except Exception:
-        return {"cards": []}
+    return load_json_db(DB_PATH, default={"cards": []})
 
 
 def find_flip_value_card(brand: str | None, model: str | None, year: int | None = None, text: str = "") -> dict[str, Any] | None:

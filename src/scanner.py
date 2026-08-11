@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import asyncio
 import csv
+import json
 from collections import Counter
 import logging
 import os
@@ -33,6 +34,16 @@ from src.models import Listing, init_db
 from src.scoring import score_listing
 from src.scrapers import scrape_autoscout24, scrape_kleinanzeigen
 from src.sold_tracker import SoldTracker
+from src.utils import (
+    has_risky_terms,
+    DURABLE_JAPANESE,
+    DURABLE_KOREAN,
+    MASS_MARKET,
+    PREMIUM_BRANDS,
+    VERY_DURABLE_WORKHORSES,
+    HOT_LIQUID_MODELS,
+    apply_risky_penalty_and_append,
+)
 
 try:
     from src.best_of_scan_report import write_best_of_scan_report
@@ -276,21 +287,16 @@ class AutohawkScanner:
         max_mileage = default_max
         profile = "default"
 
-        durable_japanese = {"toyota", "honda", "mazda", "subaru", "lexus"}
-        durable_korean = {"kia", "hyundai"}
-        mass_market = {"volkswagen", "vw", "skoda", "seat", "opel", "ford", "nissan"}
-        premium = {"bmw", "mercedes", "audi", "porsche", "land rover", "jaguar", "mini"}
-
-        if brand in durable_japanese:
+        if brand in DURABLE_JAPANESE:
             max_mileage = 300000
             profile = "durable_japanese"
-        elif brand in durable_korean:
+        elif brand in DURABLE_KOREAN:
             max_mileage = 270000
             profile = "durable_korean"
-        elif brand in mass_market:
+        elif brand in MASS_MARKET:
             max_mileage = 250000
             profile = "mass_market"
-        elif brand in premium:
+        elif brand in PREMIUM_BRANDS:
             if brand == "audi" and any(x in model for x in ["a3", "a4"]):
                 max_mileage = int(self.config.get("audi_a3_a4_max_mileage", 230000))
                 profile = "audi_liquid_compact"
@@ -298,23 +304,11 @@ class AutohawkScanner:
                 max_mileage = 190000
                 profile = "premium_strict"
 
-        risky_terms = [
-            "dsg", "s-tronic", "dq200", "multitronic", "cvt", "n47", "puretech",
-            "ecoboost", "tsi", "tfsi", "thp", "pneuma", "luftfahrwerk",
-            "v8", "v10", "4.2", "5.2", "x5", "a8", "s8", "s6",
-        ]
-        if any(term in text for term in risky_terms):
-            max_mileage = min(max_mileage, 170000)
-            profile += "_risk_engine_or_gearbox"
+        max_mileage, profile = apply_risky_penalty_and_append(profile, max_mileage, text)
 
-        very_durable_workhorses = [
-            ("volkswagen", "golf"), ("vw", "golf"), ("volkswagen", "polo"), ("vw", "polo"),
-            ("skoda", "octavia"), ("toyota", "yaris"), ("toyota", "corolla"),
-            ("honda", "jazz"), ("honda", "civic"),
-        ]
-        if any(b in brand and m in model for b, m in very_durable_workhorses):
+        if any(b in brand and m in model for b, m in VERY_DURABLE_WORKHORSES):
             max_mileage = max(max_mileage, 260000)
-            if brand in durable_japanese:
+            if brand in DURABLE_JAPANESE:
                 max_mileage = max(max_mileage, 300000)
 
         return max_mileage, min_year, profile

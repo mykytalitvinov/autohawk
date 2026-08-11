@@ -7,12 +7,11 @@ engine a real car-specific dossier instead of generic brand/model rules.
 from __future__ import annotations
 
 import json
-import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from src.utils import norm
+from src.utils import norm, load_json_db, safe_int, safe_float
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "data" / "vehicle_dossier_database.json"
@@ -20,12 +19,7 @@ DB_PATH = ROOT / "data" / "vehicle_dossier_database.json"
 
 @lru_cache(maxsize=1)
 def load_db() -> dict[str, Any]:
-    if not DB_PATH.exists():
-        return {"dossiers": []}
-    try:
-        return json.loads(DB_PATH.read_text(encoding="utf-8-sig"))
-    except Exception:
-        return {"dossiers": []}
+    return load_json_db(DB_PATH, default={"dossiers": []})
 
 
 def _contains(text: str, phrase: str) -> bool:
@@ -110,18 +104,9 @@ def evaluate_vehicle_dossier(listing: dict[str, Any]) -> dict[str, Any] | None:
     if not dossier:
         return None
 
-    try:
-        year = int(listing.get("year") or 0)
-    except Exception:
-        year = 0
-    try:
-        mileage = int(listing.get("mileage") or 0)
-    except Exception:
-        mileage = 0
-    try:
-        price = float(listing.get("price") or 0)
-    except Exception:
-        price = 0.0
+    year = safe_int(listing.get("year"))
+    mileage = safe_int(listing.get("mileage"))
+    price = safe_float(listing.get("price"))
 
     segment = _pick_segment(dossier, year, text)
     if not segment:

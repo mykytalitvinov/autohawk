@@ -17,7 +17,7 @@ from datetime import datetime
 from statistics import median
 from typing import Any
 
-from src.utils import norm
+from src.utils import norm, CONSERVATIVE_MARKET_MODELS
 
 
 BAD_MARKET_TERMS = [
@@ -49,15 +49,6 @@ SPECIAL_VARIANT_TERMS = [
     "sondermodell", "opc", "focus st", "fiesta st",
 ]
 
-CONSERVATIVE_MARKET_MODELS = {
-    ("volkswagen", "golf"), ("volkswagen", "polo"),
-    ("skoda", "fabia"), ("skoda", "octavia"),
-    ("opel", "astra"), ("opel", "corsa"),
-    ("ford", "fiesta"), ("ford", "focus"),
-    ("toyota", "yaris"), ("toyota", "auris"), ("toyota", "corolla"),
-    ("honda", "jazz"), ("honda", "civic"),
-    ("audi", "a3"), ("audi", "a4"),
-}
 
 ALIASES = {
     "vw": "volkswagen",
