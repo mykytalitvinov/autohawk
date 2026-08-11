@@ -17,6 +17,7 @@ from datetime import datetime, timedelta
 import requests
 
 from src.models import Listing
+from src.utils import norm as norm
 
 logger = logging.getLogger("autohawk.sold_tracker")
 
@@ -38,12 +39,6 @@ BLOCKED_TEXT_PATTERNS = [
     r"too\s+many\s+requests",
     r"robot",
 ]
-
-
-def _norm(text: str) -> str:
-    text = (text or "").lower()
-    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
-    return re.sub(r"\s+", " ", text)
 
 
 class SoldTracker:
@@ -148,7 +143,7 @@ class SoldTracker:
         if response.status_code >= 500:
             return "unknown", f"http {response.status_code}"
 
-        text = _norm(response.text[:60000])
+        text = norm(response.text[:60000])
         for pattern in BLOCKED_TEXT_PATTERNS:
             if re.search(pattern, text):
                 return "unknown", f"blocked text: {pattern}"
@@ -208,4 +203,3 @@ class SoldTracker:
             if not exists:
                 writer.writeheader()
             writer.writerow(row)
-

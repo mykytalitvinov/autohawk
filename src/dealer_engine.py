@@ -26,23 +26,7 @@ from typing import Any
 from src.model_knowledge import contains_any, find_model_card
 from src.flip_value_database import evaluate_flip_value, find_flip_value_card
 from src.description_intelligence import analyze_description_intelligence
-from src.replacement import replacements
-
-
-def norm(text: Any) -> str:
-    text = str(text or "").lower()
-    for _ in range(2):
-        try:
-            fixed = text.encode("latin1").decode("utf-8")
-        except UnicodeError:
-            break
-        if fixed == text:
-            break
-        text = fixed
-
-    for old, new in replacements.items():
-        text = text.replace(old, new)
-    return re.sub(r"\s+", " ", text).strip()
+from src.utils import norm
 
 
 def clamp(value: float, low: float = 0.0, high: float = 100.0) -> float:
@@ -1740,33 +1724,3 @@ def analyze_dealer_candidate(
         segment_scores=segment_scores,
     )
     return decision.as_ai()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

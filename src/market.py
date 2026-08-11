@@ -8,6 +8,8 @@ import math
 from datetime import datetime
 from typing import Optional
 
+from src.utils import norm as _normalize
+
 
 # Base prices by brand/model (rough German market medians, 2024)
 # These are starting points â€” adjusted by year and mileage
@@ -83,10 +85,6 @@ BASE_PRICES = {
     ("mitsubishi", "colt"):       4500,
     ("skoda", "yeti"):            8500,
 }
-
-
-def _normalize(s: str) -> str:
-    return (s or "").lower().strip()
 
 
 def _get_base_price(brand: str, model: str) -> Optional[float]:

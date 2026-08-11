@@ -11,25 +11,11 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+from src.utils import norm as norm
+
 
 ROOT = Path(__file__).resolve().parents[1]
 KNOWLEDGE_PATH = ROOT / "data" / "model_knowledge.json"
-
-
-def _norm(value: Any) -> str:
-    text = str(value or "").lower().strip()
-    replacements = {
-        "\u00e4": "ae",
-        "\u00f6": "oe",
-        "\u00fc": "ue",
-        "\u00df": "ss",
-        "\u00c4": "ae",
-        "\u00d6": "oe",
-        "\u00dc": "ue",
-    }
-    for old, new in replacements.items():
-        text = text.replace(old, new)
-    return " ".join(text.split())
 
 
 @lru_cache(maxsize=1)
@@ -43,18 +29,18 @@ def load_model_knowledge() -> dict[str, Any]:
 
 
 def find_model_card(brand: str | None, model: str | None, year: int | None = None, text: str = "") -> dict[str, Any] | None:
-    brand_n = _norm(brand)
-    model_n = _norm(model)
-    text_n = _norm(text)
+    brand_n = norm(brand)
+    model_n = norm(model)
+    text_n = norm(text)
     haystack = f"{brand_n} {model_n} {text_n}".strip()
     if not haystack:
         return None
 
     best: tuple[int, dict[str, Any]] | None = None
     for card in load_model_knowledge().get("cards", []):
-        card_brand = _norm(card.get("brand"))
-        card_model = _norm(card.get("model"))
-        aliases = [_norm(x) for x in card.get("aliases", [])]
+        card_brand = norm(card.get("brand"))
+        card_model = norm(card.get("model"))
+        aliases = [norm(x) for x in card.get("aliases", [])]
         score = 0
 
         if card_brand and card_brand == brand_n:
@@ -77,10 +63,10 @@ def find_model_card(brand: str | None, model: str | None, year: int | None = Non
 
 
 def contains_any(text: str, values: list[str]) -> list[str]:
-    text_n = _norm(text)
+    text_n = norm(text)
     found = []
     for value in values or []:
-        value_n = _norm(value)
+        value_n = norm(value)
         if value_n and value_n in text_n:
             found.append(value)
     return found

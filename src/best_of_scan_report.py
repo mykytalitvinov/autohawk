@@ -6,20 +6,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from src.utils import norm as norm
+
 
 ROOT = Path(__file__).resolve().parents[1]
 _TECHNICAL_DB_CACHE: dict[str, Any] | None = None
-
-
-def _norm(value: Any) -> str:
-    text = str(value or "").lower()
-    text = (
-        text.replace("ä", "ae")
-        .replace("ö", "oe")
-        .replace("ü", "ue")
-        .replace("ß", "ss")
-    )
-    return re.sub(r"\s+", " ", text).strip()
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -39,8 +30,8 @@ def _load_technical_db() -> dict[str, Any]:
 
 
 def _contains_any(text: str, words: list[str]) -> bool:
-    clean = _norm(text)
-    return any(_norm(word) in clean for word in words)
+    clean = norm(text)
+    return any(norm(word) in clean for word in words)
 
 
 def _split_report_text(value: Any, limit: int = 7) -> list[str]:
@@ -75,12 +66,12 @@ def _split_issue_text(value: Any, limit: int = 7) -> list[str]:
 
 def _technical_profile_for(item: dict[str, Any]) -> dict[str, Any] | None:
     db = _load_technical_db()
-    brand = _norm(item.get("brand"))
+    brand = norm(item.get("brand"))
     if brand == "vw":
         brand = "volkswagen"
-    model = _norm(item.get("model"))
-    title = _norm(item.get("title"))
-    raw = _norm(
+    model = norm(item.get("model"))
+    title = norm(item.get("title"))
+    raw = norm(
         " ".join(
             [
                 str(item.get("raw_text") or ""),
@@ -95,9 +86,9 @@ def _technical_profile_for(item: dict[str, Any]) -> dict[str, Any] | None:
     best: dict[str, Any] | None = None
     best_score = -1
     for profile in db.get("profiles", []):
-        profile_brand = _norm(profile.get("brand"))
-        profile_model = _norm(profile.get("model"))
-        aliases = [_norm(alias) for alias in profile.get("aliases", [])]
+        profile_brand = norm(profile.get("brand"))
+        profile_model = norm(profile.get("model"))
+        aliases = [norm(alias) for alias in profile.get("aliases", [])]
         if profile_brand != brand:
             continue
 
@@ -121,8 +112,8 @@ def _technical_profile_for(item: dict[str, Any]) -> dict[str, Any] | None:
 
 
 def _technical_brief(item: dict[str, Any]) -> dict[str, list[str]]:
-    brand = _norm(item.get("brand"))
-    raw = _norm(
+    brand = norm(item.get("brand"))
+    raw = norm(
         " ".join(
             [
                 str(item.get("title") or ""),

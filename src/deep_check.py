@@ -10,22 +10,8 @@ from __future__ import annotations
 import json
 import re
 from typing import Any
-from  import replacements
 
-def norm(value: Any) -> str:
-    text = str(value or "").lower()
-    for _ in range(2):
-        try:
-            fixed = text.encode("latin1").decode("utf-8")
-        except UnicodeError:
-            break
-        if fixed == text:
-            break
-        text = fixed
-
-    for old, new in replacements.items():
-        text = text.replace(old, new)
-    return re.sub(r"\s+", " ", text).strip()
+from src.utils import norm
 
 
 def _has(text: str, pattern: str) -> bool:

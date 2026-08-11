@@ -7,15 +7,8 @@ import unicodedata
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
-from  import replacements
 
-def _norm(value: Any) -> str:
-    text = str(value or "").lower()
-
-    for old, new in replacements.items():
-        text = text.replace(old, new)
-    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
-    return re.sub(r"\s+", " ", text).strip()
+from src.utils import norm as norm
 
 
 @lru_cache(maxsize=1)
@@ -25,22 +18,22 @@ def _db() -> dict:
 
 
 def _model_match(model: str, candidates: list[str]) -> bool:
-    m = _norm(model)
+    m = norm(model)
     for candidate in candidates:
-        c = _norm(candidate)
+        c = norm(candidate)
         if c and (c in m or m in c):
             return True
     return False
 
 
 def _price_zone(brand: str, model: str, year: int) -> tuple[float | None, float | None, str]:
-    b = _norm(brand)
+    b = norm(brand)
     if b == "vw":
         b = "volkswagen"
-    m = _norm(model)
+    m = norm(model)
     for row in _db().get("psychological_price_zones", []):
-        rb = _norm(row.get("brand"))
-        rm = _norm(row.get("model"))
+        rb = norm(row.get("brand"))
+        rm = norm(row.get("model"))
         if rb != b:
             continue
         if rm not in m and m not in rm:
@@ -57,15 +50,15 @@ def classify_buyer_demand(listing, observed_discount_pct: float | None, observed
     config = config or {}
     db = _db()
 
-    brand = _norm(getattr(listing, "brand", "") or "")
-    model = _norm(getattr(listing, "model", "") or "")
+    brand = norm(getattr(listing, "brand", "") or "")
+    model = norm(getattr(listing, "model", "") or "")
     title = getattr(listing, "title", "") or ""
     desc = getattr(listing, "description", "") or ""
-    text = _norm(f"{title} {desc}")
+    text = norm(f"{title} {desc}")
     price = float(getattr(listing, "price", 0) or 0)
     year = int(getattr(listing, "year", 0) or 0)
     mileage = int(getattr(listing, "mileage", 0) or 0)
-    seller = _norm(getattr(listing, "seller_type", "") or "")
+    seller = norm(getattr(listing, "seller_type", "") or "")
     final_score = float(getattr(listing, "final_score", 0) or 0)
 
     score = 50
@@ -73,7 +66,7 @@ def classify_buyer_demand(listing, observed_discount_pct: float | None, observed
     warnings: list[str] = []
     blockers: list[str] = []
 
-    hard_hits = [w for w in db.get("hard_reject_words", []) if _norm(w) in text]
+    hard_hits = [w for w in db.get("hard_reject_words", []) if norm(w) in text]
     if hard_hits:
         return {
             "category": "REJECT",
@@ -148,8 +141,8 @@ def classify_buyer_demand(listing, observed_discount_pct: float | None, observed
     strong_discount = observed_discount_pct is not None and observed_discount_pct >= 25 and observed_comps >= 5
     sold_dna_hit = False
 
-    youth_condition_hits = [w for w in db.get("youth_condition_words", []) if _norm(w) in text]
-    youth_risk_hits = [w for w in db.get("youth_risk_words", []) if _norm(w) in text]
+    youth_condition_hits = [w for w in db.get("youth_condition_words", []) if norm(w) in text]
+    youth_risk_hits = [w for w in db.get("youth_risk_words", []) if norm(w) in text]
     youth_quality_ok = False
     youth_fast_exception = False
     if is_youth_model:
@@ -240,8 +233,8 @@ def classify_buyer_demand(listing, observed_discount_pct: float | None, observed
 
     sold_profile_hits = []
     for profile in db.get("sold_velocity_profiles", []):
-        p_brand = _norm(profile.get("brand"))
-        p_models = [_norm(x) for x in profile.get("models", [])]
+        p_brand = norm(profile.get("brand"))
+        p_models = [norm(x) for x in profile.get("models", [])]
         if p_brand and p_brand != brand:
             continue
         if p_models and not any(pm and (pm in model or pm in text) for pm in p_models):
@@ -254,8 +247,8 @@ def classify_buyer_demand(listing, observed_discount_pct: float | None, observed
             continue
         if profile.get("mileage_max") and mileage and mileage > int(profile["mileage_max"]):
             continue
-        required_any = [_norm(x) for x in profile.get("required_any", [])]
-        nice_any = [_norm(x) for x in profile.get("nice_any", [])]
+        required_any = [norm(x) for x in profile.get("required_any", [])]
+        nice_any = [norm(x) for x in profile.get("nice_any", [])]
         if required_any and not any(x in text for x in required_any):
             continue
         nice_hit = not nice_any or any(x in text for x in nice_any)

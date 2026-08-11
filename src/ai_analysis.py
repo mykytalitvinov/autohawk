@@ -13,7 +13,8 @@ import re
 from collections import Counter, defaultdict
 from datetime import datetime
 from typing import Optional
-from src.replacement import replacements
+
+from src.utils import norm as norm
 
 logger = logging.getLogger("autohawk.ai")
 
@@ -126,14 +127,6 @@ def _get_gemini_client() -> Optional[object]:
         return None
 
 
-def _norm(text: str) -> str:
-    text = (text or "").lower()
-
-    for old, new in replacements.items():
-        text = text.replace(old, new)
-    return re.sub(r"\s+", " ", text).strip()
-
-
 def _has(text: str, *patterns: str) -> bool:
     return any(re.search(pattern, text, re.IGNORECASE) for pattern in patterns)
 
@@ -223,11 +216,11 @@ def _vehicle_risks(listing: dict, model_risks: list[str]) -> tuple[list[str], li
     risks = []
     checks = []
 
-    brand = _norm(listing.get("brand", ""))
-    model = _norm(listing.get("model", ""))
-    engine = _norm(listing.get("engine", ""))
-    fuel = _norm(listing.get("fuel", ""))
-    gearbox = _norm(listing.get("gearbox", ""))
+    brand = norm(listing.get("brand", ""))
+    model = norm(listing.get("model", ""))
+    engine = norm(listing.get("engine", ""))
+    fuel = norm(listing.get("fuel", ""))
+    gearbox = norm(listing.get("gearbox", ""))
     mileage = listing.get("mileage") or 0
     year = listing.get("year") or 0
     age = datetime.now().year - year if year else None
@@ -267,8 +260,8 @@ def _vehicle_risks(listing: dict, model_risks: list[str]) -> tuple[list[str], li
 
 def _inspection_plan(listing: dict, warnings: list, model_risks: list[str]) -> list[str]:
     mileage = listing.get("mileage") or 0
-    gearbox = _norm(listing.get("gearbox", ""))
-    fuel = _norm(listing.get("fuel", ""))
+    gearbox = norm(listing.get("gearbox", ""))
+    fuel = norm(listing.get("fuel", ""))
 
     plan = [
         "Check VIN, registration papers, seller identity and HU/TUV document.",
@@ -293,8 +286,8 @@ def _inspection_plan(listing: dict, warnings: list, model_risks: list[str]) -> l
 def _seller_questions(base_questions: list[str], listing: dict, model_risks: list[str]) -> list[str]:
     questions = list(base_questions)
     mileage = listing.get("mileage") or 0
-    fuel = _norm(listing.get("fuel", ""))
-    gearbox = _norm(listing.get("gearbox", ""))
+    fuel = norm(listing.get("fuel", ""))
+    gearbox = norm(listing.get("gearbox", ""))
 
     questions.extend([
         "Ist der Preis vor Ort noch verhandelbar, wenn Maengel gefunden werden?",
@@ -818,7 +811,7 @@ def _rule_based_analyze(listing, warnings, positive_signals, model_risks, market
     mileage = listing.get("mileage") or 0
     price = listing.get("price") or 0
     age_min = listing.get("listing_age_minutes")
-    text = _norm(f"{listing.get('title', '')} {listing.get('description', '')}")
+    text = norm(f"{listing.get('title', '')} {listing.get('description', '')}")
 
     text_pos, text_concerns, base_questions = _text_signals(text)
     vehicle_risks, vehicle_checks = _vehicle_risks(listing, model_risks)

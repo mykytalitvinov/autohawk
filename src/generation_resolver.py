@@ -12,27 +12,11 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+from src.utils import norm
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "data" / "generation_knowledge_database.json"
-
-
-def norm(value: Any) -> str:
-    text = str(value or "").lower()
-    for _ in range(2):
-        try:
-            fixed = text.encode("latin1").decode("utf-8")
-        except UnicodeError:
-            break
-        if fixed == text:
-            break
-        text = fixed
-    for old, new in {"Ã¤": "ae", "Ã¶": "oe", "Ã¼": "ue", "ÃŸ": "ss", "Ã„": "ae", "Ã–": "oe", "Ãœ": "ue"}.items():
-        text = text.replace(old, new)
-    text = re.sub(r"\s+", " ", text).strip()
-    if text == "vw":
-        return "volkswagen"
-    return text
 
 
 @lru_cache(maxsize=1)

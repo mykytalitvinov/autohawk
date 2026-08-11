@@ -17,6 +17,8 @@ from datetime import datetime
 from statistics import median
 from typing import Any
 
+from src.utils import norm
+
 
 BAD_MARKET_TERMS = [
     "motorschaden", "motor schaden", "motor defekt", "motor kaputt",
@@ -63,14 +65,6 @@ ALIASES = {
     "citroÃ«n": "citroen",
     "Å¡koda": "skoda",
 }
-
-
-def norm(value: Any) -> str:
-    text = str(value or "").lower().strip()
-    text = text.replace("Ã¤", "ae").replace("Ã¶", "oe").replace("Ã¼", "ue").replace("ÃŸ", "ss")
-    text = text.replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
-    text = re.sub(r"\s+", " ", text)
-    return ALIASES.get(text, text)
 
 
 def to_float(value: Any) -> float | None:

@@ -6,15 +6,8 @@ import unicodedata
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
-from src.replacement import replacements
 
-def _norm(value: Any) -> str:
-    text = str(value or "").lower()
-
-    for old, new in replacements.items():
-        text = text.replace(old, new)
-    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
-    return re.sub(r"\s+", " ", text).strip()
+from src.utils import norm as norm
 
 
 @lru_cache(maxsize=1)
@@ -24,17 +17,17 @@ def _db() -> dict:
 
 
 def _contains_model(model: str, candidates: list[str]) -> bool:
-    m = _norm(model)
-    return any(_norm(candidate) in m or m in _norm(candidate) for candidate in candidates)
+    m = norm(model)
+    return any(norm(candidate) in m or m in norm(candidate) for candidate in candidates)
 
 
 def _cap_for(brand: str, model: str, year: int) -> tuple[float | None, str]:
-    brand_n = _norm(brand)
-    model_n = _norm(model)
+    brand_n = norm(brand)
+    model_n = norm(model)
     for row in _db().get("psychological_caps", []):
-        if _norm(row.get("brand")) not in {brand_n, "volkswagen" if brand_n == "vw" else brand_n}:
+        if norm(row.get("brand")) not in {brand_n, "volkswagen" if brand_n == "vw" else brand_n}:
             continue
-        if _norm(row.get("model")) not in model_n:
+        if norm(row.get("model")) not in model_n:
             continue
         year_min = int(row.get("year_min") or 0)
         year_max = int(row.get("year_max") or 9999)
@@ -46,15 +39,15 @@ def _cap_for(brand: str, model: str, year: int) -> tuple[float | None, str]:
 
 def evaluate_velocity(listing, observed_discount_pct: float | None, observed_comps: int, config: dict | None = None) -> dict:
     config = config or {}
-    brand = _norm(getattr(listing, "brand", "") or "")
-    model = _norm(getattr(listing, "model", "") or "")
+    brand = norm(getattr(listing, "brand", "") or "")
+    model = norm(getattr(listing, "model", "") or "")
     title = getattr(listing, "title", "") or ""
     desc = getattr(listing, "description", "") or ""
-    text = _norm(f"{title} {desc}")
+    text = norm(f"{title} {desc}")
     price = float(getattr(listing, "price", 0) or 0)
     year = int(getattr(listing, "year", 0) or 0)
     mileage = int(getattr(listing, "mileage", 0) or 0)
-    seller = _norm(getattr(listing, "seller_type", "") or "")
+    seller = norm(getattr(listing, "seller_type", "") or "")
     score = 50
     good: list[str] = []
     bad: list[str] = []
