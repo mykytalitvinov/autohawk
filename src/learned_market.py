@@ -50,14 +50,6 @@ SPECIAL_VARIANT_TERMS = [
 ]
 
 
-ALIASES = {
-    "vw": "volkswagen",
-    "mercedes-benz": "mercedes",
-    "citroÃ«n": "citroen",
-    "Å¡koda": "skoda",
-}
-
-
 def to_float(value: Any) -> float | None:
     try:
         if value in (None, ""):
@@ -296,21 +288,10 @@ def build_learned_market(
     return data
 
 
-def load_learned_market(path: str) -> dict[str, Any]:
-    if not os.path.exists(path):
-        return {}
-    try:
-        with open(path, "r", encoding="utf-8") as fh:
-            return json.load(fh)
-    except Exception:
-        return {}
-
-
 def estimate_from_learned_market(
     listing: dict[str, Any],
     learned: dict[str, Any],
     min_bucket_count: int = 3,
-    min_model_count: int = 8,
 ) -> tuple[float | None, int, str]:
     brand = norm(listing.get("brand"))
     model = norm(listing.get("model"))

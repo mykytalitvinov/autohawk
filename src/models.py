@@ -89,22 +89,6 @@ class Listing(Base):
     sold_detected_at = Column(DateTime)
 
 
-class ScanLog(Base):
-    __tablename__ = "scan_logs"
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    scanned_at = Column(DateTime, default=datetime.utcnow)
-    source = Column(String)
-    listings_found = Column(Integer, default=0)
-    listings_new = Column(Integer, default=0)
-    listings_filtered = Column(Integer, default=0)
-    hot_count = Column(Integer, default=0)
-    good_count = Column(Integer, default=0)
-    check_count = Column(Integer, default=0)
-    error = Column(String)
-    duration_seconds = Column(Float)
-
-
 def _ensure_listing_columns(engine):
     """Add new SQLite columns without deleting the existing local database."""
     required = {

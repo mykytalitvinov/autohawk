@@ -138,51 +138,6 @@ MASS_MARKET = {"volkswagen", "vw", "skoda", "seat", "opel", "ford", "nissan"}
 PREMIUM_BRANDS = {"bmw", "mercedes", "audi", "porsche", "land rover", "jaguar", "mini"}
 
 
-def model_in_candidates(model: str, candidates: list[str]) -> bool:
-    m = norm(model)
-    for candidate in candidates or []:
-        c = norm(candidate)
-        if c and (c in m or m in c):
-            return True
-    return False
-
-
-def extract_listing_fields(listing: Any) -> dict[str, Any]:
-    """Normalize and extract common listing attributes from dict or object."""
-    def get(attr, default=""):
-        if isinstance(listing, dict):
-            return listing.get(attr, default) or default
-        return getattr(listing, attr, default) or default
-
-    brand = norm(get("brand", ""))
-    model = norm(get("model", ""))
-    title = get("title", "")
-    description = get("description", "")
-    engine = get("engine", "")
-    gearbox = get("gearbox", "")
-    fuel = get("fuel", "")
-    seller = norm(get("seller_type", "") or get("seller", ""))
-    text = norm(f"{brand} {model} {title} {description} {engine} {gearbox} {fuel}")
-    price = safe_float(get("price", 0))
-    year = safe_int(get("year", 0))
-    mileage = safe_int(get("mileage", 0))
-
-    return {
-        "brand": brand,
-        "model": model,
-        "title": title,
-        "description": description,
-        "text": text,
-        "engine": engine,
-        "gearbox": gearbox,
-        "fuel": fuel,
-        "seller": seller,
-        "price": price,
-        "year": year,
-        "mileage": mileage,
-    }
-
-
 # Common conservative model tuples shared across modules
 CONSERVATIVE_MARKET_MODELS = {
     ("volkswagen", "golf"), ("volkswagen", "polo"),
@@ -225,24 +180,6 @@ def apply_risky_mileage_penalty(max_mileage: int, text: str, cap: int = 170000) 
         return min(max_mileage, cap), "_risk_engine_or_gearbox"
     return max_mileage, ""
 
-
-def unpack_listing_fields(listing: Any) -> tuple[str, str, str, str, str, float, int, int, str]:
-    """Return commonly used listing fields as an ordered tuple.
-
-    (brand, model, title, description, text, price, year, mileage, seller)
-    """
-    f = extract_listing_fields(listing)
-    return (
-        f["brand"],
-        f["model"],
-        f["title"],
-        f["description"],
-        f["text"],
-        f["price"],
-        f["year"],
-        f["mileage"],
-        f["seller"],
-    )
 
 
 def apply_risky_penalty_and_append(profile: str, max_mileage: int, text: str, /) -> tuple[int, str]:

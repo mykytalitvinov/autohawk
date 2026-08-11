@@ -1262,7 +1262,7 @@ def analyze_dealer_candidate(
     if seller_bad:
         risks.extend([f"Seller risk: {s}" for s in seller_bad])
 
-    total_costs, repair_estimate, risk_reserve, resale_discount = _estimate_costs(
+    total_costs, risk_reserve, resale_discount = _estimate_costs(
         price=price,
         market_price=market_price,
         problem_cost=problem_cost,

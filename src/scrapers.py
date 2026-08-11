@@ -78,9 +78,6 @@ def _early_reject_reason(text: str) -> Optional[str]:
             return label
     return None
 
-
-def _early_reject_text(text: str) -> bool:
-    return _early_reject_reason(text) is not None
 def _is_generic_detail_heading(text: str) -> bool:
     """Kleinanzeigen can expose SEO/search headings as h1 on some pages.
     Never let those overwrite the real card title.
