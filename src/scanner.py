@@ -35,13 +35,11 @@ from src.scoring import score_listing
 from src.scrapers import scrape_autoscout24, scrape_kleinanzeigen
 from src.sold_tracker import SoldTracker
 from src.utils import (
-    has_risky_terms,
     DURABLE_JAPANESE,
     DURABLE_KOREAN,
     MASS_MARKET,
     PREMIUM_BRANDS,
     VERY_DURABLE_WORKHORSES,
-    HOT_LIQUID_MODELS,
     apply_risky_penalty_and_append,
 )
 
@@ -999,20 +997,3 @@ class AutohawkScanner:
                 break
 
         logger.info("AUTOHAWK shut down.")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

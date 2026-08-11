@@ -6,7 +6,6 @@ This database answers a different question than model_knowledge:
 
 from __future__ import annotations
 
-import json
 import re
 from functools import lru_cache
 from pathlib import Path

@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import csv
 import json
-import re
-import unicodedata
 from pathlib import Path
 from typing import Any
 

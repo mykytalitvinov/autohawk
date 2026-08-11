@@ -12,7 +12,6 @@ import csv
 import logging
 import os
 import re
-import unicodedata
 from datetime import datetime, timedelta
 import requests
 

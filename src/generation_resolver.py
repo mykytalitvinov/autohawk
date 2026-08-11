@@ -6,7 +6,6 @@ objects such as Golf 5 1.6 MPI vs Golf 6 1.4 TSI DSG.
 
 from __future__ import annotations
 
-import json
 import re
 from functools import lru_cache
 from pathlib import Path

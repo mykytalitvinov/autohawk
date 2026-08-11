@@ -11,7 +11,6 @@ import json
 import logging
 import random
 import re
-import unicodedata
 from datetime import datetime, timedelta
 from typing import List, Optional
 from src.utils import norm

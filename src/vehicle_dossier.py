@@ -6,7 +6,6 @@ engine a real car-specific dossier instead of generic brand/model rules.
 
 from __future__ import annotations
 
-import json
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
