@@ -11,11 +11,9 @@ import json
 import logging
 import random
 import re
-import unicodedata
 from datetime import datetime, timedelta
 from typing import List, Optional
-from src.replacement import replacements
-
+from src.utils import norm
 logger = logging.getLogger("autohawk.scraper.kleinanzeigen")
 
 
@@ -37,20 +35,6 @@ EARLY_REJECT_RULES = [
 EARLY_REJECT_PATTERNS = [pattern for _, pattern in EARLY_REJECT_RULES]
 
 
-def _normalize_text(text: str) -> str:
-    text = (text or "").lower()
-
-    for old, new in replacements.items():
-        text = text.replace(old, new)
-    text = (
-        text.replace("ÃƒÆ’Ã‚Â¤", "ae")
-        .replace("ÃƒÆ’Ã‚Â¶", "oe")
-        .replace("ÃƒÆ’Ã‚Â¼", "ue")
-        .replace("ÃƒÆ’Ã…Â¸", "ss")
-    )
-    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
-    return re.sub(r"\s+", " ", text)
-
 
 def _clean_lines(text: str) -> list[str]:
     return [line.strip() for line in (text or "").splitlines() if line.strip()]
@@ -59,10 +43,10 @@ def _clean_lines(text: str) -> list[str]:
 def _value_after_label(text: str, labels: list[str], max_next_lines: int = 3) -> Optional[str]:
     """Read values that sit next to detail-page labels such as Kilometerstand."""
     lines = _clean_lines(text)
-    normalized_labels = [_normalize_text(label) for label in labels]
+    normalized_labels = [norm(label) for label in labels]
 
     for idx, line in enumerate(lines):
-        line_norm = _normalize_text(line)
+        line_norm = norm(line)
         for label in normalized_labels:
             if label not in line_norm:
                 continue
@@ -78,7 +62,7 @@ def _value_after_label(text: str, labels: list[str], max_next_lines: int = 3) ->
 
 
 def _early_reject_reason(text: str) -> Optional[str]:
-    normalized = _normalize_text(text)
+    normalized = norm(text)
     normalized = re.sub(r"\bunfall\s+frei\b", "unfallfrei", normalized)
     if re.search(
         r"\bunfall(?!frei)\b|\bunfallfahrzeug\b|\bunfallwagen\b|\bunfallschaden\b|"
@@ -93,14 +77,11 @@ def _early_reject_reason(text: str) -> Optional[str]:
             return label
     return None
 
-
-def _early_reject_text(text: str) -> bool:
-    return _early_reject_reason(text) is not None
 def _is_generic_detail_heading(text: str) -> bool:
     """Kleinanzeigen can expose SEO/search headings as h1 on some pages.
     Never let those overwrite the real card title.
     """
-    norm = _normalize_text(text)
+    norm = norm(text)
     if not norm:
         return True
     generic_tokens = [
@@ -200,12 +181,12 @@ def _parse_year(text: str) -> Optional[int]:
     )
     if exact:
         year = int(exact.group(1))
-        if year <= current_year and not ("tuv" in _normalize_text(exact.group(0)) or "tuev" in _normalize_text(exact.group(0)) or "hu" in _normalize_text(exact.group(0))):
+        if year <= current_year and not ("tuv" in norm(exact.group(0)) or "tuev" in norm(exact.group(0)) or "hu" in norm(exact.group(0))):
             return year
     for m in re.finditer(r"\b(19[5-9]\d|20[012]\d)\b", text):
         year = int(m.group(1))
         context = text[max(0, m.start() - 18): m.end() + 18].lower()
-        context_norm = _normalize_text(context)
+        context_norm = norm(context)
         if year > current_year:
             continue
         # Skip generic current-year matches unless they are clearly registration/year labels;
@@ -282,7 +263,7 @@ def _extract_brand_model(title: str) -> tuple:
     ("Golf 5", "Polo 86c", "C180", "Schoner Golf") and should not be lost just
     because the seller did not write the brand cleanly.
     """
-    normalized_title = _normalize_text(title or "")
+    normalized_title = norm(title or "")
 
     brand_aliases = [
         ("mercedes-benz", "Mercedes"), ("mercedes", "Mercedes"), ("benz", "Mercedes"),
@@ -391,7 +372,7 @@ def _extract_brand_model(title: str) -> tuple:
 
 def _parse_fuel(text: str) -> Optional[str]:
     labelled = _value_after_label(text, ["Kraftstoffart", "Kraftstoff", "Antriebsart"])
-    text_l = _normalize_text(labelled or text)
+    text_l = norm(labelled or text)
     for value in ["diesel", "benzin", "hybrid", "elektro", "lpg", "cng"]:
         if value in text_l:
             return value
@@ -400,7 +381,7 @@ def _parse_fuel(text: str) -> Optional[str]:
 
 def _parse_gearbox(text: str) -> Optional[str]:
     labelled = _value_after_label(text, ["Getriebe"])
-    text_l = _normalize_text(labelled or text)
+    text_l = norm(labelled or text)
     if "automatik" in text_l or "automatic" in text_l or "dsg" in text_l:
         return "automatic"
     if "schaltgetriebe" in text_l or "schalter" in text_l or "manuell" in text_l:
@@ -409,7 +390,7 @@ def _parse_gearbox(text: str) -> Optional[str]:
 
 
 def _extract_engine(text: str) -> Optional[str]:
-    normalized = _normalize_text(text)
+    normalized = norm(text)
     patterns = [
         r"\b([123]\.[0-9]\s*(?:tdi|tsi|tfsi|fsi|cdi|dci|hdi|cdti|ecoboost|jtd|multijet))\b",
         r"\b(3[12]0d|3[12]8d|3[12]0i|1[12]6i|1[12]8i|1[12]0d|1[12]0i)\b",
@@ -566,8 +547,8 @@ async def _enrich_kleinanzeigen_detail(context, listing: dict, timeout_ms: int =
         desc_year = _parse_explicit_vehicle_year(desc_text)
         if desc_year:
             listing["year"] = desc_year
-        normalized_body = _normalize_text(body_text)
-        normalized_article = _normalize_text(article_text)
+        normalized_body = norm(body_text)
+        normalized_article = norm(article_text)
         if "gewerblicher nutzer" in normalized_body or "rechtliche angaben" in normalized_article:
             listing["seller_type"] = "dealer"
         elif "privater nutzer" in normalized_body:

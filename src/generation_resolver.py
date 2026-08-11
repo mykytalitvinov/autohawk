@@ -6,43 +6,21 @@ objects such as Golf 5 1.6 MPI vs Golf 6 1.4 TSI DSG.
 
 from __future__ import annotations
 
-import json
 import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
+
+from src.utils import norm, load_json_db, safe_int, safe_float
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "data" / "generation_knowledge_database.json"
 
 
-def norm(value: Any) -> str:
-    text = str(value or "").lower()
-    for _ in range(2):
-        try:
-            fixed = text.encode("latin1").decode("utf-8")
-        except UnicodeError:
-            break
-        if fixed == text:
-            break
-        text = fixed
-    for old, new in {"Ã¤": "ae", "Ã¶": "oe", "Ã¼": "ue", "ÃŸ": "ss", "Ã„": "ae", "Ã–": "oe", "Ãœ": "ue"}.items():
-        text = text.replace(old, new)
-    text = re.sub(r"\s+", " ", text).strip()
-    if text == "vw":
-        return "volkswagen"
-    return text
-
-
 @lru_cache(maxsize=1)
 def load_generation_db() -> dict[str, Any]:
-    if not DB_PATH.exists():
-        return {"cards": []}
-    try:
-        return json.loads(DB_PATH.read_text(encoding="utf-8-sig"))
-    except Exception:
-        return {"cards": []}
+    return load_json_db(DB_PATH, default={"cards": []})
 
 
 def _contains_phrase(text: str, phrase: str) -> bool:
@@ -129,18 +107,9 @@ def evaluate_generation_truth(listing: dict[str, Any]) -> dict[str, Any] | None:
     if not card:
         return None
 
-    try:
-        year = int(listing.get("year") or 0)
-    except Exception:
-        year = 0
-    try:
-        mileage = int(listing.get("mileage") or 0)
-    except Exception:
-        mileage = 0
-    try:
-        price = float(listing.get("price") or 0)
-    except Exception:
-        price = 0.0
+    year = safe_int(listing.get("year"))
+    mileage = safe_int(listing.get("mileage"))
+    price = safe_float(listing.get("price"))
 
     gen = _pick_generation(card, year, text)
     if not gen:

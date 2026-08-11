@@ -6,48 +6,35 @@ This database answers a different question than model_knowledge:
 
 from __future__ import annotations
 
-import json
 import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
-from src.replacement import replacements
+
+from src.utils import norm as norm, load_json_db
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "data" / "flip_value_database.json"
 
 
-def _norm(value: Any) -> str:
-    text = str(value or "").lower().strip()
-
-    for old, new in replacements.items():
-        text = text.replace(old, new)
-    return " ".join(text.split())
-
-
 @lru_cache(maxsize=1)
 def load_flip_database() -> dict[str, Any]:
-    if not DB_PATH.exists():
-        return {"cards": []}
-    try:
-        return json.loads(DB_PATH.read_text(encoding="utf-8-sig"))
-    except Exception:
-        return {"cards": []}
+    return load_json_db(DB_PATH, default={"cards": []})
 
 
 def find_flip_value_card(brand: str | None, model: str | None, year: int | None = None, text: str = "") -> dict[str, Any] | None:
-    brand_n = _norm(brand)
-    model_n = _norm(model)
-    haystack = f"{brand_n} {model_n} {_norm(text)}".strip()
+    brand_n = norm(brand)
+    model_n = norm(model)
+    haystack = f"{brand_n} {model_n} {norm(text)}".strip()
     if not haystack:
         return None
 
     best: tuple[int, dict[str, Any]] | None = None
     for card in load_flip_database().get("cards", []):
         score = 0
-        card_brand = _norm(card.get("brand"))
-        card_model = _norm(card.get("model"))
-        aliases = [_norm(x) for x in card.get("aliases", [])]
+        card_brand = norm(card.get("brand"))
+        card_model = norm(card.get("model"))
+        aliases = [norm(x) for x in card.get("aliases", [])]
 
         if card_brand and card_brand == brand_n:
             score += 5
@@ -73,24 +60,24 @@ def find_flip_value_card(brand: str | None, model: str | None, year: int | None 
 
 
 def _has_any(text: str, values: list[str]) -> list[str]:
-    text_n = _norm(text)
+    text_n = norm(text)
     hits = []
     for raw in values or []:
-        item = _norm(raw)
+        item = norm(raw)
         if item and item in text_n:
             hits.append(str(raw))
     return hits
 
 
 def _has_tuv(text: str) -> bool:
-    text_n = _norm(text)
+    text_n = norm(text)
     if re.search(r"\b(kein|keine|ohne|abgelaufen)\s*(tuev|tuv|hu)\b|\b(tuev|tuv|hu)\s*(abgelaufen)\b", text_n):
         return False
     return bool(re.search(r"\b(tuev|tuv|hu)\s*(neu|bis|[0-9]{1,2}[./-]?[0-9]{2,4})\b|\b[0-9]{1,2}[./-]?(2[6-9]|202[6-9])\b.{0,20}\b(tuev|tuv|hu)\b", text_n))
 
 
 def _door_points(text: str) -> tuple[int, str | None]:
-    text_n = _norm(text)
+    text_n = norm(text)
     if re.search(r"\b(5|fuenf|funf)\s*[- ]?(tuer|tueren|tuerer|tuerig|door|doors)\b|\b5-trg\b|\b5trg\b", text_n):
         return 8, "flip DB: 5-door demand boost"
     if re.search(r"\b(3|drei)\s*[- ]?(tuer|tueren|tuerer|tuerig|door|doors)\b|\b3-trg\b|\b3trg\b|\bcoupe\b|\bcabrio\b", text_n):
@@ -176,7 +163,7 @@ def evaluate_flip_value(
         result["score_cap"] = min(result["score_cap"] or 100, 58)
         risks.append(f"Flip DB: mileage above preferred maximum ({max_mileage} km).")
 
-    tuv_required = any("tuv" in _norm(x) or "hu" in _norm(x) for x in card.get("must_have", []))
+    tuv_required = any("tuv" in norm(x) or "hu" in norm(x) for x in card.get("must_have", []))
     if tuv_required:
         if _has_tuv(text):
             points += 10

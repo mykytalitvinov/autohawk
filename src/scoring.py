@@ -3,7 +3,7 @@ AUTOHAWK — Scoring Engine (Steps 2-9)
 Calculates all scores and final verdict.
 """
 
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import Optional
 
 # NOTE: This module is legacy/support scoring, not the main AUTOHAWK decision gate.

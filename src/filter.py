@@ -7,24 +7,9 @@ inspectable opportunities, not every cheap listing.
 """
 
 import re
-import unicodedata
 from typing import Tuple
-from src.replacement import replacements
 
-def _normalize(text: str) -> str:
-    text = (text or "").lower().strip()
-
-    for old, new in replacements.items():
-        text = text.replace(old, new)
-    text = (
-        text.replace("Ã¤", "ae")
-        .replace("Ã¶", "oe")
-        .replace("Ã¼", "ue")
-        .replace("ÃŸ", "ss")
-    )
-    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
-    text = re.sub(r"\s+", " ", text)
-    return text
+from src.utils import norm as _normalize
 
 HARD_REJECT_PATTERNS = [
     (r"\bporsche\b|\bland\s*rover\b|\brange\s*rover\b|\bjaguar\b|\bmaserati\b|\bbentley\b|\baston\s*martin\b", "luxury/exotic brand out of scope"),

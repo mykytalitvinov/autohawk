@@ -26,23 +26,17 @@ from typing import Any
 from src.model_knowledge import contains_any, find_model_card
 from src.flip_value_database import evaluate_flip_value, find_flip_value_card
 from src.description_intelligence import analyze_description_intelligence
-from src.replacement import replacements
 
-
-def norm(text: Any) -> str:
-    text = str(text or "").lower()
-    for _ in range(2):
-        try:
-            fixed = text.encode("latin1").decode("utf-8")
-        except UnicodeError:
-            break
-        if fixed == text:
-            break
-        text = fixed
-
-    for old, new in replacements.items():
-        text = text.replace(old, new)
-    return re.sub(r"\s+", " ", text).strip()
+from src.utils import (
+    norm,
+    DURABLE_JAPANESE,
+    DURABLE_KOREAN,
+    MASS_MARKET,
+    PREMIUM_BRANDS,
+    VERY_DURABLE_WORKHORSES,
+    HOT_LIQUID_MODELS,
+    apply_risky_penalty_and_append,
+)
 
 
 def clamp(value: float, low: float = 0.0, high: float = 100.0) -> float:
@@ -491,20 +485,16 @@ def _adaptive_limits(brand: str, model: str, text: str, config: dict) -> tuple[i
     max_mileage = default_max
     profile = "default"
 
-    durable_japanese = {"toyota", "honda", "mazda", "subaru", "lexus"}
-    durable_korean = {"kia", "hyundai"}
-    mass_market = {"volkswagen", "vw", "skoda", "seat", "opel", "ford", "nissan"}
-    premium = {"bmw", "mercedes", "audi"}
-    if brand_l in durable_japanese:
+    if brand_l in DURABLE_JAPANESE:
         max_mileage = 300000
         profile = "durable_japanese"
-    elif brand_l in durable_korean:
+    elif brand_l in DURABLE_KOREAN:
         max_mileage = 270000
         profile = "durable_korean"
-    elif brand_l in mass_market:
+    elif brand_l in MASS_MARKET:
         max_mileage = 250000
         profile = "mass_market"
-    elif brand_l in premium:
+    elif brand_l in PREMIUM_BRANDS:
         if brand_l == "audi" and any(x in model_l for x in ["a3", "a4"]):
             max_mileage = int(config.get("audi_a3_a4_max_mileage", 230000))
             profile = "audi_liquid_compact"
@@ -512,24 +502,11 @@ def _adaptive_limits(brand: str, model: str, text: str, config: dict) -> tuple[i
             max_mileage = 190000
             profile = "premium_strict"
 
-    risky_terms = [
-        "dsg", "s-tronic", "dq200", "multitronic", "cvt", "n47", "puretech",
-        "ecoboost", "tsi", "tfsi", "thp", "pneuma", "luftfahrwerk",
-        "v8", "v10", "4.2", "5.2", "x5", "a8", "s8", "s6",
-    ]
-    if any(term in text for term in risky_terms):
-        max_mileage = min(max_mileage, 170000)
-        profile += "_risk_engine_or_gearbox"
+    max_mileage, profile = apply_risky_penalty_and_append(profile, max_mileage, text)
 
-    workhorses = [
-        ("volkswagen", "golf"), ("vw", "golf"), ("volkswagen", "polo"), ("vw", "polo"),
-        ("skoda", "octavia"), ("toyota", "yaris"), ("toyota", "corolla"),
-        ("honda", "jazz"), ("honda", "civic"),
-        ("suzuki", "swift"), ("mitsubishi", "colt"),
-    ]
-    if any(b in brand_l and m in model_l for b, m in workhorses):
+    if any(b in brand_l and m in model_l for b, m in VERY_DURABLE_WORKHORSES):
         max_mileage = max(max_mileage, 260000)
-        if brand_l in durable_japanese:
+        if brand_l in DURABLE_JAPANESE:
             max_mileage = max(max_mileage, 300000)
 
     return max_mileage, min_year, profile
@@ -1285,7 +1262,7 @@ def analyze_dealer_candidate(
     if seller_bad:
         risks.extend([f"Seller risk: {s}" for s in seller_bad])
 
-    total_costs, repair_estimate, risk_reserve, resale_discount = _estimate_costs(
+    total_costs, risk_reserve, resale_discount = _estimate_costs(
         price=price,
         market_price=market_price,
         problem_cost=problem_cost,
@@ -1437,16 +1414,7 @@ def analyze_dealer_candidate(
     # clearly below observed market just because the reserve model is
     # conservative. This is for Golf/Polo/Fabia/Fiesta/Astra-type cars,
     # not premium/risky toys.
-    hot_liquid_models = {
-        ("volkswagen", "golf"), ("vw", "golf"),
-        ("volkswagen", "polo"), ("vw", "polo"),
-        ("skoda", "fabia"), ("skoda", "octavia"),
-        ("opel", "astra"), ("opel", "corsa"),
-        ("ford", "fiesta"), ("ford", "focus"),
-        ("toyota", "yaris"), ("toyota", "auris"), ("toyota", "corolla"),
-        ("honda", "jazz"), ("honda", "civic"),
-        ("suzuki", "swift"), ("mitsubishi", "colt"),
-    }
+    hot_liquid_models = HOT_LIQUID_MODELS
     observed_comps = int(listing.get("_market_observed_comps") or listing.get("_market_learned_comps") or 0)
     gross_gap = int(round((market_price or 0) - price)) if price and market_price else 0
     is_hot_liquid_model = any(kb == norm(brand) and (km == norm(model) or km in norm(model) or norm(model) in km) for kb, km in hot_liquid_models)
@@ -1740,33 +1708,3 @@ def analyze_dealer_candidate(
         segment_scores=segment_scores,
     )
     return decision.as_ai()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,11 +2,10 @@ from __future__ import annotations
 
 import csv
 import json
-import re
-import unicodedata
 from pathlib import Path
 from typing import Any
-from src.replacement import replacements
+
+from src.utils import norm as norm
 
 ROOT = Path(__file__).resolve().parents[1]
 SOLD_TRACKER_CSV = ROOT / "output" / "sold_tracker.csv"
@@ -14,15 +13,6 @@ MANUAL_FEEDBACK_CSV = ROOT / "data" / "manual_sold_feedback.csv"
 MEMORY_JSON = ROOT / "output" / "sold_velocity_memory.json"
 MEMORY_SUMMARY_CSV = ROOT / "output" / "sold_velocity_memory_summary.csv"
 REPORT_TXT = ROOT / "output" / "sold_velocity_report.txt"
-
-
-def _norm(value: Any) -> str:
-    text = str(value or "").lower()
-
-    for old, new in replacements.items():
-        text = text.replace(old, new)
-    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
-    return re.sub(r"\s+", " ", text).strip()
 
 
 def _to_int(value: Any) -> int:
@@ -79,10 +69,10 @@ def _mileage_bucket(mileage: int) -> str:
 
 
 def _signature(row: dict[str, Any]) -> tuple[str, str, str, str, str]:
-    brand = _norm(row.get("brand"))
+    brand = norm(row.get("brand"))
     if brand == "vw":
         brand = "volkswagen"
-    model = _norm(row.get("model"))
+    model = norm(row.get("model"))
     year = _to_int(row.get("year"))
     mileage = _to_int(row.get("mileage"))
     price = _to_float(row.get("price"))
@@ -105,12 +95,12 @@ def _read_csv(path: Path) -> list[dict[str, str]]:
 
 
 def _sold_status(status: str) -> bool:
-    s = _norm(status)
+    s = norm(status)
     return s in {"sold", "reserved", "reserve", "reserviert", "removed", "deleted", "sold_or_removed", "verkauft"}
 
 
 def _event_from_tracker(row: dict[str, str]) -> dict[str, Any] | None:
-    status = _norm(row.get("status"))
+    status = norm(row.get("status"))
     if status not in {"sold_or_removed", "active"}:
         return None
     return {
@@ -155,7 +145,7 @@ def _add(bucket: dict[str, dict[str, Any]], key: tuple[Any, ...], event: dict[st
         "unknown_removed": 0,
         "examples": [],
     })
-    status = _norm(event.get("status"))
+    status = norm(event.get("status"))
     minutes = _to_int(event.get("minutes_since_found"))
     if status == "active":
         item["active"] += 1

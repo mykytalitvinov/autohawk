@@ -8,7 +8,6 @@ import os
 import re
 import logging
 from datetime import datetime
-from typing import List
 
 import pandas as pd
 from openpyxl import load_workbook

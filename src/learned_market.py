@@ -17,6 +17,8 @@ from datetime import datetime
 from statistics import median
 from typing import Any
 
+from src.utils import norm, CONSERVATIVE_MARKET_MODELS
+
 
 BAD_MARKET_TERMS = [
     "motorschaden", "motor schaden", "motor defekt", "motor kaputt",
@@ -46,31 +48,6 @@ SPECIAL_VARIANT_TERMS = [
     "tuning", "umbau", "swap", "kompressor", "turbo umbau", "projekt",
     "sondermodell", "opc", "focus st", "fiesta st",
 ]
-
-CONSERVATIVE_MARKET_MODELS = {
-    ("volkswagen", "golf"), ("volkswagen", "polo"),
-    ("skoda", "fabia"), ("skoda", "octavia"),
-    ("opel", "astra"), ("opel", "corsa"),
-    ("ford", "fiesta"), ("ford", "focus"),
-    ("toyota", "yaris"), ("toyota", "auris"), ("toyota", "corolla"),
-    ("honda", "jazz"), ("honda", "civic"),
-    ("audi", "a3"), ("audi", "a4"),
-}
-
-ALIASES = {
-    "vw": "volkswagen",
-    "mercedes-benz": "mercedes",
-    "citroÃ«n": "citroen",
-    "Å¡koda": "skoda",
-}
-
-
-def norm(value: Any) -> str:
-    text = str(value or "").lower().strip()
-    text = text.replace("Ã¤", "ae").replace("Ã¶", "oe").replace("Ã¼", "ue").replace("ÃŸ", "ss")
-    text = text.replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
-    text = re.sub(r"\s+", " ", text)
-    return ALIASES.get(text, text)
 
 
 def to_float(value: Any) -> float | None:
@@ -311,21 +288,10 @@ def build_learned_market(
     return data
 
 
-def load_learned_market(path: str) -> dict[str, Any]:
-    if not os.path.exists(path):
-        return {}
-    try:
-        with open(path, "r", encoding="utf-8") as fh:
-            return json.load(fh)
-    except Exception:
-        return {}
-
-
 def estimate_from_learned_market(
     listing: dict[str, Any],
     learned: dict[str, Any],
     min_bucket_count: int = 3,
-    min_model_count: int = 8,
 ) -> tuple[float | None, int, str]:
     brand = norm(listing.get("brand"))
     model = norm(listing.get("model"))
