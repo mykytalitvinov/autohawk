@@ -36,7 +36,8 @@ BAD_MARKET_TERMS = [
     "tuev abgelaufen", "tuv abgelaufen", "ohne hu", "hu abgelaufen",
     "rostloch", "durchrostung", "starker rost", "schweller durch",
     "airbag leuchtet", "abs leuchtet", "esp leuchtet",
-    "wir kaufen", "fahrzeugankauf", "ankauf",
+    "wir kaufen", "fahrzeugankauf", "ankauf", "suche audi", "suche auto",
+    "suche fahrzeug", "suche pkw", "kaufe audi", "kaufe auto",
 ]
 
 SPECIAL_VARIANT_TERMS = [
@@ -292,6 +293,7 @@ def estimate_from_learned_market(
     listing: dict[str, Any],
     learned: dict[str, Any],
     min_bucket_count: int = 3,
+    min_model_count: int = 8,
 ) -> tuple[float | None, int, str]:
     brand = norm(listing.get("brand"))
     model = norm(listing.get("model"))

@@ -35,6 +35,9 @@ class Listing(Base):
     fuel = Column(String)
     gearbox = Column(String)
     engine = Column(String)
+    tuv_text = Column(String)
+    tuv_until = Column(String)          # YYYY-MM when exact HU/TUV date is parsed
+    tuv_months_left = Column(Integer)   # -1 means explicit no/expired HU/TUV
     location = Column(String)
     description = Column(Text)
     seller_type = Column(String)   # private / dealer
@@ -81,6 +84,14 @@ class Listing(Base):
     exported_to_excel = Column(Boolean, default=False)
     captcha_blocked = Column(Boolean, default=False)
 
+    # Telegram delivery state. The scanner uses these fields as the source of
+    # truth instead of a sidecar file, so a failed send can be retried later.
+    telegram_status = Column(String, default="pending")  # pending / sent / failed / skipped
+    telegram_sent_at = Column(DateTime)
+    telegram_last_attempt_at = Column(DateTime)
+    telegram_attempts = Column(Integer, default=0)
+    telegram_error = Column(Text)
+
     # Sold tracker / market feedback
     is_sold = Column(Boolean, default=False)
     sold_status = Column(String)          # active / sold_or_removed / unknown
@@ -97,6 +108,14 @@ def _ensure_listing_columns(engine):
         "sold_reason": "VARCHAR",
         "sold_checked_at": "DATETIME",
         "sold_detected_at": "DATETIME",
+        "telegram_status": "VARCHAR DEFAULT 'pending'",
+        "telegram_sent_at": "DATETIME",
+        "telegram_last_attempt_at": "DATETIME",
+        "telegram_attempts": "INTEGER DEFAULT 0",
+        "telegram_error": "TEXT",
+        "tuv_text": "VARCHAR",
+        "tuv_until": "VARCHAR",
+        "tuv_months_left": "INTEGER",
     }
     with engine.begin() as conn:
         existing = {row[1] for row in conn.execute(text("PRAGMA table_info(listings)")).fetchall()}

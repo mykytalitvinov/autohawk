@@ -1,5 +1,5 @@
 """
-AUTOHAWK ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Kleinanzeigen Scraper
+AUTOHAWK ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Kleinanzeigen Scraper
 Scrapes fresh car listings from Kleinanzeigen.de
 Uses Playwright with realistic delays and headers.
 Stops gracefully on captcha.
@@ -21,8 +21,10 @@ EARLY_REJECT_RULES = [
     ("deleted listing", r"\bgeloescht\b|\bgeloscht\b|\bdeleted\b|\bnicht mehr verfuegbar\b"),
     ("purchase ad / car buyer", r"\bsuche\s+kaufe\b|\bwir\s+kaufen\b|\bfahrzeugankauf\b|\bautoankauf\b|\bankauf\b"),
     ("engine damage", r"\bmotorschaden\b|\bmotor\s*schaden\b|\bmotor\s*defekt\b"),
-    ("engine runs poorly", r"\bmotor\s*unruhig\b|\bunruhiger\s*motor\b|\bmotor\s*(?:laeuft|lauft)\s*unruhig\b|\bmotor\s*lÃ¤uft\s*unruhig\b|\bmotorproblem\b|\bmotor\s*problem\b"),
-    ("cold-start engine issue", r"\bkalt\b.{0,30}\b(motor|laeuft|lauft|start)\b.{0,30}\b(schlecht|unruhig|ruckelt)\b|\bmotor\b.{0,30}\bkalt\b.{0,30}\b(schlecht|unruhig|ruckelt)\b"),
+    ("engine runs poorly", r"\bmotor\b.{0,80}\b(unruhig|ruckelt|stottert|geht\s*aus|leistungsverlust)\b|\bunruhiger\s*motor\b|\bmotor\s*(?:laeuft|läuft|lauft)\s*(?:gelegentlich\s*)?unruhig\b|\bmotorproblem\b|\bmotor\s*problem\b"),
+    ("cold-start engine issue", r"\bkalt\b.{0,40}\b(motor|laeuft|läuft|lauft|start)\b.{0,40}\b(schlecht|unruhig|ruckelt|stottert)\b|\bmotor\b.{0,40}\bkalt\b.{0,40}\b(schlecht|unruhig|ruckelt|stottert)\b"),
+    ("warning light", r"\bmotorkontrollleuchte\b|\bmotor\s*kontrollleuchte\b|\bkontrollleuchte\b|\bmotorlampe\b|\bcheck\s*engine\b|\bmkl\b"),
+    ("engine sensor defect", r"\b(?:oel|ol|öl)\s*standsensor\s*defekt\b|\b(?:oel|ol|öl)standsensor\s*defekt\b|\blambdasonde\b.{0,40}\b(erneuert|defekt|fehler)\b"),
     ("high oil consumption", r"\boelverbrauch\b|\boel\s*verbrauch\b|\bverbrauch[t]?\s*oel\b|\b[0-9]+(?:[,.][0-9]+)?\s*l(?:iter)?\s*oel\b.{0,20}\b(1000|1\.000)\s*km\b"),
     ("gearbox damage/problem", r"\bgetriebeschaden\b|\bgetriebe\s*schaden\b|\bgetriebe\s*defekt\b|\bgetriebe\s*problem\b|\bautomatik\s*problem\b|\bautomatikgetriebe\s*problem\b"),
     ("project/Bastler car", r"\bbastler\b|\bbastlerfahrzeug\b|\bprojektfahrzeug\b"),
@@ -81,8 +83,8 @@ def _is_generic_detail_heading(text: str) -> bool:
     """Kleinanzeigen can expose SEO/search headings as h1 on some pages.
     Never let those overwrite the real card title.
     """
-    norm = norm(text)
-    if not norm:
+    normalized = norm(text)
+    if not normalized:
         return True
     generic_tokens = [
         "autos in ",
@@ -92,7 +94,7 @@ def _is_generic_detail_heading(text: str) -> bool:
         "1-25 von",
         "anzeigen in ",
     ]
-    return any(token in norm for token in generic_tokens)
+    return any(token in normalized for token in generic_tokens)
 
 
 def _parse_explicit_vehicle_year(text: str) -> Optional[int]:
@@ -109,8 +111,8 @@ def _parse_explicit_vehicle_year(text: str) -> Optional[int]:
     candidates.append(text)
     for candidate in candidates:
         m = re.search(
-            r"\b(?:erstzulassung|erstzul\.|ez|baujahr|bj)\D{0,16}(?:\d{1,2}[./])?(19[5-9]\d|20[012]\d)\b",
-            candidate,
+            r"\b(?:erstzulassung|erstzul\.?|ez|baujahr|bj)\b\D{0,16}(?:\d{1,2}[./])?(19[5-9]\d|20[012]\d)\b",
+            norm(candidate),
             re.IGNORECASE,
         )
         if m:
@@ -142,15 +144,42 @@ def _parse_price(text: str) -> Optional[float]:
 def _parse_mileage(text: str) -> Optional[int]:
     if not text:
         return None
-    labelled = _value_after_label(text, ["Kilometerstand", "Laufleistung", "KM-Stand"], max_next_lines=2)
+    labelled = None
+    lines = _clean_lines(text)
+    for idx, line in enumerate(lines):
+        line_norm = norm(line)
+        if not re.match(r"^(kilometerstand|laufleistung|km-stand)\b", line_norm):
+            continue
+        after = re.sub(r"^(kilometerstand|laufleistung|km-stand)\b", "", line_norm, count=1).strip(" :,-")
+        if after:
+            labelled = line
+            break
+        for offset in range(1, 3):
+            if idx + offset < len(lines):
+                candidate = lines[idx + offset].strip()
+                if candidate:
+                    labelled = candidate
+                    break
+        if labelled:
+            break
     if not labelled:
-        return None
+        labelled_match = re.search(
+            r"(?im)^\s*(?:kilometerstand|laufleistung|km-stand)\b.{0,90}?(\d{1,3}(?:[.\s]\d{3})+|\d{4,6})\s*(?:km|kilometer)?\b",
+            norm(text),
+            re.IGNORECASE | re.DOTALL,
+        )
+        if labelled_match:
+            labelled = labelled_match.group(0)
+        else:
+            return None
 
     m = re.search(
         r"\b(\d{1,3}(?:[.\s]\d{3})+|\d{4,6})\s*(?:km|kilometer)\b",
         labelled,
         re.IGNORECASE,
     )
+    if not m:
+        m = re.search(r"\b(\d{1,3}(?:[.\s]\d{3})+|\d{5,6})\b", labelled, re.IGNORECASE)
     if not m:
         return None
     try:
@@ -162,11 +191,138 @@ def _parse_mileage(text: str) -> Optional[int]:
     return None
 
 
+def _parse_card_mileage(text: str) -> Optional[int]:
+    """Parse mileage from a structured search-result vehicle-features block only.
+
+    This is deliberately separate from _parse_mileage(). Search cards often show
+    a clean feature line like "230.000 km" without the "Kilometerstand" label,
+    while seller descriptions contain misleading service-history numbers.
+    """
+    if not text:
+        return None
+    lines = _clean_lines(text)
+    for line in lines:
+        line_norm = norm(line)
+        if any(word in line_norm for word in ["zahnriemen", "service", "inspektion", "olwechsel", "oelwechsel"]):
+            continue
+        match = re.search(r"\b(\d{1,3}(?:[.\s]\d{3})+|\d{5,6})\s*(?:km|kilometer)\b", line, re.IGNORECASE)
+        if not match:
+            continue
+        try:
+            value = int(re.sub(r"[^\d]", "", match.group(1)))
+        except Exception:
+            continue
+        if 0 <= value <= 500000:
+            return value
+    return None
+
+
+def _parse_tuv_info(text: str) -> dict:
+    """Extract HU/TUV status from structured facts, title or seller description."""
+    result = {"tuv_text": None, "tuv_until": None, "tuv_months_left": None}
+    if not text:
+        return result
+
+    text_n = norm(text)
+    if re.search(
+        r"\b(ohne|kein|keine|abgelaufen|faellig|fallig)\s*(tuev|tuv|hu|hauptuntersuchung)\b|"
+        r"\b(tuev|tuv|hu|hauptuntersuchung)\s*(abgelaufen|faellig|fallig)\b",
+        text_n,
+        re.IGNORECASE,
+    ):
+        result.update({"tuv_text": "kein/unklar", "tuv_months_left": -1})
+        return result
+
+    now = datetime.now()
+    month_names = {
+        "jan": 1, "januar": 1,
+        "feb": 2, "februar": 2,
+        "mar": 3, "marz": 3, "maerz": 3, "märz": 3,
+        "apr": 4, "april": 4,
+        "mai": 5,
+        "jun": 6, "juni": 6,
+        "jul": 7, "juli": 7,
+        "aug": 8, "august": 8,
+        "sep": 9, "sept": 9, "september": 9,
+        "okt": 10, "oktober": 10,
+        "nov": 11, "november": 11,
+        "dez": 12, "dezember": 12,
+    }
+
+    def normalize_year(value: str) -> int:
+        year = int(value)
+        return year + 2000 if year < 100 else year
+
+    def add_candidate(candidates: list[tuple[int, int]], month: int, year_raw: str) -> None:
+        year = normalize_year(year_raw)
+        if 2026 <= year <= 2035 and 1 <= month <= 12:
+            candidates.append((year, month))
+
+    candidates: list[tuple[int, int]] = []
+    patterns = [
+        r"\b(?:tuev|tuv|hu|hauptuntersuchung|tuev/au|tuv/au|hu/au)\s*(?:bis|gültig bis|gueltig bis)?\s*(0?[1-9]|1[0-2])\s*[./-]\s*(2[6-9]|20[2-3][0-9])\b",
+        r"\b(0?[1-9]|1[0-2])\s*[./-]\s*(2[6-9]|20[2-3][0-9])\b.{0,28}\b(?:tuev|tuv|hu|hauptuntersuchung)\b",
+    ]
+    for pattern in patterns:
+        for match in re.finditer(pattern, text_n, re.IGNORECASE):
+            add_candidate(candidates, int(match.group(1)), match.group(2))
+
+    # Real seller text often says "im Feb.26 TUV bekommen" instead of
+    # "TUV bis 02/2028". Keep this separate and boring so it is hard to break.
+    for month_name, month_num in sorted(month_names.items(), key=lambda item: len(item[0]), reverse=True):
+        for match in re.finditer(rf"\b{re.escape(month_name)}\.?\s*[/\-\s.]?\s*(2[6-9]|20[2-3][0-9])\b", text_n, re.IGNORECASE):
+            context = text_n[max(0, match.start() - 60): match.end() + 60]
+            if re.search(r"\b(tuev|tuv|hu|hauptuntersuchung|bekommen|gemacht|neu|frisch)\b", context, re.IGNORECASE):
+                add_candidate(candidates, month_num, match.group(1))
+
+    month_pattern = "|".join(sorted((re.escape(k) for k in month_names), key=len, reverse=True))
+    named_patterns = [
+        rf"\b(?:tuev|tuv|hu|hauptuntersuchung)\s*(?:bis|gueltig bis|gultig bis)?\s*({month_pattern})[.\s/-]*(2[6-9]|20[2-3][0-9])\b",
+        rf"\b({month_pattern})[.\s/-]*(2[6-9]|20[2-3][0-9])\b.{0,40}\b(?:tuev|tuv|hu|hauptuntersuchung)\b",
+    ]
+    for pattern in named_patterns:
+        for match in re.finditer(pattern, text_n, re.IGNORECASE):
+            add_candidate(candidates, month_names.get(match.group(1).lower(), 0), match.group(2))
+
+    if candidates:
+        year, month = max(candidates)
+        got_inspection_wording = re.search(
+            r"\b(?:tuev|tuv|hu|hauptuntersuchung)\b.{0,40}\b(?:bekommen|gemacht|neu|frisch)\b|"
+            r"\b(?:bekommen|gemacht)\b.{0,40}\b(?:tuev|tuv|hu|hauptuntersuchung)\b",
+            text_n,
+            re.IGNORECASE,
+        )
+        explicit_until_wording = re.search(
+            r"\b(?:tuev|tuv|hu|hauptuntersuchung)\s*(?:bis|gueltig bis|gültig bis)\b",
+            text_n,
+            re.IGNORECASE,
+        )
+        if got_inspection_wording and not explicit_until_wording and (year, month) < (now.year, now.month):
+            year += 2
+        months_left = (year - now.year) * 12 + (month - now.month)
+        result.update({
+            "tuv_text": f"{month:02d}/{year}",
+            "tuv_until": f"{year:04d}-{month:02d}",
+            "tuv_months_left": months_left,
+        })
+        return result
+
+    if re.search(
+        r"\b(?:tuev|tuv|hu|hauptuntersuchung)\s*(?:neu|frisch|gemacht|bekommen|gueltig|gültig)\b|"
+        r"\bfrisch(?:er)?\s*(?:tuev|tuv|hu)\b",
+        text_n,
+        re.IGNORECASE,
+    ):
+        result.update({"tuv_text": "neu/frisch", "tuv_months_left": 24})
+
+    return result
+
+
 def _parse_year(text: str) -> Optional[int]:
     if not text:
         return None
     current_year = datetime.now().year
-    labelled = _value_after_label(text, ["Erstzulassung", "Baujahr", "Erstzul."])
+    labelled = _value_after_label(text, ["Erstzulassung", "Baujahr", "Erstzul.", "EZ", "Bj", "BJ"])
     if labelled:
         m = re.search(r"(?:\d{1,2}[./])?(19[5-9]\d|20[012]\d)", labelled)
         if m:
@@ -174,9 +330,10 @@ def _parse_year(text: str) -> Optional[int]:
             if 1950 <= year <= current_year:
                 return year
 
+    text_norm = norm(text)
     exact = re.search(
-        r"(?:erstzulassung|ez|baujahr)\D{0,18}(?:\d{1,2}[./])?(19[5-9]\d|20[012]\d)",
-        text,
+        r"\b(?:erstzulassung|erstzul\.?|ez|baujahr|bj)\b\D{0,18}(?:\d{1,2}[./])?(19[5-9]\d|20[012]\d)",
+        text_norm,
         re.IGNORECASE,
     )
     if exact:
@@ -191,13 +348,15 @@ def _parse_year(text: str) -> Optional[int]:
             continue
         # Skip generic current-year matches unless they are clearly registration/year labels;
         # many listings contain HU/TUV expiry dates such as 07/26 or 12/26.
-        if year == current_year and not any(x in context_norm for x in ["erstzulassung", "baujahr", "ez"]):
+        if year == current_year and not re.search(r"\b(erstzulassung|baujahr|ez|bj)\b", context_norm):
+            continue
+        if any(x in context_norm for x in ["online seit", "anzeige online", "eingestellt", "inseriert"]):
             continue
         if "tuev" in context_norm or "tuv" in context_norm or "hauptuntersuchung" in context_norm:
             continue
-        if "tÃƒÆ’Ã‚Â¼v" in context or "hauptuntersuchung" in context:
+        if "tÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼v" in context or "hauptuntersuchung" in context:
             continue
-        if "tuv" in context or "tÃƒÆ’Ã‚Â¼v" in context or "hu" in context:
+        if "tuv" in context or "tÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼v" in context or "hu" in context:
             continue
         return year
     return None
@@ -431,6 +590,92 @@ async def _body_text(page) -> str:
     return await body.inner_text() if body else ""
 
 
+async def _extract_detail_value(page, labels: list[str]) -> Optional[str]:
+    """Read one vehicle fact from the rendered detail page by its visible label."""
+    script = r"""
+    (labels) => {
+        const norm = (value) => (value || "")
+            .toString()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .replace(/\s+/g, " ")
+            .trim();
+        const wanted = labels.map(norm);
+        const hasLabel = (text) => wanted.some((label) => norm(text).includes(label));
+        const clean = (text) => (text || "").toString().replace(/\s+/g, " ").trim();
+        const stripLabel = (text) => {
+            let value = clean(text);
+            for (const label of labels) {
+                value = value.replace(new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"), "").trim();
+            }
+            return value.replace(/^[:\-–—|]+/, "").trim();
+        };
+        const useful = (text) => {
+            const value = clean(text);
+            return /\d/.test(value) && !hasLabel(value) && value.length <= 180;
+        };
+
+        // Mileage must come from the structured vehicle fact, not from seller
+        // description text such as "Zahnriemen bei 180.000 km".
+        if (wanted.some((label) => ["kilometerstand", "laufleistung", "km-stand"].includes(label))) {
+            const bodyText = document.body ? (document.body.innerText || document.body.textContent || "") : "";
+            const mileageMatch = bodyText.match(
+                /(?:Kilometerstand|Laufleistung|KM-Stand)\s*[:\n\r ]{0,30}(\d{1,3}(?:[.\s]\d{3})+|\d{4,6})\s*(?:km|kilometer)?/i
+            );
+            if (mileageMatch) {
+                return `${mileageMatch[1]} km`;
+            }
+        }
+
+        for (const dt of Array.from(document.querySelectorAll("dt"))) {
+            if (!hasLabel(dt.innerText || dt.textContent)) continue;
+            const dd = dt.nextElementSibling;
+            if (dd && useful(dd.innerText || dd.textContent)) {
+                return stripLabel(dd.innerText || dd.textContent);
+            }
+        }
+
+        for (const node of Array.from(document.querySelectorAll("li, tr, dl, section, div, p, span"))) {
+            const rawText = (node.innerText || node.textContent || "").toString();
+            const text = clean(rawText);
+            if (!text || !hasLabel(rawText)) continue;
+
+            const lines = rawText.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+            for (let i = 0; i < lines.length; i++) {
+                if (!hasLabel(lines[i])) continue;
+                const sameLine = stripLabel(lines[i]);
+                if (useful(sameLine)) return sameLine;
+                for (let j = i + 1; j < Math.min(lines.length, i + 4); j++) {
+                    if (hasLabel(lines[j])) break;
+                    if (useful(lines[j])) return stripLabel(lines[j]);
+                }
+            }
+
+            const children = Array.from(node.children || []);
+            for (let i = 0; i < children.length; i++) {
+                if (!hasLabel(children[i].innerText || children[i].textContent)) continue;
+                for (let j = i + 1; j < Math.min(children.length, i + 4); j++) {
+                    const value = children[j].innerText || children[j].textContent;
+                    if (useful(value)) return stripLabel(value);
+                }
+            }
+
+            const sibling = node.nextElementSibling;
+            if (sibling && useful(sibling.innerText || sibling.textContent)) {
+                return stripLabel(sibling.innerText || sibling.textContent);
+            }
+        }
+        return null;
+    }
+    """
+    try:
+        value = await page.evaluate(script, labels)
+        return str(value).strip() if value else None
+    except Exception:
+        return None
+
+
 async def _enrich_kleinanzeigen_detail(context, listing: dict, timeout_ms: int = 12000) -> dict:
     """Open the detail page and improve listing data, best-effort."""
     page = await context.new_page()
@@ -458,7 +703,7 @@ async def _enrich_kleinanzeigen_detail(context, listing: dict, timeout_ms: int =
                 article_text = body_text
 
         body_l = body_text.lower()
-        if any(x in body_l for x in ["captcha", "i am not a robot", "bitte bestÃƒÆ’Ã‚Â¤tigen", "bitte bestÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤tigen"]):
+        if any(x in body_l for x in ["captcha", "i am not a robot", "bitte best", "robot check"]):
             listing["detail_verified"] = False
             listing["detail_error"] = "captcha"
             return listing
@@ -484,15 +729,21 @@ async def _enrich_kleinanzeigen_detail(context, listing: dict, timeout_ms: int =
             price_el = await page.query_selector(selector)
             if price_el:
                 price_text = await price_el.inner_text()
-                if "ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬" in price_text or "eur" in price_text.lower():
+                if "\u20ac" in price_text or "eur" in price_text.lower():
                     break
         price = _parse_price(price_text) or listing.get("price")
-        mileage = _parse_mileage(article_text)
+        mileage_text = await _extract_detail_value(page, ["Kilometerstand", "Laufleistung", "KM-Stand"])
+        mileage = _parse_mileage(f"Kilometerstand\n{mileage_text}") if mileage_text else listing.get("mileage")
+        tuv_detail_text = await _extract_detail_value(page, ["HU bis", "TUV bis", "TUEV bis", "TÜV bis", "Hauptuntersuchung"])
+        year_detail_text = await _extract_detail_value(page, ["Erstzulassung", "Baujahr", "Erstzul.", "EZ", "Bj"])
+        structured_year = _parse_year(f"Erstzulassung\n{year_detail_text}") if year_detail_text else None
         title_year = _parse_year(listing.get("title") or "")
         detail_year = _parse_year(article_text)
-        year = detail_year
+        year = structured_year or detail_year or title_year or listing.get("year")
         if title_year and detail_year and detail_year >= datetime.now().year - 1 and title_year <= datetime.now().year - 2 and title_year < detail_year:
             year = title_year
+        if year and year >= datetime.now().year and not structured_year:
+            year = title_year or listing.get("year")
         fuel = _parse_fuel(article_text)
         gearbox = _parse_gearbox(article_text)
         engine = _extract_engine(f"{listing.get('title', '')} {article_text}")
@@ -536,6 +787,15 @@ async def _enrich_kleinanzeigen_detail(context, listing: dict, timeout_ms: int =
 
         desc_text = listing.get("description", "") or ""
         combined_detail_text = f"{listing.get('title', '')} {desc_text} {article_text}"
+        tuv_info = _parse_tuv_info(
+            " ".join(
+                part
+                for part in [f"HU bis {tuv_detail_text}" if tuv_detail_text else "", listing.get("title", ""), desc_text, article_text]
+                if part
+            )
+        )
+        if tuv_info.get("tuv_text"):
+            listing.update(tuv_info)
         reject_reason = _early_reject_reason(combined_detail_text)
         if reject_reason:
             listing["detail_verified"] = False
@@ -632,8 +892,8 @@ async def scrape_kleinanzeigen(config: dict, max_results: int = 30) -> List[dict
 
             # Captcha detection
             content = await page.content()
-            if any(x in content.lower() for x in ["captcha", "i am not a robot", "bitte bestÃƒÆ’Ã‚Â¤tigen"]):
-                logger.warning("ÃƒÂ¢Ã…Â¡Ã‚Â ÃƒÂ¯Ã‚Â¸Ã‚Â  Kleinanzeigen: CAPTCHA detected ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â skipping this source")
+            if any(x in content.lower() for x in ["captcha", "i am not a robot", "bitte best", "robot check"]):
+                logger.warning("Kleinanzeigen: CAPTCHA detected - skipping this source")
                 await browser.close()
                 return []
 
@@ -723,6 +983,7 @@ async def scrape_kleinanzeigen(config: dict, max_results: int = 30) -> List[dict
                         continue
 
                     brand, model = _extract_brand_model(title)
+                    tuv_info = _parse_tuv_info(f"{title} {desc} {detail_text}")
 
                     listing = {
                         "platform": "kleinanzeigen",
@@ -734,7 +995,7 @@ async def scrape_kleinanzeigen(config: dict, max_results: int = 30) -> List[dict
                         "brand": brand,
                         "model": model,
                         "price": price,
-                        "mileage": _parse_mileage(detail_text),
+                        "mileage": _parse_card_mileage(detail_text),
                         "year": (
                             _parse_year(title)
                             if _parse_year(title) and _parse_year(detail_text) and _parse_year(detail_text) >= datetime.now().year - 1 and _parse_year(title) <= datetime.now().year - 2
@@ -743,6 +1004,9 @@ async def scrape_kleinanzeigen(config: dict, max_results: int = 30) -> List[dict
                         "fuel": None,
                         "gearbox": None,
                         "engine": _extract_engine(f"{title} {desc} {detail_text}"),
+                        "tuv_text": tuv_info.get("tuv_text"),
+                        "tuv_until": tuv_info.get("tuv_until"),
+                        "tuv_months_left": tuv_info.get("tuv_months_left"),
                         "location": location,
                         "description": desc.strip(),
                         "seller_type": "private",
@@ -841,7 +1105,7 @@ async def scrape_autoscout24(config: dict, max_results: int = 30) -> List[dict]:
 
             content = await page.content()
             if any(x in content.lower() for x in ["captcha", "robot", "challenge"]):
-                logger.warning("ÃƒÂ¢Ã…Â¡Ã‚Â ÃƒÂ¯Ã‚Â¸Ã‚Â  AutoScout24: CAPTCHA detected ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â skipping")
+                logger.warning("AutoScout24: CAPTCHA detected - skipping")
                 await browser.close()
                 return []
 
@@ -870,11 +1134,12 @@ async def scrape_autoscout24(config: dict, max_results: int = 30) -> List[dict]:
 
                     mileage_el = await card.query_selector("[data-item-name='mileage']")
                     mileage_text = await mileage_el.inner_text() if mileage_el else ""
-                    mileage = _parse_mileage(mileage_text)
+                    mileage = _parse_mileage(f"Kilometerstand\n{mileage_text}") if mileage_text else None
 
                     year_el = await card.query_selector("[data-item-name='first-registration']")
                     year_text = await year_el.inner_text() if year_el else ""
                     year = _parse_year(year_text + " " + title)
+                    tuv_info = _parse_tuv_info(f"{title} {year_text}")
 
                     location_el = await card.query_selector("[data-item-name='location']")
                     location = await location_el.inner_text() if location_el else ""
@@ -904,6 +1169,9 @@ async def scrape_autoscout24(config: dict, max_results: int = 30) -> List[dict]:
                         "fuel": None,
                         "gearbox": None,
                         "engine": None,
+                        "tuv_text": tuv_info.get("tuv_text"),
+                        "tuv_until": tuv_info.get("tuv_until"),
+                        "tuv_months_left": tuv_info.get("tuv_months_left"),
                         "location": location.strip(),
                         "description": "",
                         "seller_type": "unknown",

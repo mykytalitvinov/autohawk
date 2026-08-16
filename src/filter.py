@@ -17,8 +17,8 @@ HARD_REJECT_PATTERNS = [
     (r"\bsuche\s+kaufe\b|\bwir\s+kaufen\b|\bfahrzeugankauf\b|\bautoankauf\b|\bankauf\b", "purchase ad / car buyer"),
     # Broken drivetrain / not roadworthy
     (r"\bmotor\s*schaden\b|\bmotorschaden\b|\bmotor\s*defekt\b", "engine damage"),
-    (r"\bmotor\s*unruhig\b|\bunruhiger\s*motor\b|\bmotor\s*(?:laeuft|lauft)\s*unruhig\b|\bmotor\s*lÃ¤uft\s*unruhig\b|\bmotorproblem\b|\bmotor\s*problem\b", "engine runs poorly"),
-    (r"\bkalt\b.{0,30}\b(motor|laeuft|lauft|start)\b.{0,30}\b(schlecht|unruhig|ruckelt)\b|\bmotor\b.{0,30}\bkalt\b.{0,30}\b(schlecht|unruhig|ruckelt)\b", "cold-start engine issue"),
+    (r"\bmotor\b.{0,80}\b(unruhig|ruckelt|stottert|geht\s*aus|leistungsverlust)\b|\bunruhiger\s*motor\b|\bmotor\s*(?:laeuft|läuft|lauft)\s*(?:gelegentlich\s*)?unruhig\b|\bmotorproblem\b|\bmotor\s*problem\b", "engine runs poorly"),
+    (r"\bkalt\b.{0,40}\b(motor|laeuft|läuft|lauft|start)\b.{0,40}\b(schlecht|unruhig|ruckelt|stottert)\b|\bmotor\b.{0,40}\bkalt\b.{0,40}\b(schlecht|unruhig|ruckelt|stottert)\b", "cold-start engine issue"),
     (r"\boelverbrauch\b|\boel\s*verbrauch\b|\bverbrauch[t]?\s*oel\b|\b[0-9]+(?:[,.][0-9]+)?\s*l(?:iter)?\s*oel\b.{0,20}\b(1000|1\.000)\s*km\b", "high oil consumption"),
     (r"\bgetriebe\s*schaden\b|\bgetriebeschaden\b|\bgetriebe\s*defekt\b|\bgetriebe\s*problem\b|\bautomatik\s*problem\b|\bautomatikgetriebe\s*problem\b", "gearbox damage/problem"),
     (r"\bkupplung\s*defekt\b|\bkupplungsschaden\b", "clutch damage"),
@@ -41,9 +41,9 @@ HARD_REJECT_PATTERNS = [
     # Legal/document roadblocks
     (r"\bohne\s*papiere\b|\bkeine\s*papiere\b|\bohne\s*brief\b", "missing documents"),
 
-    # Warning lights and hidden issues
-    (r"\bkontrollleuchte\b|\bmotorlampe\b|\bcheck\s*engine\b", "warning light"),
+    (r"\bmotorkontrollleuchte\b|\bmotor\s*kontrollleuchte\b|\bkontrollleuchte\b|\bmotorlampe\b|\bcheck\s*engine\b|\bmkl\b", "warning light"),
     (r"\bairbag\s*leuchtet\b|\babs\s*leuchtet\b", "safety warning light"),
+    (r"\b(?:oel|ol|öl)\s*standsensor\s*defekt\b|\b(?:oel|ol|öl)standsensor\s*defekt\b|\blambdasonde\b.{0,40}\b(erneuert|defekt|fehler)\b", "engine sensor defect"),
     (r"\boelverlust\b|\boel\s*verlust\b|\bwasserverlust\b", "visible fluid loss"),
     (r"\bzylinderkopfdichtung\b|\bkopfdichtung\b", "possible head gasket issue"),
     (r"\bkat\s*defekt\b|\bkatalysator\s*defekt\b", "catalytic converter defect"),

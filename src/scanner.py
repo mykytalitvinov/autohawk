@@ -34,6 +34,7 @@ from src.models import Listing, init_db
 from src.scoring import score_listing
 from src.scrapers import scrape_autoscout24, scrape_kleinanzeigen
 from src.sold_tracker import SoldTracker
+from src.telegram_notifier import TelegramNotifier
 from src.utils import (
     DURABLE_JAPANESE,
     DURABLE_KOREAN,
@@ -75,6 +76,16 @@ class AutohawkScanner:
         self.learned_market = {}
         self._last_export_listings = []
         self.sold_tracker = SoldTracker(config, self.Session) if config.get("sold_tracker_enabled", True) else None
+        self.telegram_notifier = None
+        if config.get("telegram_enabled", True):
+            try:
+                self.telegram_notifier = TelegramNotifier(config)
+                if self.telegram_notifier.ready():
+                    logger.info("Telegram notifier enabled")
+                else:
+                    logger.info("Telegram notifier inactive: set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to enable")
+            except Exception as exc:
+                logger.warning(f"Telegram notifier disabled after init error: {exc}")
         logger.info("AUTOHAWK Scanner initialized")
 
 
@@ -344,6 +355,9 @@ class AutohawkScanner:
             return f"suspicious/future model year ({year}, max {max_model_year})"
         if year and price and year >= datetime.now().year - 1 and float(price) < 5000:
             return f"suspicious model year/price mismatch ({year} for {price} EUR)"
+        absolute_max_mileage = int(self.config.get("absolute_mileage_reject_km", 300000))
+        if mileage and mileage > absolute_max_mileage:
+            return f"mileage above absolute limit ({absolute_max_mileage} km)"
         if mileage and max_mileage and mileage > max_mileage:
             return f"mileage above adaptive limit ({mileage_profile}, max {max_mileage})"
         if year and year < min_year_limit:
@@ -357,6 +371,136 @@ class AutohawkScanner:
         if age_min is not None and age_min > max_age:
             return "older than freshness window"
         return None
+
+    def _is_blocked_for_output(self, listing: Listing) -> Optional[str]:
+        """Final safety gate shared by Excel-like output and Telegram delivery."""
+        blocked_terms = [
+            "motor unruhig", "unruhiger motor", "motor laeuft unruhig", "motor lÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¤uft unruhig",
+            "motorproblem", "motor problem", "motorschaden", "motor defekt",
+            "motorkontrollleuchte", "motor kontrollleuchte", "kontrollleuchte", "motorlampe", "check engine", "mkl",
+            "lambdasonde", "oelstandsensor", "olstandsensor", "standsensor defekt",
+            "getriebeschaden", "getriebe defekt", "bastler", "export", "fahrzeugankauf",
+            "suche kaufe", "wir kaufen", "ankauf", "nur tausch", "leasingÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼bernahme", "leasinguebernahme",
+            "kein kfz brief", "kein brief", "ohne brief", "brief fehlt", "keine papiere", "ohne papiere",
+        ]
+        title_text = f"{listing.title or ''} {listing.description or ''}".lower()
+        title_text = re.sub(r"\bunfall\s+frei\b", "unfallfrei", title_text)
+        if self.config.get("require_listing_age_for_telegram", True):
+            if listing.listing_age_minutes is None:
+                return "missing listing age for Telegram"
+            min_age = int(self.config.get("freshness_min_minutes", 0))
+            max_age = int(self.config.get("freshness_max_minutes", self.config.get("freshness_max_hours", 12) * 60))
+            if listing.listing_age_minutes < min_age:
+                return "too new / unstable listing age for Telegram"
+            if listing.listing_age_minutes > max_age:
+                return "older than freshness window for Telegram"
+        if self.config.get("require_mileage_for_telegram", True) and not listing.mileage:
+            return "missing mileage for Telegram"
+        if listing.mileage and listing.mileage > int(self.config.get("absolute_mileage_reject_km", 300000)):
+            return "mileage above absolute output limit"
+        if listing.mileage:
+            max_mileage, _min_year, mileage_profile = self._adaptive_limits({
+                "brand": listing.brand,
+                "model": listing.model,
+                "engine": listing.engine,
+                "fuel": listing.fuel,
+                "gearbox": listing.gearbox,
+                "title": listing.title,
+                "description": listing.description,
+            })
+            if max_mileage and listing.mileage > max_mileage:
+                return f"mileage above adaptive Telegram limit ({mileage_profile}, max {max_mileage})"
+        if re.search(r"\bunfall(?!frei)\b", title_text, re.IGNORECASE):
+            return "accident wording"
+        for term in blocked_terms:
+            if term in title_text:
+                return f"blocked term: {term}"
+        return None
+
+    def _send_pending_telegram_from_db(self) -> int:
+        """Send Telegram alerts from persisted SQLite listings and update DB state."""
+        if not self.telegram_notifier:
+            return 0
+        if not self.telegram_notifier.ready():
+            logger.debug("Telegram DB queue inactive: missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID")
+            return 0
+
+        max_per_scan = int(self.config.get("telegram_max_per_scan", 5))
+        max_attempts = int(self.config.get("telegram_max_attempts", 3))
+        recent_hours = int(self.config.get("telegram_queue_recent_hours", self.config.get("export_recent_hours", 24)) or 0)
+        verdicts = set(self.config.get("telegram_verdicts", ["HOT", "GOOD", "CHECK"]))
+        min_score = float(self.config.get("telegram_min_score", 0.70))
+
+        session = self.Session()
+        sent_count = 0
+        failed_count = 0
+        skipped_count = 0
+        try:
+            query = (
+                session.query(Listing)
+                .filter(Listing.verdict.in_(verdicts))
+                .filter(Listing.final_score >= min_score)
+                .filter(Listing.price.isnot(None))
+                .filter((Listing.is_junk.is_(False)) | (Listing.is_junk.is_(None)))
+                .filter((Listing.telegram_status.is_(None)) | (Listing.telegram_status.in_(["pending", "failed"])))
+                .filter((Listing.telegram_attempts.is_(None)) | (Listing.telegram_attempts < max_attempts))
+            )
+            if recent_hours > 0:
+                query = query.filter(Listing.found_at >= datetime.utcnow() - timedelta(hours=recent_hours))
+            if self.config.get("require_listing_age", False):
+                query = query.filter(Listing.listing_age_minutes.isnot(None))
+                query = query.filter(Listing.listing_age_minutes >= self.config.get("freshness_min_minutes", 1))
+                query = query.filter(
+                    Listing.listing_age_minutes
+                    <= self.config.get("freshness_max_minutes", self.config.get("freshness_max_hours", 12) * 60)
+                )
+
+            candidates = (
+                query.order_by(Listing.final_score.desc(), Listing.found_at.desc())
+                .limit(max_per_scan * 4)
+                .all()
+            )
+
+            for listing in candidates:
+                if sent_count >= max_per_scan:
+                    break
+
+                now = datetime.utcnow()
+                block_reason = self._is_blocked_for_output(listing)
+                if block_reason:
+                    listing.telegram_status = "skipped"
+                    listing.telegram_error = block_reason
+                    listing.telegram_last_attempt_at = now
+                    session.commit()
+                    skipped_count += 1
+                    continue
+
+                listing.telegram_attempts = int(listing.telegram_attempts or 0) + 1
+                listing.telegram_last_attempt_at = now
+                ok, error = self.telegram_notifier.post_listing(listing)
+                if ok:
+                    listing.telegram_status = "sent"
+                    listing.telegram_sent_at = now
+                    listing.telegram_error = None
+                    sent_count += 1
+                else:
+                    listing.telegram_status = "failed"
+                    listing.telegram_error = str(error or "unknown")[:500]
+                    failed_count += 1
+                session.commit()
+
+            if sent_count or failed_count or skipped_count:
+                logger.info(
+                    "Telegram DB queue: "
+                    f"sent={sent_count}, failed={failed_count}, skipped={skipped_count}"
+                )
+            return sent_count
+        except Exception as exc:
+            session.rollback()
+            logger.warning(f"Telegram DB queue failed: {exc}")
+            return sent_count
+        finally:
+            session.close()
 
     def _maybe_paid_ai(
         self,
@@ -467,7 +611,16 @@ class AutohawkScanner:
                     )
                     market_price = None
 
-            if market_price and asking_price:
+            market_gate_allowed = True
+            if self.config.get("require_mileage_for_above_market_gate", True) and not raw.get("mileage"):
+                market_gate_allowed = False
+                raw["_market_gate_skipped_reason"] = "missing mileage"
+            learned_key_for_gate = str(raw.get("_market_learned_key") or "")
+            if learned_key_for_gate.endswith("|unknown"):
+                market_gate_allowed = False
+                raw["_market_gate_skipped_reason"] = "unknown mileage market bucket"
+
+            if market_price and asking_price and market_gate_allowed:
                 max_over_market_pct = float(self.config.get("max_over_market_export_pct", 5))
                 if asking_price > market_price * (1 + max_over_market_pct / 100.0):
                     raw["_skip_reason"] = (
@@ -476,6 +629,12 @@ class AutohawkScanner:
                     )
                     logger.debug(f"SKIP above market: {raw.get('title', '')[:60]} asking={asking_price} market={market_price}")
                     return None
+            elif market_price and asking_price:
+                logger.debug(
+                    "Above-market gate not applied because market confidence is low: "
+                    f"{raw.get('title', '')[:60]} asking={asking_price} market={market_price} "
+                    f"reason={raw.get('_market_gate_skipped_reason', 'unknown')}"
+                )
 
             # Legacy/support scoring. It does not decide HOT/GOOD/CHECK.
             # Main decision gate is dealer_engine below. From base_scores, only
@@ -550,11 +709,10 @@ class AutohawkScanner:
 
             ai_score = int(ai.get("opportunity_score") or dealer_score)
             ai_action = (ai.get("recommended_action") or dealer_action).upper()
-
             observed_comps_for_gate = int(raw.get("_market_observed_comps") or 0)
             min_observed_for_good = int(self.config.get("min_observed_comps_for_good", 3))
             requires_market_proof = bool(self.config.get("good_requires_observed_market", True))
-            if requires_market_proof and ai_score >= 68 and observed_comps_for_gate < min_observed_for_good:
+            if requires_market_proof and ai_score >= 68 and (not market_price or observed_comps_for_gate < min_observed_for_good):
                 ai_score = min(ai_score, int(self.config.get("unverified_market_score_cap", 72)))
                 ai_action = "INSPECTION_ONLY"
                 ai["recommended_action"] = ai_action
@@ -563,6 +721,20 @@ class AutohawkScanner:
                     str(ai.get("price_view") or "")
                     + f" | Market not verified enough: {observed_comps_for_gate} comparable observations. "
                     + "No GOOD/HOT without market proof."
+                ).strip()
+
+            if not raw.get("mileage") and ai_score > int(self.config.get("missing_mileage_score_cap", 62)):
+                ai_score = int(self.config.get("missing_mileage_score_cap", 62))
+                ai_action = "INSPECTION_ONLY"
+                ai["recommended_action"] = ai_action
+                ai["opportunity_type"] = "WATCHLIST_CHECK_MANUALLY"
+                ai["possible_risks"] = (
+                    str(ai.get("possible_risks") or "")
+                    + "\n- Mileage missing: do not treat as HOT until Kilometerstand is confirmed."
+                ).strip()
+                ai["what_to_check"] = (
+                    str(ai.get("what_to_check") or "")
+                    + "\n- Confirm exact Kilometerstand from listing details/photo/TUV report."
                 ).strip()
 
             if self.config.get("use_ai_gate", True):
@@ -631,6 +803,9 @@ class AutohawkScanner:
                 fuel=raw.get("fuel"),
                 gearbox=raw.get("gearbox"),
                 engine=raw.get("engine"),
+                tuv_text=raw.get("tuv_text"),
+                tuv_until=raw.get("tuv_until"),
+                tuv_months_left=raw.get("tuv_months_left"),
                 location=raw.get("location"),
                 description=raw.get("description"),
                 seller_type=raw.get("seller_type"),
@@ -663,7 +838,7 @@ class AutohawkScanner:
 
         except Exception as exc:
             raw["_skip_reason"] = f"processing error: {exc}"
-            logger.error(f"Listing processing error: {exc} - {raw.get('url', '')}")
+            logger.exception(f"Listing processing error: {exc} - {raw.get('url', '')}")
             return None
 
     async def _scan_source(self, source_name: str) -> List[dict]:
@@ -691,7 +866,7 @@ class AutohawkScanner:
         total = success + fallback
 
         if total == 0:
-            logger.info("AI success rate за этот скан: 0/0 (n/a), fallback provider: none")
+            logger.info("AI success rate this scan: 0/0 (n/a), fallback provider: none")
             return
 
         success_pct = (success / total) * 100.0
@@ -704,7 +879,7 @@ class AutohawkScanner:
         fallback_provider = "rule-based" if fallback else "none"
 
         logger.info(
-            f"AI success rate за этот скан: {success}/{total} "
+            f"AI success rate this scan: {success}/{total} "
             f"({success_pct:.0f}%), fallback provider: {fallback_provider}, "
             f"failed provider: {failed_provider}"
         )
@@ -831,6 +1006,7 @@ class AutohawkScanner:
         if self.sold_tracker:
             self.sold_tracker.check_due()
         self._update_excel()
+        self._send_pending_telegram_from_db()
         if self.config.get("best_of_scan_report_enabled", True) and write_best_of_scan_report:
             try:
                 write_best_of_scan_report(self.config, self.scan_count, self._last_export_listings)
@@ -881,15 +1057,19 @@ class AutohawkScanner:
                 .all()
             )
             blocked_export_terms = [
-                "motor unruhig", "unruhiger motor", "motor laeuft unruhig", "motor lÃ¤uft unruhig",
+                "motor unruhig", "unruhiger motor", "motor laeuft unruhig", "motor lÃƒÆ’Ã‚Â¤uft unruhig",
                 "motorproblem", "motor problem", "motorschaden", "motor defekt",
+                "motorkontrollleuchte", "motor kontrollleuchte", "kontrollleuchte", "motorlampe", "check engine", "mkl",
+                "lambdasonde", "oelstandsensor", "olstandsensor", "standsensor defekt",
                 "getriebeschaden", "getriebe defekt", "bastler", "export", "fahrzeugankauf",
-                "suche kaufe", "wir kaufen", "ankauf", "nur tausch", "leasingÃ¼bernahme", "leasinguebernahme", "kein kfz brief", "kein brief", "ohne brief", "brief fehlt", "keine papiere", "ohne papiere",
+                "suche kaufe", "wir kaufen", "ankauf", "nur tausch", "leasingÃƒÆ’Ã‚Â¼bernahme", "leasinguebernahme", "kein kfz brief", "kein brief", "ohne brief", "brief fehlt", "keine papiere", "ohne papiere",
             ]
             clean_export = []
             for listing in listings:
                 title_text = f"{listing.title or ''} {listing.description or ''}".lower()
                 title_text = re.sub(r"\bunfall\s+frei\b", "unfallfrei", title_text)
+                if listing.mileage and listing.mileage > int(self.config.get("absolute_mileage_reject_km", 300000)):
+                    continue
                 if re.search(r"\bunfall(?!frei)\b", title_text, re.IGNORECASE) or any(term in title_text for term in blocked_export_terms):
                     continue
 
@@ -997,3 +1177,4 @@ class AutohawkScanner:
                 break
 
         logger.info("AUTOHAWK shut down.")
+

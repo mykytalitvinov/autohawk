@@ -6,11 +6,13 @@ from pathlib import Path
 
 from src.scrapers import (
     _extract_brand_model,
+    _parse_card_mileage,
     _parse_fuel,
     _parse_gearbox,
     _parse_listing_age,
     _parse_mileage,
     _parse_price,
+    _parse_tuv_info,
     _parse_year,
 )
 
@@ -103,3 +105,35 @@ def test_mileage_is_only_parsed_from_kilometerstand_like_field() -> None:
 
     assert _parse_mileage(description) is None
     assert _parse_mileage(detail_text) == 250700
+    assert _parse_mileage("Der Kilometerstand beim Zahnriemenwechsel war 180.000 km") is None
+    assert _parse_mileage("Kilometerstand\n230.000 km\nFahrzeugzustand\nUnbeschädigtes Fahrzeug") == 230000
+
+
+def test_mileage_accepts_labelled_value_without_km_suffix() -> None:
+    assert _parse_mileage("Kilometerstand\n145.000\nBeschreibung: Zahnriemen bei 90.000 km") == 145000
+    assert _parse_mileage("Kilometerstand: 98 500") == 98500
+    assert _parse_mileage("Beschreibung: Service bei 98 500 gemacht") is None
+
+
+def test_card_mileage_reads_structured_search_feature_without_touching_description() -> None:
+    card_features = "EZ 03/2009\n230.000 km\nBenzin\nSchaltgetriebe"
+    description = "Zahnriemen bei 180.000 km gemacht, Service bei 220.000 km."
+
+    assert _parse_card_mileage(card_features) == 230000
+    assert _parse_card_mileage(description) is None
+    assert _parse_mileage(card_features) is None
+
+
+def test_parse_tuv_from_title_description_and_detail_fields() -> None:
+    assert _parse_tuv_info("VW Polo 1.2 TÜV 08/2027")["tuv_until"] == "2027-08"
+    assert _parse_tuv_info("HU bis 03.28 Klima 5 Türen")["tuv_text"] == "03/2028"
+    assert _parse_tuv_info("Das Fahrzeug hat im Feb.26 TÜV bekommen.")["tuv_until"] == "2028-02"
+    assert _parse_tuv_info("TÜV neu, Bremse hinten neu")["tuv_text"] == "neu/frisch"
+    assert _parse_tuv_info("ohne TÜV, nur Export")["tuv_months_left"] == -1
+
+
+def test_parse_year_does_not_use_online_or_tuv_year_as_model_year() -> None:
+    assert _parse_year("Corsa C Tuv NEU !!!!! Online seit 15.08.2026") is None
+    assert _parse_year("TUV 08/2027, guter Zustand") is None
+    assert _parse_year("EZ 03/2005 TUV neu") == 2005
+    assert _parse_year("Baujahr 2014 Ford Fiesta") == 2014

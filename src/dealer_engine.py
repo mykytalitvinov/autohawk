@@ -1,4 +1,4 @@
-"""
+﻿"""
 AUTOHAWK deterministic dealer engine V2.
 
 Core rule:
@@ -21,11 +21,14 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Any
 
 from src.model_knowledge import contains_any, find_model_card
 from src.flip_value_database import evaluate_flip_value, find_flip_value_card
 from src.description_intelligence import analyze_description_intelligence
+from src.generation_resolver import evaluate_generation_truth
+from src.vehicle_dossier import evaluate_vehicle_dossier
 
 from src.utils import (
     norm,
@@ -72,8 +75,14 @@ def _photo_count(listing: dict) -> int:
 def _body(listing: dict) -> str:
     return norm(
         " ".join(
-            str(listing.get(key) or "")
-            for key in ["title", "description", "brand", "model", "engine", "gearbox", "fuel", "location"]
+            [
+                *[
+                    str(listing.get(key) or "")
+                    for key in ["title", "description", "brand", "model", "engine", "gearbox", "fuel", "location"]
+                ],
+                f"tuv {listing.get('tuv_text') or ''}",
+                f"hu bis {listing.get('tuv_until') or ''}",
+            ]
         )
     )
 
@@ -108,8 +117,9 @@ def _has_tuv_claim(text: str) -> bool:
 def _tuv_months_left(text: str) -> int | None:
     if _explicit_no_tuv(text):
         return -1
-    now_year = 2026
-    now_month = 6
+    now = datetime.now()
+    now_year = now.year
+    now_month = now.month
     best: int | None = None
     for m in re.finditer(r"\b(?:tuev|tuv|hu)\s*(?:bis)?\s*(0?[1-9]|1[0-2])\s*[./-]?\s*(2[6-9]|202[6-9])\b", text, re.IGNORECASE):
         month = int(m.group(1))
@@ -219,6 +229,71 @@ def _overpriced_youth_flip(brand: str, model: str, year: int, price: float, mile
     if target and cap and price > cap:
         return True, f"{label}; asking {int(price)} EUR is above flipper buy zone"
     return False, ""
+
+
+def _youth_demand_watch_profile(brand: str, model: str, year: int, price: float, mileage: int, text: str) -> tuple[bool, str, int, list[str]]:
+    """Recognize youth-demand cars without turning risky premium cars into HOT.
+
+    This is intentionally a CHECK/FAST_VERIFY layer. It exists because cheap
+    desirable A3/3er/C-Class/Golf/Mazda-type cars can sell quickly even when
+    the pure first-car/liquidity model underrates them. It still requires TUV,
+    acceptable mileage and no hard mechanical/document red flags.
+    """
+    b = norm(brand)
+    m = norm(model)
+    haystack = f"{b} {m} {text}"
+
+    profiles = [
+        ({"volkswagen", "vw"}, ["golf", "polo", "scirocco"], "VW Golf/Polo/Scirocco youth-demand model", 5000, 230000),
+        ({"audi"}, ["a3", "a4"], "Audi A3/A4 youth-demand model", 5500, 230000),
+        ({"bmw"}, ["1er", "116", "118", "120", "3er", "316", "318", "320", "e46", "e90", "e91"], "BMW 1er/3er youth-demand model", 5000, 220000),
+        ({"mercedes", "mercedes-benz", "benz"}, ["a-klasse", "b-klasse", "c-klasse", "w203", "w204", "clk"], "Mercedes A/B/C/CLK youth-demand model", 5000, 220000),
+        ({"mazda"}, ["2", "3", "6", "mx-5", "mx5"], "Mazda youth-demand model", 5000, 230000),
+        ({"seat"}, ["ibiza"], "Seat Ibiza youth-demand model", 3200, 210000),
+        ({"seat"}, ["leon"], "Seat Leon youth-demand model", 3800, 220000),
+    ]
+
+    matched_label = ""
+    matched_price_cap = 0
+    matched_mileage_cap = 0
+    for brands, model_terms, label, price_cap, mileage_cap in profiles:
+        if b in brands and any(term in m or term in haystack for term in model_terms):
+            matched_label = label
+            matched_price_cap = price_cap
+            matched_mileage_cap = mileage_cap
+            break
+
+    if not matched_label:
+        return False, "", 0, []
+
+    notes: list[str] = [matched_label]
+    if year and year >= 2008:
+        notes.append("newer than the old 2003-2005 budget zone")
+    if price and price <= matched_price_cap:
+        notes.append(f"inside youth buy-zone under {matched_price_cap} EUR")
+    if mileage and mileage <= matched_mileage_cap:
+        notes.append(f"mileage inside youth cap under {matched_mileage_cap} km")
+
+    hard_bad_terms = [
+        "motorschaden", "getriebeschaden", "motor defekt", "getriebe defekt",
+        "startet nicht", "springt nicht an", "kein tuv", "ohne tuv", "ohne hu",
+        "nur export", "exportfahrzeug", "bastler", "unfallfahrzeug",
+        "beschadigtes fahrzeug", "beschaedigtes fahrzeug",
+    ]
+    if any(term in haystack for term in hard_bad_terms):
+        return False, "", 0, []
+
+    premium_big_risk_terms = [
+        "2.7 tdi", "3.0 tdi", "multitronic", "s-tronic", "s tronic",
+        "1.8 tfsi", "2.0 tfsi", "tfsi", "n47", "m47", "cvt",
+        "luftfahrwerk", "airmatic",
+    ]
+    premium = b in {"audi", "bmw", "mercedes", "mercedes-benz", "benz"}
+    if premium and any(term in haystack for term in premium_big_risk_terms):
+        notes.append("premium risk wording found; keep as manual CHECK only")
+        return True, matched_label, min(matched_price_cap, 4500), notes
+
+    return True, matched_label, matched_price_cap, notes
 def _is_excluded_luxury(brand: str, model: str, text: str) -> bool:
     b = norm(brand)
     m = norm(model)
@@ -227,9 +302,14 @@ def _is_excluded_luxury(brand: str, model: str, text: str) -> bool:
         return True
     return any(name in haystack for name in EXCLUDED_LUXURY)
 
-def _is_premium_price_over_young_budget(brand: str, price: float, config: dict | None = None) -> bool:
+def _is_premium_price_over_young_budget(brand: str, model: str, price: float, config: dict | None = None) -> bool:
+    b = norm(brand)
+    m = norm(model)
+    if b == "audi" and any(x in m for x in ["a3", "a4"]):
+        cap = int((config or {}).get("audi_watch_max_price", 6500))
+        return bool(price and price > cap)
     cap = int((config or {}).get("young_buyer_premium_max_price", 5000))
-    return norm(brand) in PREMIUM and bool(price and price > cap)
+    return b in PREMIUM and bool(price and price > cap)
 
 def _is_strict_premium_candidate(brand: str, model: str, year: int, price: float, text: str) -> bool:
     b = norm(brand)
@@ -263,14 +343,15 @@ def _has_exceptional_golf4_proof(text: str, mileage: int) -> bool:
 # Level 4: almost always reject.
 LEVEL4_KILL = [
     (r"\bmotorschaden\b|\bmotor\s*schaden\b|\bmotor\s*defekt\b|\bmotor\s*klopft\b|\bmotor\s*stuckt\b", "level 4: engine damage/noise"),
-    (r"\bmotor\s*unruhig\b|\bunruhiger\s*motor\b|\bmotor\s*(?:laeuft|lauft)\s*unruhig\b|\bmotor\s*lÃ¤uft\s*unruhig\b|\bmotorproblem\b|\bmotor\s*problem\b", "level 4: engine runs poorly"),
-    (r"\bkalt\b.{0,30}\b(motor|laeuft|lauft|start)\b.{0,30}\b(schlecht|unruhig|ruckelt)\b|\bmotor\b.{0,30}\bkalt\b.{0,30}\b(schlecht|unruhig|ruckelt)\b", "level 4: cold-start engine issue"),
+    (r"\bmotor\b.{0,80}\b(unruhig|ruckelt|stottert|geht\s*aus|leistungsverlust)\b|\bunruhiger\s*motor\b|\bmotor\s*(?:laeuft|läuft|lauft)\s*(?:gelegentlich\s*)?unruhig\b|\bmotorproblem\b|\bmotor\s*problem\b", "level 4: engine runs poorly"),
+    (r"\bkalt\b.{0,40}\b(motor|laeuft|läuft|lauft|start)\b.{0,40}\b(schlecht|unruhig|ruckelt|stottert)\b|\bmotor\b.{0,40}\bkalt\b.{0,40}\b(schlecht|unruhig|ruckelt|stottert)\b", "level 4: cold-start engine issue"),
     (r"\boelverbrauch\b|\boel\s*verbrauch\b|\bverbrauch[t]?\s*oel\b|\b[0-9]+(?:[,.][0-9]+)?\s*l(?:iter)?\s*oel\b.{0,20}\b(1000|1\.000)\s*km\b", "level 4: high oil consumption wording"),
     (r"\bgetriebeschaden\b|\bgetriebe\s*schaden\b|\bgetriebe\s*defekt\b|\bgetriebe\s*problem\b|\bautomatik\s*problem\b|\bautomatikgetriebe\s*problem\b|\bschaltet\s*nicht\b", "level 4: gearbox damage/problem"),
     (r"\bbastler\b|\bbastlerfahrzeug\b|\bprojektfahrzeug\b", "level 4: Bastler/project car"),
     (r"\bnur\s*export\b|\bexport\s*only\b|\bexportfahrzeug\b|\bhaendler\s*export\b", "level 4: export-only wording"),
     (r"\bnicht\s*fahrbereit\b|\bfaehrt\s*nicht\b|\bstartet\s*nicht\b|\bspringt\s*nicht\s*an\b", "level 4: not roadworthy / does not start"),
-    (r"\bkontrollleuchte\b|\bmotorlampe\b|\bcheck\s*engine\b|\babs\s*leuchtet\b|\bairbag\s*leuchtet\b", "level 4: warning light wording"),
+    (r"\bmotorkontrollleuchte\b|\bmotor\s*kontrollleuchte\b|\bkontrollleuchte\b|\bmotorlampe\b|\bcheck\s*engine\b|\bmkl\b|\babs\s*leuchtet\b|\bairbag\s*leuchtet\b", "level 4: warning light wording"),
+    (r"\b(?:oel|ol|öl)\s*standsensor\s*defekt\b|\b(?:oel|ol|öl)standsensor\s*defekt\b|\blambdasonde\b.{0,40}\b(erneuert|defekt|fehler)\b", "level 4: engine sensor defect wording"),
     (r"\bohne\s*papiere\b|\bkeine\s*papiere\b|\bohne\s*brief\b|\bbrief\s*fehlt\b", "level 4: missing documents"),
     (r"\bunfallwagen\b|\bunfallschaden\b|\btotalschaden\b|\bschrott\b|\brahmen\s*schaden\b|\b[0-9]+\s*unfaelle\b|\b[0-9]+\s*unfall\b|\bunfall\b.{0,40}\b(repariert|gehabt|vorbesitzer|bekannt|schaden)\b", "level 4: accident/salvage/structural damage"),
     (r"\bdurchrostung\b|\btragende\s*teile\s*rost|\bstarker\s*rost\b|\bunterboden\s*durch\b", "level 4: serious/structural rust"),
@@ -454,7 +535,7 @@ class DealerDecision:
             "missing_info": self.missing_info,
             "photo_analysis": self.photo_analysis,
             "price_view": self.price_view,
-            "why_interesting": bullets(self.why_interesting),
+            "why_interesting": bullets(self.why_interesting, 14),
             "possible_risks": bullets(self.possible_risks),
             "what_to_check": bullets(self.what_to_check, 14),
             "seller_signals": bullets(self.seller_signals),
@@ -1049,6 +1130,16 @@ def analyze_dealer_candidate(
     why: list[str] = []
     risks: list[str] = []
     checks: list[str] = []
+    generation_truth: dict[str, Any] = {}
+    vehicle_dossier: dict[str, Any] = {}
+    try:
+        generation_truth = evaluate_generation_truth(listing) or {}
+    except Exception:
+        generation_truth = {}
+    try:
+        vehicle_dossier = evaluate_vehicle_dossier(listing) or {}
+    except Exception:
+        vehicle_dossier = {}
 
     if not price:
         kill_reasons.append("missing price")
@@ -1072,7 +1163,7 @@ def analyze_dealer_candidate(
     if year and year < adaptive_min_year:
         kill_reasons.append(f"older than adaptive min year ({adaptive_min_year})")
 
-    if _is_premium_price_over_young_budget(brand, price, config):
+    if _is_premium_price_over_young_budget(brand, model, price, config):
         kill_reasons.append("premium/luxury over young-buyer price cap (max 5000 EUR)")
     premium_requires_tuv_and_description = _is_strict_premium_candidate(brand, model, year, price, text)
     if premium_requires_tuv_and_description:
@@ -1105,6 +1196,33 @@ def analyze_dealer_candidate(
         checks.append("Price minor defects: trunk lock/key/AC/service can eat margin but are usually negotiation points, not automatic rejects.")
     if any("reserved" in item for item in level1):
         why.append("Market feedback: reserved quickly means this type of lead has real buyer demand.")
+
+    def _safe_int(value: Any, default: int = 0) -> int:
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return default
+
+    generation_points = _safe_int(generation_truth.get("score_delta"))
+    dossier_points = _safe_int(vehicle_dossier.get("score_delta"))
+    deep_database_points = int(clamp(generation_points + dossier_points, -35, 30))
+    deep_model_cap = None
+    for cap in [generation_truth.get("score_cap"), vehicle_dossier.get("score_cap")]:
+        if cap is not None:
+            deep_model_cap = min(deep_model_cap or 100, _safe_int(cap, 100))
+    deep_reputation_reserve = min(
+        2500,
+        max(0, _safe_int(generation_truth.get("repair_reserve")))
+        + max(0, _safe_int(vehicle_dossier.get("repair_reserve"))),
+    )
+    if generation_truth:
+        why.extend(list(generation_truth.get("why") or [])[:5])
+        risks.extend(list(generation_truth.get("risks") or [])[:5])
+        checks.extend(list(generation_truth.get("checks") or [])[:5])
+    if vehicle_dossier:
+        why.extend(list(vehicle_dossier.get("why") or [])[:6])
+        risks.extend(list(vehicle_dossier.get("risks") or [])[:6])
+        checks.extend(list(vehicle_dossier.get("checks") or [])[:6])
 
     positives = _match(text, POSITIVE)
     why.extend(positives[:6])
@@ -1159,8 +1277,14 @@ def analyze_dealer_candidate(
     body_rust_in_description = any("visible body rust" in item for item in description_risks + risks)
 
     model_penalty, reputation_reserve, reputation_risks = _known_reputation(listing, text, model_risks)
+    if deep_reputation_reserve:
+        reputation_reserve += deep_reputation_reserve
 
-    tuv_months = _tuv_months_left(text)
+    parsed_tuv_months = listing.get("tuv_months_left")
+    try:
+        tuv_months = int(parsed_tuv_months) if parsed_tuv_months is not None else _tuv_months_left(text)
+    except (TypeError, ValueError):
+        tuv_months = _tuv_months_left(text)
     score_cap_reason = ""
     if tuv_months == -1:
         risks.append("No valid HU/TUV: strong negative for normal young buyers and resale.")
@@ -1215,7 +1339,7 @@ def analyze_dealer_candidate(
         risks.append("Youth-flip price cap: " + overpriced_reason)
         if discount_pct is None or discount_pct < 18:
             score_cap_reason = overpriced_reason
-    
+
     flip_value = evaluate_flip_value(
         flip_value_card, listing, text, price, year, mileage, fuel, gearbox, discount_pct
     )
@@ -1262,7 +1386,7 @@ def analyze_dealer_candidate(
     if seller_bad:
         risks.extend([f"Seller risk: {s}" for s in seller_bad])
 
-    total_costs, risk_reserve, resale_discount = _estimate_costs(
+    total_costs, repair_costs, risk_reserve, resale_discount = _estimate_costs(
         price=price,
         market_price=market_price,
         problem_cost=problem_cost,
@@ -1310,6 +1434,7 @@ def analyze_dealer_candidate(
         "flip_potential": flip_points,
         "data_quality": data_points,
         "description_truth": description_points,
+        "deep_model_database": deep_database_points,
         "flip_value_database": flip_value_points,
         "high_mileage_workhorse": high_mileage_workhorse_points,
     }
@@ -1481,6 +1606,50 @@ def analyze_dealer_candidate(
         else:
             risks.append("Audi watch risk: premium repair costs still require OBD, gearbox test, service invoices and accident/rust inspection.")
 
+
+    # Youth-demand watch:
+    # Desirable cheap cars for young buyers (A3/A4, BMW 1er/3er, Golf/Polo,
+    # Mazda 2/3/6, Seat Ibiza/Leon, small Mercedes) can sell faster than
+    # boring city cars when they have TUV, acceptable mileage and no hard
+    # mechanical/document red flags. This is only a CHECK/FAST_VERIFY floor,
+    # not a HOT rescue and not a market-price override.
+    youth_watch, youth_label, youth_price_cap, youth_notes = _youth_demand_watch_profile(brand, model, year, price, mileage, text)
+    youth_has_tuv = tuv_months is not None and tuv_months >= int(config.get("youth_demand_watch_min_tuv_months", 10))
+    youth_has_tuv = youth_has_tuv or ("tuv neu" in text or "hu neu" in text or "tuev neu" in text)
+    youth_mileage_cap = int(config.get("youth_demand_watch_max_mileage", 230000))
+    youth_price_cap = min(youth_price_cap or int(config.get("youth_demand_watch_max_price", 5000)), int(config.get("youth_demand_watch_max_price", 5000)))
+    youth_demand_watch = (
+        bool(config.get("youth_demand_watch_enabled", True))
+        and youth_watch
+        and not kill_reasons
+        and price >= float(config.get("youth_demand_watch_min_price", 1000))
+        and price <= youth_price_cap
+        and mileage
+        and mileage <= youth_mileage_cap
+        and youth_has_tuv
+        and len(level3) == 0
+        and model_penalty < int(config.get("youth_demand_watch_max_model_penalty", 24))
+    )
+    if youth_demand_watch:
+        youth_floor = int(config.get("youth_demand_watch_score_floor", 68))
+        if price <= 3000:
+            youth_floor += 3
+        if mileage <= 160000:
+            youth_floor += 3
+        if tuv_months is not None and tuv_months >= 18:
+            youth_floor += 3
+        if positives or seller_good:
+            youth_floor += 2
+        if discount_pct is not None and discount_pct >= 12:
+            youth_floor = max(youth_floor, int(config.get("youth_demand_strong_score_floor", 76)))
+        youth_floor = int(clamp(youth_floor, 65, 78))
+        score = max(score, youth_floor)
+        why.insert(0, f"YOUTH DEMAND watch: {youth_label}; " + ", ".join(youth_notes[:4]) + ".")
+        risks.append("Youth-demand watch is not automatic buy: confirm TUV report, exact engine, gearbox behavior, rust/accident history and real comparable prices.")
+        checks.append("Youth-demand check: OBD scan, cold start, clutch/gearbox test, oil leaks, rust on arches/sills/doors, service invoices.")
+        if discount_pct is None and score > int(config.get("youth_demand_unverified_score_cap", 74)):
+            score = int(config.get("youth_demand_unverified_score_cap", 74))
+            risks.append("Youth-demand cap: no confirmed market discount/comps yet, so this stays manual CHECK/FAST_VERIFY, not automatic buy.")
     if discount_pct is not None and discount_pct < -10:
         risks.append("Strong over-market price; reject for resale-profit strategy.")
         score = min(score, 42)
@@ -1534,8 +1703,6 @@ def analyze_dealer_candidate(
         score = min(score, 72)
         risks.append("Final cap: FSI engine stays CHECK until service/diagnostics prove it is clean.")
 
-
-    
     min_good_profit = int(config.get("min_good_net_profit", 500))
     if net_profit is not None and net_profit < min_good_profit and score > 72:
         score = min(score, 72)
@@ -1543,8 +1710,37 @@ def analyze_dealer_candidate(
     if flip_value_cap is not None and score > int(flip_value_cap):
         score = min(score, int(flip_value_cap))
         risks.append(f"Flip DB cap applied: score capped at {int(flip_value_cap)} by model buy-zone/risk database.")
+    if deep_model_cap is not None and score > int(deep_model_cap):
+        score = min(score, int(deep_model_cap))
+        risks.append(f"Deep model DB cap applied: score capped at {int(deep_model_cap)} by generation/dossier risk database.")
     if len(kill_reasons) > 0:
         score = min(score, 35)
+
+    youth_confirmed_market_edge = (
+        (discount_pct is not None and discount_pct >= float(config.get("youth_demand_confirmed_discount_pct", 12)))
+        or (net_profit is not None and net_profit >= int(config.get("min_good_net_profit", 500)))
+        or (observed_comps >= int(config.get("youth_demand_min_confirmed_comps", 5)) and gross_gap >= int(config.get("youth_demand_min_confirmed_gap", 900)))
+    )
+    if (
+        "youth_watch" in locals()
+        and youth_watch
+        and not kill_reasons
+        and not youth_confirmed_market_edge
+        and score > int(config.get("youth_demand_unverified_score_cap", 74))
+    ):
+        score = int(config.get("youth_demand_unverified_score_cap", 74))
+        if not any("YOUTH DEMAND watch" in item for item in why):
+            why.insert(0, f"YOUTH DEMAND watch: {youth_label}; desirable model, but market edge is not confirmed yet.")
+        risks.append("Youth-demand final cap: no confirmed market edge, so this cannot be automatic BUY_CANDIDATE.")
+
+    if (
+        "youth_watch" in locals()
+        and youth_watch
+        and not kill_reasons
+        and not any("YOUTH DEMAND watch" in item for item in why)
+    ):
+        why.insert(0, f"YOUTH DEMAND watch: {youth_label}; desirable model for young buyers, but still needs manual price/risk proof.")
+        risks.append("Youth-demand reason: profile matched, but this note is informational unless the watch floor also passes TUV/mileage/risk gates.")
 
     score = int(round(clamp(score)))
 
@@ -1659,6 +1855,10 @@ def analyze_dealer_candidate(
 
     if flip_value.get("summary"):
         price_view += " Flip DB buy-zone: " + str(flip_value.get("summary"))
+    if generation_truth.get("summary"):
+        price_view += " Generation DB: " + str(generation_truth.get("summary"))
+    if vehicle_dossier.get("report"):
+        price_view += " Vehicle dossier: " + str(vehicle_dossier.get("report"))
     if discount_pct is not None:
         price_view += f" Estimated costs/reserve: {total_costs} EUR; resale negotiation reserve: {resale_discount} EUR."
         if net_profit is not None:
@@ -1708,3 +1908,7 @@ def analyze_dealer_candidate(
         segment_scores=segment_scores,
     )
     return decision.as_ai()
+
+
+
+

@@ -70,8 +70,40 @@ To add your key:
 2. Open `.env` in Notepad
 3. Change this line:
    ```
-   OPENAI_API_KEY=your-key-here
+OPENAI_API_KEY=your-key-here
    ```
+
+---
+
+## Telegram Alerts
+
+AUTOHAWK can send new top leads to Telegram after the same final filtering used
+for `deals.xlsx`.
+
+1. Create a bot with Telegram `@BotFather`.
+2. Copy the bot token.
+3. Add these lines to `.env`:
+
+```text
+TELEGRAM_BOT_TOKEN=your-bot-token
+TELEGRAM_CHAT_ID=your-chat-id
+```
+
+If these values are empty, AUTOHAWK still works normally and only writes Excel
+and text reports.
+
+Telegram settings live in `config.json`:
+
+```json
+{
+  "telegram_enabled": true,
+  "telegram_min_score": 0.7,
+  "telegram_max_per_scan": 5
+}
+```
+
+Sent listings are remembered in `output/telegram_sent.json`, so the same lead is
+not sent again every scan.
 
 ---
 
