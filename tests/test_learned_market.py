@@ -93,7 +93,6 @@ def test_estimate_from_learned_market_rejects_broad_model_fallback(tmp_path: Pat
         {"brand": "Toyota", "model": "Yaris", "year": 2015, "mileage": 90000},
         learned,
         min_bucket_count=3,
-        min_model_count=1,
     )
 
     assert estimate is None

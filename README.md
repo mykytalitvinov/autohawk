@@ -102,8 +102,8 @@ Telegram settings live in `config.json`:
 }
 ```
 
-Sent listings are remembered in `output/telegram_sent.json`, so the same lead is
-not sent again every scan.
+Telegram delivery status and retry attempts are stored with each listing in the
+SQLite database, so the same lead is not sent again every scan.
 
 ---
 

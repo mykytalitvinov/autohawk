@@ -7,39 +7,21 @@ listings and does not change scoring or filtering.
 from __future__ import annotations
 
 import html
-import json
 import logging
 import os
 import re
-from pathlib import Path
 from typing import Any
 
 import requests
 
-from src.utils import norm
+from src.utils import norm, safe_float, safe_int
 
 logger = logging.getLogger("autohawk.telegram")
 
-ROOT = Path(__file__).resolve().parents[1]
 MAX_TELEGRAM_TEXT = 3900
 
 
-def _safe_float(value: Any, default: float = 0.0) -> float:
-    try:
-        if value is None or value == "":
-            return default
-        return float(value)
-    except Exception:
-        return default
 
-
-def _safe_int(value: Any, default: int = 0) -> int:
-    try:
-        if value is None or value == "":
-            return default
-        return int(float(str(value).replace(".", "").replace(",", ".")))
-    except Exception:
-        return default
 
 
 def _field(listing: Any, name: str) -> Any:
@@ -51,21 +33,21 @@ def _text_field(listing: Any, name: str) -> str:
 
 
 def _money(value: Any) -> str:
-    amount = _safe_float(value)
+    amount = safe_float(value)
     if not amount:
         return "? EUR"
     return f"{amount:,.0f} EUR".replace(",", ".")
 
 
 def _km(value: Any) -> str:
-    km = _safe_int(value)
+    km = safe_int(value)
     if not km:
         return "? km"
     return f"{km:,} km".replace(",", ".")
 
 
 def _score(value: Any) -> int:
-    raw = _safe_float(value)
+    raw = safe_float(value)
     if raw <= 1:
         raw *= 100
     return max(0, min(100, int(round(raw))))
@@ -171,9 +153,9 @@ def _car_name(listing: Any) -> str:
 
 
 def _market_line(listing: Any) -> str:
-    price = _safe_float(_field(listing, "price"))
-    market = _safe_float(_field(listing, "estimated_market_price"))
-    margin = _safe_float(_field(listing, "estimated_margin"))
+    price = safe_float(_field(listing, "price"))
+    market = safe_float(_field(listing, "estimated_market_price"))
+    margin = safe_float(_field(listing, "estimated_margin"))
 
     if market and price and market > price:
         gap = market - price
@@ -189,8 +171,8 @@ def _market_line(listing: Any) -> str:
 def _lead_type(listing: Any) -> str:
     text = _all_text(listing)
     score = _score(_field(listing, "final_score"))
-    price = _safe_float(_field(listing, "price"))
-    mileage = _safe_int(_field(listing, "mileage"))
+    price = safe_float(_field(listing, "price"))
+    mileage = safe_int(_field(listing, "mileage"))
     brand = norm(_field(listing, "brand"))
     model = norm(_field(listing, "model"))
 
@@ -208,8 +190,8 @@ def _lead_type(listing: Any) -> str:
 
 def _local_context(listing: Any) -> list[str]:
     text = _all_text(listing)
-    price = _safe_float(_field(listing, "price"))
-    mileage = _safe_int(_field(listing, "mileage"))
+    price = safe_float(_field(listing, "price"))
+    mileage = safe_int(_field(listing, "mileage"))
     tuv = _extract_tuv(listing)
     brand = norm(_field(listing, "brand"))
     model = norm(_field(listing, "model"))
@@ -272,7 +254,7 @@ def _seller_questions(listing: Any) -> list[str]:
     text = _all_text(listing)
     questions: list[str] = []
 
-    if not _safe_int(_field(listing, "mileage")):
+    if not safe_int(_field(listing, "mileage")):
         questions.append("Wie viele Kilometer hat das Auto genau? Kannst du ein Foto vom Tacho schicken?")
     if _extract_tuv(listing) != "?":
         questions.append("Kannst du ein Foto vom HU/TÜV-Bericht schicken?")
@@ -301,8 +283,8 @@ def _seller_questions(listing: Any) -> list[str]:
 
 def _final_take(listing: Any) -> str:
     score = _score(_field(listing, "final_score"))
-    price = _safe_float(_field(listing, "price"))
-    mileage = _safe_int(_field(listing, "mileage"))
+    price = safe_float(_field(listing, "price"))
+    mileage = safe_int(_field(listing, "mileage"))
     text = _all_text(listing)
 
     if "motorschaden" in text or "getriebeschaden" in text or "nicht fahrbereit" in text:
@@ -388,42 +370,9 @@ class TelegramNotifier:
         self.token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip() or str(config.get("telegram_bot_token", "")).strip()
         self.chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip() or str(config.get("telegram_chat_id", "")).strip()
         self.timeout = int(config.get("telegram_timeout_seconds", 10))
-        self.min_score = float(config.get("telegram_min_score", 0.70))
-        self.max_per_scan = int(config.get("telegram_max_per_scan", 5))
-        self.verdicts = set(config.get("telegram_verdicts", ["HOT", "GOOD", "CHECK"]))
-        self.sent_file = ROOT / str(config.get("telegram_sent_file", "output/telegram_sent.json"))
-        self.sent: set[str] = self._load_sent()
 
     def ready(self) -> bool:
         return self.enabled and bool(self.token and self.chat_id)
-
-    def _load_sent(self) -> set[str]:
-        if not self.sent_file.exists():
-            return set()
-        try:
-            data = json.loads(self.sent_file.read_text(encoding="utf-8"))
-            if isinstance(data, list):
-                return {str(item) for item in data}
-        except Exception:
-            pass
-        return set()
-
-    def _save_sent(self) -> None:
-        self.sent_file.parent.mkdir(parents=True, exist_ok=True)
-        self.sent_file.write_text(json.dumps(sorted(self.sent), ensure_ascii=False, indent=2), encoding="utf-8")
-
-    def _key(self, listing: Any) -> str:
-        return str(_field(listing, "stable_id") or _field(listing, "url") or _field(listing, "id") or "")
-
-    def _should_send(self, listing: Any) -> bool:
-        key = self._key(listing)
-        if not key or key in self.sent:
-            return False
-        if str(_field(listing, "verdict") or "") not in self.verdicts:
-            return False
-        if _safe_float(_field(listing, "final_score")) < self.min_score:
-            return False
-        return True
 
     def post_listing(self, listing: Any) -> tuple[bool, str]:
         """Send one listing to Telegram without changing scanner/database state."""
@@ -447,35 +396,3 @@ class TelegramNotifier:
             return False, error
 
         return True, ""
-
-    def send_listing(self, listing: Any) -> bool:
-        if not self._should_send(listing):
-            return False
-
-        ok, _error = self.post_listing(listing)
-        if ok:
-            self.sent.add(self._key(listing))
-            self._save_sent()
-        return ok
-
-    def send_new_top_listings(self, listings: list[Any]) -> int:
-        if not self.enabled:
-            return 0
-        if not self.ready():
-            logger.debug("Telegram notifier disabled: missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID")
-            return 0
-
-        sent_count = 0
-        for listing in listings:
-            if sent_count >= self.max_per_scan:
-                break
-            try:
-                if self.send_listing(listing):
-                    sent_count += 1
-            except requests.RequestException as exc:
-                logger.warning(f"Telegram send failed: {exc.__class__.__name__}")
-            except Exception as exc:
-                logger.warning(f"Telegram notifier error: {exc}")
-        if sent_count:
-            logger.info(f"Telegram sent {sent_count} new top lead(s)")
-        return sent_count

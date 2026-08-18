@@ -24,7 +24,7 @@ HARD_REJECT_PATTERNS = [
     (r"\bkupplung\s*defekt\b|\bkupplungsschaden\b", "clutch damage"),
     (r"\bsteuerkette\s*(rasselt|defekt|schaden)\b", "timing chain issue"),
     (r"\bdpf\s*defekt\b|\begr\s*defekt\b|\bturbo\s*defekt\b", "diesel system defect"),
-    (r"\bstartet\s*nicht\b|\bfaehrt\s*nicht\b|\bnicht\s*fahrbereit\b", "not roadworthy"),
+    (r"\bstartet\s*nicht\b|\bfaehrt\s*nicht\b|\bnicht\s*fahrbereit\b", "start / not roadworthy"),
     (r"\bkein\s*motor\b|\bohne\s*motor\b", "missing engine"),
 
     # Project/export/salvage cars
@@ -144,6 +144,20 @@ POSITIVE_SIGNALS = [
 
 MIN_PRICE = 300
 MAX_PRICE = 150000
+
+
+def _has_accident_damage_wording(text: str) -> bool:
+    normalized = _normalize(text)
+    if re.search(r"\bunfall\s*frei\b", normalized, re.IGNORECASE):
+        return False
+    return bool(
+        re.search(
+            r"\bunfallwagen\b|\bunfallschaden\b|\bnach\s*unfall\b|"
+            r"\bunfall\b.{0,40}\b(repariert|gehabt|vorbesitzer|bekannt|schaden)\b",
+            normalized,
+            re.IGNORECASE,
+        )
+    )
 
 
 def quick_filter(listing: dict) -> Tuple[bool, str, list, list]:

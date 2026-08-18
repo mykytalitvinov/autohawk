@@ -134,7 +134,6 @@
                               "GOOD",
                               "CHECK"
                           ],
-    "telegram_sent_file":  "output/telegram_sent.json",
     "telegram_timeout_seconds":  10,
     "telegram_max_attempts":  3,
     "buyer_demand_gate_enabled":  false,
