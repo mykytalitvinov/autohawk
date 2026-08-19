@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-from src.telegram_notifier import format_telegram_message
+from src.telegram_notifier import TelegramNotifier, format_telegram_message
 
 
 def test_format_telegram_message_contains_specific_deal_analysis() -> None:
@@ -79,3 +79,29 @@ def test_format_telegram_message_flags_cheap_high_mileage_premium_as_risk_lot() 
     assert "Beschädigtes Fahrzeug" in message or "Beschadigtes Fahrzeug" in message
     assert "DPF/EGR/Turbo/Injektoren" in message
     assert "Schaltet das Getriebe" in message
+
+
+def test_post_listing_sends_to_all_configured_chat_ids(monkeypatch) -> None:
+    listing = SimpleNamespace(
+        brand="VW", model="Polo", price=3000, mileage=180000,
+        final_score=0.8, risk_score=0.8, liquidity_score=0.8,
+        condition_score=0.8, verdict="GOOD", url="https://example.test/polo",
+    )
+    sent_chat_ids = []
+
+    class Response:
+        ok = True
+
+    def fake_post(url, json, timeout):
+        sent_chat_ids.append(json["chat_id"])
+        return Response()
+
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "token")
+    monkeypatch.setenv("TELEGRAM_CHAT_IDS", "111, 222,111")
+    monkeypatch.setattr("src.telegram_notifier.requests.post", fake_post)
+
+    notifier = TelegramNotifier({"telegram_enabled": True})
+
+    assert notifier.ready()
+    assert notifier.post_listing(listing) == (True, "")
+    assert sent_chat_ids == ["111", "222"]

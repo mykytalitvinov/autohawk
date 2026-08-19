@@ -368,31 +368,49 @@ class TelegramNotifier:
         self.config = config
         self.enabled = bool(config.get("telegram_enabled", True))
         self.token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip() or str(config.get("telegram_bot_token", "")).strip()
-        self.chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip() or str(config.get("telegram_chat_id", "")).strip()
+        configured_chat_ids = config.get("telegram_chat_ids", [])
+        if isinstance(configured_chat_ids, str):
+            configured_chat_ids = configured_chat_ids.split(",")
+        self.chat_ids = self._clean_chat_ids(
+            os.getenv("TELEGRAM_CHAT_IDS", "")
+            or configured_chat_ids
+            or os.getenv("TELEGRAM_CHAT_ID", "")
+            or config.get("telegram_chat_id", "")
+        )
         self.timeout = int(config.get("telegram_timeout_seconds", 10))
 
+    @staticmethod
+    def _clean_chat_ids(value: Any) -> list[str]:
+        values = value.split(",") if isinstance(value, str) else value
+        if not isinstance(values, (list, tuple, set)):
+            values = [values]
+        return list(dict.fromkeys(str(item).strip() for item in values if str(item).strip()))
+
     def ready(self) -> bool:
-        return self.enabled and bool(self.token and self.chat_id)
+        return self.enabled and bool(self.token and self.chat_ids)
 
     def post_listing(self, listing: Any) -> tuple[bool, str]:
         """Send one listing to Telegram without changing scanner/database state."""
         if not self.ready():
             return False, "telegram_not_ready"
         url = f"https://api.telegram.org/bot{self.token}/sendMessage"
-        payload = {
-            "chat_id": self.chat_id,
-            "text": format_telegram_message(listing),
-            "parse_mode": "HTML",
-            "disable_web_page_preview": False,
-        }
-        try:
-            response = requests.post(url, json=payload, timeout=self.timeout)
-        except requests.RequestException as exc:
-            return False, exc.__class__.__name__
+        errors: list[str] = []
+        for chat_id in self.chat_ids:
+            payload = {
+                "chat_id": chat_id,
+                "text": format_telegram_message(listing),
+                "parse_mode": "HTML",
+                "disable_web_page_preview": False,
+            }
+            try:
+                response = requests.post(url, json=payload, timeout=self.timeout)
+            except requests.RequestException as exc:
+                errors.append(f"{chat_id}: {exc.__class__.__name__}")
+                continue
 
-        if not response.ok:
-            error = f"HTTP {response.status_code} {response.text[:200]}"
-            logger.warning(f"Telegram send failed: {error}")
-            return False, error
+            if not response.ok:
+                error = f"{chat_id}: HTTP {response.status_code} {response.text[:200]}"
+                logger.warning(f"Telegram send failed: {error}")
+                errors.append(error)
 
-        return True, ""
+        return (not errors), "; ".join(errors)

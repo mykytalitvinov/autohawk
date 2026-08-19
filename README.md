@@ -87,6 +87,8 @@ for `deals.xlsx`.
 ```text
 TELEGRAM_BOT_TOKEN=your-bot-token
 TELEGRAM_CHAT_ID=your-chat-id
+# For multiple recipients, use comma-separated chat IDs instead:
+# TELEGRAM_CHAT_IDS=first-chat-id,second-chat-id
 ```
 
 If these values are empty, AUTOHAWK still works normally and only writes Excel
@@ -98,7 +100,8 @@ Telegram settings live in `config.json`:
 {
   "telegram_enabled": true,
   "telegram_min_score": 0.7,
-  "telegram_max_per_scan": 5
+  "telegram_max_per_scan": 5,
+  "telegram_chat_ids": ["first-chat-id", "second-chat-id"]
 }
 ```
 
