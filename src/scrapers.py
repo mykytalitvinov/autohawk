@@ -130,14 +130,40 @@ def _fingerprint(title: str, price, mileage, location: str) -> str:
 def _parse_price(text: str) -> Optional[float]:
     if not text:
         return None
-    nums = re.findall(r"[\d.,]+", text.replace(".", "").replace(",", "."))
-    for n in nums:
-        try:
-            val = float(n)
-            if 100 < val < 500000:
-                return val
-        except:
+    
+    # Видаляємо все, окрім цифр, крапок та ком
+    clean_text = re.sub(r"[^\d.,]", "", text)
+    if not clean_text:
+        return None
+        
+    # Якщо є і крапка, і кома (наприклад, 7.990,00)
+    if "." in clean_text and "," in clean_text:
+        if clean_text.rfind(".") > clean_text.rfind(","):
+            clean_text = clean_text.replace(",", "")
+        else:
+            clean_text = clean_text.replace(".", "").replace(",", ".")
+    elif "." in clean_text:
+        # Якщо крапок кілька або вона одна (наприклад, 7.990)
+        parts = clean_text.split(".")
+        if len(parts) > 2 or len(parts[-1]) == 3:
+            clean_text = clean_text.replace(".", "")
+        else:
+            # Якщо це десяткова крапка (наприклад, 7.5)
             pass
+    elif "," in clean_text:
+        parts = clean_text.split(",")
+        if len(parts) > 2 or len(parts[-1]) == 3:
+            clean_text = clean_text.replace(",", "")
+        else:
+            clean_text = clean_text.replace(",", ".")
+
+    try:
+        val = float(clean_text)
+        if 100 < val < 500000:
+            return val
+    except ValueError:
+        pass
+        
     return None
 
 
@@ -1056,10 +1082,9 @@ async def scrape_kleinanzeigen(config: dict, max_results: int = 30) -> List[dict
     logger.info(f"Kleinanzeigen: scraped {len(listings)} listings")
     return listings
 
-
 async def scrape_autoscout24(config: dict, max_results: int = 30) -> List[dict]:
     """
-    Scrape fresh car listings from AutoScout24.
+    Scrape fresh car listings from AutoScout24 using built-in Playwright anti-detection.
     """
     listings = []
 
@@ -1071,7 +1096,10 @@ async def scrape_autoscout24(config: dict, max_results: int = 30) -> List[dict]:
 
     price_min = config.get("budget_min", 500)
     price_max = config.get("budget_max", 15000)
-    max_mileage = max(config.get("max_mileage", 250000), 300000 if config.get("adaptive_age_mileage", True) else config.get("max_mileage", 250000))
+    max_mileage = max(
+        config.get("max_mileage", 250000), 
+        300000 if config.get("adaptive_age_mileage", True) else config.get("max_mileage", 250000)
+    )
 
     url = (
         f"https://www.autoscout24.de/lst?sort=age&desc=0"
@@ -1082,34 +1110,56 @@ async def scrape_autoscout24(config: dict, max_results: int = 30) -> List[dict]:
     async with async_playwright() as p:
         try:
             browser = await p.chromium.launch(
-                headless=True,
-                args=["--no-sandbox", "--disable-setuid-sandbox"],
+                headless=True, # Обов'язково видимий режим для тесту
+                channel="chrome", # <--- ПРИМУСОВО ВИКОРИСТОВУЄ ЗВИЧАЙНИЙ CHROME З ПК
+                args=[
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-blink-features=AutomationControlled",
+                ],
             )
+            
             context = await browser.new_context(
                 user_agent=(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/124.0.0.0 Safari/537.36"
+                    "Chrome/125.0.0.0 Safari/537.36"
                 ),
                 viewport={"width": 1440, "height": 900},
                 locale="de-DE",
+                device_scale_factor=1,
+                has_touch=False,
+                is_mobile=False,
             )
-            context.set_default_timeout(config.get("playwright_action_timeout_ms", 5000))
+            
+            timeout_ms = config.get("playwright_action_timeout_ms", 5000)
+            context.set_default_timeout(timeout_ms)
             page = await context.new_page()
-            page.set_default_timeout(config.get("playwright_action_timeout_ms", 5000))
-            await page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined});")
+            page.set_default_timeout(timeout_ms)
 
-            logger.info(f"AutoScout24: opening search")
+            # Глибоке затирання слідів WebDriver на рівні JavaScript об'єктів
+            await page.add_init_script("""
+                Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
+                window.navigator.chrome = { runtime: {} };
+                Object.defineProperty(navigator, 'languages', { get: () => ['de-DE', 'de', 'en-US', 'en'] });
+                Object.defineProperty(navigator, 'plugins', { get: () => [1, 2, 3, 4, 5] });
+            """)
+
+            logger.info("AutoScout24: opening search")
             await page.goto(url, timeout=30000, wait_until="domcontentloaded")
-            await asyncio.sleep(random.uniform(2.5, 5.0))
+            
+            # Імітація поведінки людини: рандомна пауза та скрол
+            await asyncio.sleep(random.uniform(3.0, 5.5))
+            await page.mouse.wheel(0, random.randint(300, 600))
+            await asyncio.sleep(random.uniform(1.0, 2.0))
 
             content = await page.content()
-            if any(x in content.lower() for x in ["captcha", "robot", "challenge"]):
-                logger.warning("AutoScout24: CAPTCHA detected - skipping")
-                await browser.close()
-                return []
+            if any(x in content.lower() for x in ["captcha", "robot", "challenge", "access denied"]):
+                logger.warning("AutoScout24: CAPTCHA detected")
+                # await browser.close()
+                # return []
 
-            # Try multiple possible selectors
+            # Пошук карток оголошень
             cards = await page.query_selector_all("article[data-guid], .cldt-summary-full-item, article.cldt-summary-full-item")
             if not cards:
                 cards = await page.query_selector_all("[data-item-name='listing-summary']")
@@ -1120,31 +1170,70 @@ async def scrape_autoscout24(config: dict, max_results: int = 30) -> List[dict]:
                 try:
                     await asyncio.sleep(random.uniform(0.1, 0.25))
 
-                    title_el = await card.query_selector("h2, .ListItem_title__znkQ7, a[data-item-name='detail-page-link']")
+                    # 1. ЗАГОЛОВОК (з фолбеками на різні класи/теги)
+                    title_el = await card.query_selector("h2, [class*='ListItemTitle_heading'], a[data-item-name='detail-page-link']")
                     title = await title_el.inner_text() if title_el else ""
+                    title = " ".join(title.split())
 
-                    link_el = await card.query_selector("a[href*='/angebote/']")
+                    # 2. ПОСИЛАННЯ
+                    link_el = await card.query_selector("a.DeclutteredListItem_overlay_anchor__jqEyM, a[href*='/angebote/']")
                     href = await link_el.get_attribute("href") if link_el else ""
                     if href and not href.startswith("http"):
                         href = "https://www.autoscout24.de" + href
 
-                    price_el = await card.query_selector("[data-item-name='price'], .Price_price__APlgs")
-                    price_text = await price_el.inner_text() if price_el else ""
-                    price = _parse_price(price_text)
+                    # 3. ЦІНА (тестуємо testid, потім старі атрибути та класи)
+                    try:
+                        price_text = await card.evaluate("""el => {
+                            // Шукаємо за сучасними селекторами всередині картки
+                            let priceEl = el.querySelector("[data-testid='regular-price']") || 
+                                        el.querySelector("[data-item-name='price']") || 
+                                        el.querySelector("[class*='Price_price']");
+                            if (!priceEl) return "";
+                            
+                            // Клонуємо елемент, щоб видалити зайвімітки на кшталт суфікса '1'
+                            let clone = priceEl.cloneNode(true);
+                            let sup = clone.querySelector('sup');
+                            if (sup) sup.remove();
+                            
+                            return clone.innerText;
+                        }""")
+                    except Exception:
+                        price_text = ""
 
-                    mileage_el = await card.query_selector("[data-item-name='mileage']")
+                    price = _parse_price(price_text)
+                
+                    # 4. ПРОБІГ
+                    mileage_el = await card.query_selector("[data-testid='VehicleDetails-mileage_odometer'], [data-item-name='mileage']")
                     mileage_text = await mileage_el.inner_text() if mileage_el else ""
                     mileage = _parse_mileage(f"Kilometerstand\n{mileage_text}") if mileage_text else None
 
-                    year_el = await card.query_selector("[data-item-name='first-registration']")
+                    # 5. РІК ВИПУСКУ / ПЕРША РЕЄСТРАЦІЯ
+                    year_el = await card.query_selector("[data-testid='VehicleDetails-calendar'], [data-item-name='first-registration']")
                     year_text = await year_el.inner_text() if year_el else ""
                     year = _parse_year(year_text + " " + title)
                     tuv_info = _parse_tuv_info(f"{title} {year_text}")
 
-                    location_el = await card.query_selector("[data-item-name='location']")
+                    # 6. ПАЛИВО
+                    fuel_el = await card.query_selector("[data-testid='VehicleDetails-gas_pump'], [data-item-name='fuel-type']")
+                    fuel_text = await fuel_el.inner_text() if fuel_el else None
+
+                    # 7. ДВИГУН / ПОТУЖНІСТЬ
+                    engine_el = await card.query_selector("[data-testid='VehicleDetails-speedometer'], [data-item-name='engine']")
+                    engine_text = await engine_el.inner_text() if engine_el else None
+
+                    # 8. ЛОКАЦІЯ
+                    location_el = await card.query_selector("[data-testid='dealer-address'], [data-item-name='location']")
                     location = await location_el.inner_text() if location_el else ""
 
-                    pid = await card.get_attribute("data-guid") or ""
+                    # 9. ТИП ПРОДАВЦЯ (беремо з атрибута картки або шукаємо текст)
+                    seller_type_attr = await card.get_attribute("data-seller-type")
+                    if seller_type_attr:
+                        seller_type = "dealer" if seller_type_attr == "d" else "private"
+                    else:
+                        seller_type = "unknown"
+
+                    # 10. ID ОГОЛОШЕННЯ
+                    pid = await card.get_attribute("data-guid") or await card.get_attribute("id") or ""
                     if not pid and href:
                         m = re.search(r"/angebote/([^/]+)", href)
                         pid = m.group(1) if m else ""
@@ -1166,16 +1255,16 @@ async def scrape_autoscout24(config: dict, max_results: int = 30) -> List[dict]:
                         "price": price,
                         "mileage": mileage,
                         "year": year,
-                        "fuel": None,
+                        "fuel": fuel_text,
                         "gearbox": None,
-                        "engine": None,
+                        "engine": engine_text,
                         "tuv_text": tuv_info.get("tuv_text"),
                         "tuv_until": tuv_info.get("tuv_until"),
                         "tuv_months_left": tuv_info.get("tuv_months_left"),
                         "location": location.strip(),
                         "description": "",
-                        "seller_type": "unknown",
-                        "listing_age_minutes": None,
+                        "seller_type": seller_type,
+                        "listing_age_minutes": 0,
                         "photo_urls": json.dumps([]),
                     }
                     listings.append(listing)
@@ -1191,14 +1280,3 @@ async def scrape_autoscout24(config: dict, max_results: int = 30) -> List[dict]:
 
     logger.info(f"AutoScout24: scraped {len(listings)} listings")
     return listings
-
-
-
-
-
-
-
-
-
-
-
