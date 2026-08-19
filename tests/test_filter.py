@@ -3,7 +3,7 @@ from __future__ import annotations
 import pytest
 
 from src.filter import _has_accident_damage_wording, quick_filter
-from src.scrapers import _early_reject_reason
+from src.scanner_components.rejection_rules import early_reject_reason
 
 
 def listing(text: str, title: str = "VW Polo 1.2 TUV neu", price: int = 1800) -> dict:
@@ -89,8 +89,8 @@ def test_accident_helper_treats_unfallfrei_as_safe_edge_case() -> None:
 
 
 def test_scraper_early_reject_matches_quick_filter_baseline() -> None:
-    assert _early_reject_reason("BMW startet nicht, nur Export") in {
+    assert early_reject_reason("BMW startet nicht, nur Export") in {
         "export only",
         "not roadworthy / does not drive",
     }
-    assert _early_reject_reason("Unfallfrei, TUV neu, gepflegt") is None
+    assert early_reject_reason("Unfallfrei, TUV neu, gepflegt") is None

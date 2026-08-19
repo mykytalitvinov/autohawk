@@ -10,17 +10,11 @@ import re
 from typing import Tuple
 
 from src.utils import norm as _normalize
+from src.scanner_components.rejection_rules import FILTER_LABELS, SHARED_REJECT_RULES
 
 HARD_REJECT_PATTERNS = [
     (r"\bporsche\b|\bland\s*rover\b|\brange\s*rover\b|\bjaguar\b|\bmaserati\b|\bbentley\b|\baston\s*martin\b", "luxury/exotic brand out of scope"),
-    (r"\bgeloescht\b|\bgeloscht\b|\bdeleted\b|\bnicht mehr verfuegbar\b", "deleted/unavailable listing"),
-    (r"\bsuche\s+kaufe\b|\bwir\s+kaufen\b|\bfahrzeugankauf\b|\bautoankauf\b|\bankauf\b", "purchase ad / car buyer"),
-    # Broken drivetrain / not roadworthy
-    (r"\bmotor\s*schaden\b|\bmotorschaden\b|\bmotor\s*defekt\b", "engine damage"),
-    (r"\bmotor\b.{0,80}\b(unruhig|ruckelt|stottert|geht\s*aus|leistungsverlust)\b|\bunruhiger\s*motor\b|\bmotor\s*(?:laeuft|läuft|lauft)\s*(?:gelegentlich\s*)?unruhig\b|\bmotorproblem\b|\bmotor\s*problem\b", "engine runs poorly"),
-    (r"\bkalt\b.{0,40}\b(motor|laeuft|läuft|lauft|start)\b.{0,40}\b(schlecht|unruhig|ruckelt|stottert)\b|\bmotor\b.{0,40}\bkalt\b.{0,40}\b(schlecht|unruhig|ruckelt|stottert)\b", "cold-start engine issue"),
-    (r"\boelverbrauch\b|\boel\s*verbrauch\b|\bverbrauch[t]?\s*oel\b|\b[0-9]+(?:[,.][0-9]+)?\s*l(?:iter)?\s*oel\b.{0,20}\b(1000|1\.000)\s*km\b", "high oil consumption"),
-    (r"\bgetriebe\s*schaden\b|\bgetriebeschaden\b|\bgetriebe\s*defekt\b|\bgetriebe\s*problem\b|\bautomatik\s*problem\b|\bautomatikgetriebe\s*problem\b", "gearbox damage/problem"),
+    *[(pattern, FILTER_LABELS.get(label, label)) for label, pattern in SHARED_REJECT_RULES],
     (r"\bkupplung\s*defekt\b|\bkupplungsschaden\b", "clutch damage"),
     (r"\bsteuerkette\s*(rasselt|defekt|schaden)\b", "timing chain issue"),
     (r"\bdpf\s*defekt\b|\begr\s*defekt\b|\bturbo\s*defekt\b", "diesel system defect"),
@@ -28,14 +22,6 @@ HARD_REJECT_PATTERNS = [
     (r"\bkein\s*motor\b|\bohne\s*motor\b", "missing engine"),
 
     # Project/export/salvage cars
-    (r"\bbastler\b|\bbastlerfahrzeug\b|\bprojektfahrzeug\b", "bastler/project car"),
-    (r"\bnur\s*export\b|\bexport\s*only\b|\bexportfahrzeug\b|\bhaendler\s*export\b", "export only"),
-    (r"\bersatzteiltraeger\b|\bersatzteile\b|\bschlachtfest\b", "parts car"),
-    (r"\btotalschaden\b|\bschrottreif\b|\bverschrottet\b", "salvage car"),
-
-    # Structural/body red flags
-    (r"\bunfallwagen\b|\bunfallschaden\b|\bnach\s*unfall\b|\b[0-9]+\s*unfaelle\b|\b[0-9]+\s*unfall\b|\bunfall\b.{0,40}\b(repariert|gehabt|vorbesitzer|bekannt|schaden)\b", "accident damage"),
-    (r"\bfrontschaden\b|\bheckschaden\b|\bseitenschaden\b", "body damage"),
     (r"\bdurchrostung\b|\bstarker\s*rost\b|\bstarke\s*rost\b|\bschwere\s*rost\b", "serious rust"),
 
     # Legal/document roadblocks

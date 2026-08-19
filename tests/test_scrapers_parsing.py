@@ -6,12 +6,12 @@ from pathlib import Path
 
 from src.scrapers import (
     _extract_brand_model,
-    _parse_card_mileage,
-    _parse_fuel,
-    _parse_gearbox,
+    parse_card_mileage,
+    parse_fuel,
+    parse_gearbox,
     _parse_listing_age,
-    _parse_mileage,
-    _parse_price,
+    parse_mileage,
+    parse_price,
     _parse_tuv_info,
     _parse_year,
 )
@@ -57,13 +57,13 @@ def test_parse_kleinanzeigen_polo_fixture() -> None:
     brand, model = _extract_brand_model(title)
 
     assert title == "VW Polo 1.2 United TUV neu Klima"
-    assert _parse_price(text) == 2350
+    assert parse_price(text) == 2350
     assert html_location("kleinanzeigen_polo_detail.html") == "45127 Essen"
     assert (brand, model) == ("Volkswagen", "Polo")
-    assert _parse_mileage(text) == 145000
+    assert parse_mileage(text) == 145000
     assert _parse_year(text) == 2009
-    assert _parse_fuel(text) == "benzin"
-    assert _parse_gearbox(text) == "manual"
+    assert parse_fuel(text) == "benzin"
+    assert parse_gearbox(text) == "manual"
     assert _parse_listing_age(text) == 8
 
 
@@ -73,12 +73,12 @@ def test_parse_kleinanzeigen_golf_fixture_with_bad_encoding() -> None:
     brand, model = _extract_brand_model(title)
 
     assert (brand, model) == ("Volkswagen", "Golf")
-    assert _parse_price(text) == 1700
+    assert parse_price(text) == 1700
     assert html_location("kleinanzeigen_golf_bad_encoding_detail.html") == "50667 Koeln"
-    assert _parse_mileage(text) == 188000
+    assert parse_mileage(text) == 188000
     assert _parse_year(text) == 2006
-    assert _parse_fuel(text) == "benzin"
-    assert _parse_gearbox(text) == "manual"
+    assert parse_fuel(text) == "benzin"
+    assert parse_gearbox(text) == "manual"
     assert _parse_listing_age(text) == 60
 
 
@@ -88,12 +88,12 @@ def test_parse_kleinanzeigen_yaris_fixture() -> None:
     brand, model = _extract_brand_model(title)
 
     assert (brand, model) == ("Toyota", "Yaris")
-    assert _parse_price(text) == 1950
+    assert parse_price(text) == 1950
     assert html_location("kleinanzeigen_yaris_detail.html") == "10115 Berlin"
-    assert _parse_mileage(text) == 172000
+    assert parse_mileage(text) == 172000
     assert _parse_year(text) == 2007
-    assert _parse_fuel(text) == "benzin"
-    assert _parse_gearbox(text) == "manual"
+    assert parse_fuel(text) == "benzin"
+    assert parse_gearbox(text) == "manual"
 
 
 def test_mileage_is_only_parsed_from_kilometerstand_like_field() -> None:
@@ -103,25 +103,25 @@ def test_mileage_is_only_parsed_from_kilometerstand_like_field() -> None:
     )
     detail_text = "Kilometerstand\n250.700 km\n" + description
 
-    assert _parse_mileage(description) is None
-    assert _parse_mileage(detail_text) == 250700
-    assert _parse_mileage("Der Kilometerstand beim Zahnriemenwechsel war 180.000 km") is None
-    assert _parse_mileage("Kilometerstand\n230.000 km\nFahrzeugzustand\nUnbeschädigtes Fahrzeug") == 230000
+    assert parse_mileage(description) is None
+    assert parse_mileage(detail_text) == 250700
+    assert parse_mileage("Der Kilometerstand beim Zahnriemenwechsel war 180.000 km") is None
+    assert parse_mileage("Kilometerstand\n230.000 km\nFahrzeugzustand\nUnbeschädigtes Fahrzeug") == 230000
 
 
 def test_mileage_accepts_labelled_value_without_km_suffix() -> None:
-    assert _parse_mileage("Kilometerstand\n145.000\nBeschreibung: Zahnriemen bei 90.000 km") == 145000
-    assert _parse_mileage("Kilometerstand: 98 500") == 98500
-    assert _parse_mileage("Beschreibung: Service bei 98 500 gemacht") is None
+    assert parse_mileage("Kilometerstand\n145.000\nBeschreibung: Zahnriemen bei 90.000 km") == 145000
+    assert parse_mileage("Kilometerstand: 98 500") == 98500
+    assert parse_mileage("Beschreibung: Service bei 98 500 gemacht") is None
 
 
 def test_card_mileage_reads_structured_search_feature_without_touching_description() -> None:
     card_features = "EZ 03/2009\n230.000 km\nBenzin\nSchaltgetriebe"
     description = "Zahnriemen bei 180.000 km gemacht, Service bei 220.000 km."
 
-    assert _parse_card_mileage(card_features) == 230000
-    assert _parse_card_mileage(description) is None
-    assert _parse_mileage(card_features) is None
+    assert parse_card_mileage(card_features) == 230000
+    assert parse_card_mileage(description) is None
+    assert parse_mileage(card_features) is None
 
 
 def test_parse_tuv_from_title_description_and_detail_fields() -> None:
