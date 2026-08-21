@@ -4,3 +4,4 @@ database/
 __pycache__
 venv
 output/
+.pytest_cache/

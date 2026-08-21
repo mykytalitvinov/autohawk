@@ -9,8 +9,8 @@
     "freshness_min_minutes":  0,
     "freshness_max_hours":  12,
     "sources":  {
-                    "kleinanzeigen":  true,
-                    "autoscout24":  false,
+                    "kleinanzeigen":  false,
+                    "autoscout24":  true,
                     "mobile_de":  false
                 },
     "brands_filter":  [
